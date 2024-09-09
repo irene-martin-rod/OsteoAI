@@ -1,4 +1,3 @@
 numpy
-keras
-tensorflow
 pandas
+opencv-python
