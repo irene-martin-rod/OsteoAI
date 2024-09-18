@@ -1,6 +1,10 @@
-train: ../train/images
-val: ../valid/images
-test: ../test/images
+#train: ../train/images
+#val: ../valid/images
+#test: ../test/images
+
+train: ..\train\images
+val: ..\valid\images
+test: ..\test\images
 
 nc: 7
 names: ['elbow positive', 'fingers positive', 'forearm fracture', 'humerus fracture', 'humerus', 'shoulder fracture', 'wrist positive']
