@@ -133,6 +133,12 @@ venv.bak/
 # Data
 #1-Data
 
+#Models
+2-Scripts\yolov10s.pt
+2-Scripts\yolov10m.pt
+2-Scripts\yolov10b.pt
+runs
+
 # Spyder project settings
 .spyderproject
 .spyproject

@@ -1,10 +1,7 @@
-#train: ../train/images
-#val: ../valid/images
-#test: ../test/images
+train: C:\Users\imartin\Documents\Irene\OsteoAI\1-Data\BoneFractureYolo8\train\images
+val: C:\Users\imartin\Documents\Irene\OsteoAI\1-Data\BoneFractureYolo8\valid\images
+test: .C:\Users\imartin\Documents\Irene\OsteoAI\1-Data\BoneFractureYolo8\test\images
 
-train: ..\train\images
-val: ..\valid\images
-test: ..\test\images
 
 nc: 7
 names: ['elbow positive', 'fingers positive', 'forearm fracture', 'humerus fracture', 'humerus', 'shoulder fracture', 'wrist positive']
