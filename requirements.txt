@@ -1,3 +1,5 @@
+nbimporter
+nbformat
 numpy
 pandas
 opencv-python
