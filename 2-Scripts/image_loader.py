@@ -1,11 +1,11 @@
-## LOADING IMAGES AND PREPROCESSING
+## LOADING IMAGES AND PLOTTING
 
 import os
 import cv2
 import random
 import matplotlib.pyplot as plt
 
-#Load and plot images
+#Loading and plotting images
 class LoadImage:
     '''Class to load and visualize images''' 
 
