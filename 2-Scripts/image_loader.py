@@ -11,10 +11,10 @@ class LoadImage:
 
     def __init__(self, image_path, label_path=None):
         self.image_path = image_path
-        self.label_path = label_path  # Puede ser None si no hay etiquetas
+        self.label_path = label_path  # It can be none if we don't have labels
         self.images = []
         self.names = []
-        self.load_images()  # Cargar imágenes al iniciar la clase
+        self.load_images() #in case you have a folder with tow sub-folder with images
 
     def load_images(self):
         '''Function to load images using OpenCV'''
