@@ -5,3 +5,7 @@ pandas
 opencv-python
 matplotlib
 ultralytics
+keras
+tensorflow
+graphviz
+pydot
