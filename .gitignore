@@ -130,12 +130,6 @@ ENV/
 env.bak/
 venv.bak/
 
-# Data
-1-Data/BoneFractureYolo8
-1-Data/ml-dp/test
-1-Data/ml-dp/val
-1-Data/ml-dp/train
-
 #Models
 2-Scripts\yolov10s.pt
 2-Scripts\yolov10m.pt
