@@ -39,6 +39,6 @@ def create_early_stopping_callback(monitor = "val_loss", patience = 3, restore_b
 
     return EarlyStopping(
         monitor = monitor,      
-        patience = patiente,              
+        patience = patience,              
         restore_best_weights = restore_best_weights 
     )
