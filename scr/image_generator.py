@@ -51,3 +51,4 @@ def create_generator(datagen, directory, target_size = (256, 256), batch_size = 
         class_mode=class_mode,
         shuffle=shuffle
     )
+
