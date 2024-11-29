@@ -1,66 +1,89 @@
-## PREPROCESSING IMAGES
+###PREPROCESSING IMAGES AND MAKING DATA AUGMENTATION
 
-import numpy as np
-import cv2
+import tensorflow as tf
 
-#Preprocessing images
-class PreprocessImage:
-    """Class to resize, convert to grayscale, and normalize images with extended YOLO keypoints format."""
 
-    def __init__(self, images, labels=None):
-        self.images = images
-        self.labels = labels
 
-    def resize_images_and_labels(self, size=(640, 640)):
-        '''Function to resize images and adjust labels with extended keypoints.'''
-        resized_images = []
-        resized_labels = {}
+def preprocess_image(image, label, rescale=1./255, rotation_range=0, width_shift_range=0, height_shift_range=0, zoom_range=0, horizontal_flip=False):
+    '''
+    Applies preprocessing transformations to the image.
 
-        for img, name in zip(self.images, self.labels.keys() if self.labels else [None] * len(self.images)):
-            # Original image dimensions
-            h, w = img.shape[:2]
-            # Resize the image
-            resized_img = cv2.resize(img, size)
-            resized_images.append(resized_img)
+    Arguments:
+        image: Input image tensor.
+        label: Corresponding label tensor.
+        rescale: Normalizes image values to [0, 1]. Default is 1./255.
+        rotation_range: Max degree for random rotation. Default is 0.
+        width_shift_range: Fraction of total width for horizontal translation. Default is 0.
+        height_shift_range: Fraction of total height for vertical translation. Default is 0.
+        zoom_range: Fraction range for random zoom. Default is 0.
+        horizontal_flip: Whether to randomly flip images horizontally. Default is False.
 
-            # Adjust labels if available
-            if self.labels and name in self.labels:
-                new_labels = []
-                for label in self.labels[name]:
-                    class_id = label[0]
-                    # Ajustamos cada punto clave en pares (x, y) a las nuevas dimensiones
-                    keypoints = []
-                    for i in range(1, len(label), 2):  # Iniciamos en 1 para saltar el class_id
-                        kp_x = label[i] * size[0] / w   # Ajuste del x
-                        kp_y = label[i + 1] * size[1] / h  # Ajuste del y
-                        keypoints.extend([kp_x, kp_y])
-
-                    # Combina el class_id con los puntos clave ajustados
-                    new_label = [class_id] + keypoints
-                    new_labels.append(new_label)
-
-                resized_labels[name] = new_labels
-
-        return resized_images, resized_labels
+    Returns:
+        (image, label): Preprocessed image and label tensors.
+    '''
     
-    def convert_to_grayscale(self):
-        '''Function to convert images to grayscale. Checks if the image is already grayscale, and converts if not.'''
-        grayscale_images = []
-        for img in self.images:
-            if len(img.shape) == 2:
-                grayscale_images.append(img)  # Already grayscale, no conversion needed
-            else: 
-                grayscale_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-                grayscale_images.append(grayscale_img)
-        return grayscale_images
-    
-    def normalize_images(self):
-        '''Function to normalize pixel values to the range [0, 1].'''
-        normalized_images = []
-        for img in self.images:
-            # Convert to array if necessary
-            img_array = np.array(img) if not isinstance(img, np.ndarray) else img
-            # Normalize to [0, 1] range
-            normalized_img = img_array / 255.0
-            normalized_images.append(normalized_img)
-        return normalized_images
+    # Normalize the image: Converts the pixel values to [0, 1] if they are not already.
+    # This is important because neural networks typically work better with values between [0, 1].
+    # `tf.image.convert_image_dtype` automatically scales pixel values to the range [0, 1] when converting to float32.
+    image = tf.image.convert_image_dtype(image, tf.float32)  
+    image = image * rescale  # Apply additional scaling (default rescale = 1./255)
+
+    # Random rotation: If rotation_range > 0, apply random rotations to the image.
+    if rotation_range:
+        k = tf.random.uniform(shape=[], minval=0, maxval=4, dtype=tf.int32)  # Random rotation index (0, 1, 2, or 3)
+        image = tf.image.rot90(image, k=k)  # Apply the rotation: 0 -> no rotation, 1 -> 90 degrees, 2 -> 180 degrees, etc.
+
+    # Random horizontal shift: If width_shift_range > 0, apply random horizontal translation to the image.
+    if width_shift_range:
+        width_shift = tf.cast(tf.shape(image)[1] * width_shift_range, tf.int32)  # Convert to integer
+        image = tf.image.resize_with_crop_or_pad(image,
+                                                 target_height=tf.shape(image)[0], 
+                                                 target_width=tf.shape(image)[1] - width_shift)  # Apply width shift by resizing
+
+    # Random vertical shift: If height_shift_range > 0, apply random vertical translation to the image.
+    if height_shift_range:
+        height_shift = tf.cast(tf.shape(image)[0] * height_shift_range, tf.int32)  # Convert to integer
+        image = tf.image.resize_with_crop_or_pad(image, 
+                                                 target_height=tf.shape(image)[0] - height_shift,
+                                                 target_width=tf.shape(image)[1])  # Apply height shift by resizing
+
+    # Random zoom: If zoom_range > 0, apply random zoom to the image.
+    if zoom_range:
+        scales = [1 - zoom_range, 1 + zoom_range]  # Defines the range for scaling: [1 - zoom_range, 1 + zoom_range]
+        scale = tf.random.uniform([], scales[0], scales[1])  # Random scale factor within the range
+        image = tf.image.resize(image, tf.cast(tf.shape(image)[0:2] * scale, tf.int32))  # Apply the zoom by resizing the image
+
+    # Random horizontal flip: If horizontal_flip is True, apply random flipping of the image along the vertical axis.
+    if horizontal_flip:
+        image = tf.image.random_flip_left_right(image)  # Randomly flip the image horizontally
+
+    # Return the preprocessed image and its label
+    return image, label
+
+
+
+
+def apply_preprocessing(dataset, rescale=1./255, rotation_range=0, width_shift_range=0, height_shift_range=0, 
+                        zoom_range=0, horizontal_flip=False):
+    '''
+    Applies preprocessing transformations to a dataset.
+
+    Arguments:
+        dataset: The tf.data.Dataset containing images and their corresponding labels.
+        rescale: Normalizes the pixel values of images to [0, 1]. Default is 1./255.
+        rotation_range: The range (in degrees) within which to apply random rotations. Default is 0 (no rotation).
+        width_shift_range: Fraction of total width for random horizontal translation. Default is 0 (no shift).
+        height_shift_range: Fraction of total height for random vertical translation. Default is 0 (no shift).
+        zoom_range: Fraction range for random zoom. Default is 0 (no zoom).
+        horizontal_flip: Boolean flag to indicate if horizontal flipping should be applied. Default is False.
+
+    Returns:
+        tf.data.Dataset: The processed dataset with applied augmentations and preprocessing.
+    '''
+
+    # Apply transformations to each image in the dataset
+    return dataset.map(
+        lambda image, label: preprocess_image(image, label, rescale, rotation_range, width_shift_range, height_shift_range, zoom_range, horizontal_flip),
+        num_parallel_calls=tf.data.AUTOTUNE  # Use automatic parallel calls to optimize performance
+    )
+

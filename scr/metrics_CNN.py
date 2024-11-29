@@ -114,7 +114,7 @@ def plot_confusion_matrix(model, test_generator, labels=None):
 
 
 
-def plot_auc_curve(test_predictions, test_true_labels):
+def plot_auc_curve(model, test_generator):
 
     '''
     This function generates and displays the AUC-ROC curve for a binary classification model.
@@ -135,13 +135,22 @@ def plot_auc_curve(test_predictions, test_true_labels):
     Return:
     - AUC value
     '''
+
+    # Get predictions from the model
+    test_predictions = model.predict(test_generator, steps=len(test_generator), verbose=1)
+    
+    # Convert predicted probabilities to class labels
+    test_pred_labels = np.argmax(test_predictions, axis=1)
+    
+    # Get true labels from the test generator
+    test_true_labels = test_generator.classes
     
     # Calculate the AUC score
     auc = roc_auc_score(test_true_labels, test_predictions)
     print(f"AUC: {auc}")
     
     # Calculate the ROC curve (False Positive Rate and True Positive Rate)
-    fpr, tpr, thresholds = roc_curve(test_true_labels, test_predictions)
+    fpr, tpr, thresholds = roc_curve(test_true_labels, test_pred_labels)
     
     # Plot the ROC curve
     plt.figure(figsize=(8, 6))

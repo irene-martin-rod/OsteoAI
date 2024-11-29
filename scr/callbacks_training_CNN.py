@@ -45,7 +45,7 @@ def create_early_stopping_callback(monitor = "val_loss", patience = 3, restore_b
 
 
 
-def train_model(model, train_generator, steps_per_epoch = 150, epochs = 100, validation_data = None, callbacks = None):
+def train_model(model, train_generator, steps_per_epoch = 150, epochs = 100, validation_data = None, callbacks = None, class_weight = None):
     '''
     Training a CNN model.
 
@@ -55,6 +55,7 @@ def train_model(model, train_generator, steps_per_epoch = 150, epochs = 100, val
         steps_per_epoch = number of images in each epoch
         validation:data: An objet to data genarate for validation dataset
         callbacks: callbacks to reduce learning rate and to create an early stop
+        class_weight: Optional dictionary specifying weights for each class.
 
     Return:
         history: A History object that contains details about the training process.
@@ -72,7 +73,8 @@ def train_model(model, train_generator, steps_per_epoch = 150, epochs = 100, val
         steps_per_epoch=steps_per_epoch,
         epochs=epochs,
         validation_data=validation_data,
-        callbacks=callbacks
+        callbacks=callbacks,
+        class_weight=class_weight
     )
     return history
 

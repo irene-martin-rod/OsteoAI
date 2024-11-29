@@ -28,12 +28,12 @@ def create_directories(base_path):
     print(f"Test directory: {test_dir}")
 
     # Paths for the subdirectories (fracture, nofracture)
-    train_fracture_dir = os.path.join(train_dir, "1_fracture")
-    train_nofracture_dir = os.path.join(train_dir, "0_nofracture")
-    val_fracture_dir = os.path.join(val_dir, "1_fracture")
-    val_nofracture_dir = os.path.join(val_dir, "0_nofracture")
-    test_fracture_dir = os.path.join(test_dir, "1_fracture")
-    test_nofracture_dir = os.path.join(test_dir, "0_nofracture")
+    train_fracture_dir = os.path.join(train_dir, "fracture")
+    train_nofracture_dir = os.path.join(train_dir, "nofracture")
+    val_fracture_dir = os.path.join(val_dir, "fracture")
+    val_nofracture_dir = os.path.join(val_dir, "nofracture")
+    test_fracture_dir = os.path.join(test_dir, "fracture")
+    test_nofracture_dir = os.path.join(test_dir, "nofracture")
 
     # Print the paths of the subdirectories to check
     print(f"Creating subdirectories:")
