@@ -2,7 +2,6 @@
 import tensorflow as tf
 from tensorflow.keras.callbacks import ReduceLROnPlateau, EarlyStopping
 
-
 def create_reduce_lr_callback(monitor = "val_loss", factor = 0.5, patience = 3, min_lr = 1e-6):
     '''
     Creating an instance of ReduceLROnPlateau callback.
@@ -22,7 +21,6 @@ def create_reduce_lr_callback(monitor = "val_loss", factor = 0.5, patience = 3, 
         patience=patience,
         min_lr=min_lr
     )
-
 
 def create_early_stopping_callback(monitor = "val_loss", patience = 3, restore_best_weights=True):
     '''
@@ -45,15 +43,15 @@ def create_early_stopping_callback(monitor = "val_loss", patience = 3, restore_b
 
 
 
-def train_model(model, train_generator, steps_per_epoch = 150, epochs = 100, validation_data = None, callbacks = None, class_weight = None):
+def train_model(model, train_dataset, steps_per_epoch = 150, epochs = 100, validation_data = None, callbacks = None, class_weight = None):
     '''
     Training a CNN model.
 
     Paramaters:
         model = Model that ayou want to run
-        train_generator: An objet to data genarate for train dataset
+        train_dataset: The training dataset object providing input data and labels.
         steps_per_epoch = number of images in each epoch
-        validation:data: An objet to data genarate for validation dataset
+        validation_data: Validation dataset object for evaluating the model during training. If not provided, no validation will be performed.
         callbacks: callbacks to reduce learning rate and to create an early stop
         class_weight: Optional dictionary specifying weights for each class.
 
@@ -62,14 +60,14 @@ def train_model(model, train_generator, steps_per_epoch = 150, epochs = 100, val
     '''
 
     # Validate that required parameters are provided
-    if train_generator is None:
+    if train_dataset is None:
         raise ValueError("The 'train_generator' parameter is required.")
     if model is None:
         raise ValueError("The 'model' parameter is required.")
     
     # Train the model
     history = model.fit(
-        train_generator,
+        train_dataset,
         steps_per_epoch=steps_per_epoch,
         epochs=epochs,
         validation_data=validation_data,
