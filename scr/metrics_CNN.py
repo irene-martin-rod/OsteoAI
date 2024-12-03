@@ -51,111 +51,103 @@ def plot_training_history(history):
 
 
 
-def plot_confusion_matrix(model, test_generator, labels=None):
-    
-    '''
-    This function calculates the accuracy of the model on the test dataset and generates a classification report
-    summarizing precision, recall, and F1-score for each class. It also computes the confusion matrix and displays
-    it as a heatmap for visual analysis. The labels for the confusion matrix can be passed explicitly or derived
-    automatically from the test generator.
+def plot_confusion_matrix(model, test_dataset, class_names):
+    """
+    Generate and display a confusion matrix for a model using a tf.data.Dataset.
 
     Parameters:
-    -----------
-    model : keras.Model
-        The trained model to be evaluated.
-    test_generator : keras.preprocessing.image.ImageDataGenerator
-        Data generator that provides test images and their corresponding true labels.
-    labels : list, optional
-        List of class labels for the confusion matrix. If not provided, uses the class labels from the generator.
+        model : keras.Model
+            Trained model to evaluate.
+        test_dataset : tf.data.Dataset
+            Dataset containing test images and labels.
+        class_names : list of str
+            List of class names for the dataset.
 
     Returns:
-    --------
-    accuracy : float
-        Accuracy of the model on the test dataset.
-    class_report : str
-        Classification report including precision, recall, F1-score, and support for each class.
-    cm : numpy.ndarray
-        Confusion matrix showing the true vs. predicted labels.
-        '''
-
-
-    # Use class labels from the generator if none are provided
-    if labels is None:
-        labels = list(test_generator.class_indices.keys())
+        accuracy : float
+            Accuracy of the model on the test dataset.
+        class_report : str
+            Detailed classification report.
+        cm : numpy.ndarray
+            Confusion matrix.
+    """
+    # Extract all test images and labels
+    true_labels = []
+    for _, labels in test_dataset:
+        true_labels.extend(labels.numpy())
+    true_labels = np.array(true_labels)
 
     # Get predictions from the model
-    test_predictions = model.predict(test_generator, steps=len(test_generator), verbose=1)
+    test_predictions = model.predict(test_dataset, verbose=1)
     
     # Convert predicted probabilities to class labels
-    test_pred_labels = np.argmax(test_predictions, axis=1)
-    
-    # Get true labels from the test generator
-    test_true_labels = test_generator.classes
-    
+    if test_predictions.shape[-1] > 1:  # Multi-class case
+        pred_labels = np.argmax(test_predictions, axis=1)
+    else:  # Binary classification case
+        pred_labels = (test_predictions > 0.5).astype(int).flatten()
+
     # Calculate accuracy
-    accuracy = accuracy_score(test_true_labels, test_pred_labels)
+    accuracy = accuracy_score(true_labels, pred_labels)
     print(f"Accuracy on test dataset: {accuracy:.4f}")
-    
+
     # Print classification report
-    class_report = classification_report(test_true_labels, test_pred_labels, target_names=labels)
+    class_report = classification_report(true_labels, pred_labels, target_names=class_names)
     print("\nClassification Report:\n", class_report)
-    
+
     # Compute confusion matrix
-    cm = confusion_matrix(test_true_labels, test_pred_labels)
+    cm = confusion_matrix(true_labels, pred_labels)
     
     # Display the confusion matrix as a heatmap
-    disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=labels)
+    disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=class_names)
     disp.plot(cmap=plt.cm.Blues)
     plt.title('Confusion Matrix for Test Data')
     plt.tight_layout()
     plt.show()
-    
+
     return accuracy, class_report, cm
 
 
 
-def plot_auc_curve(model, test_generator):
+def plot_auc_curve(model, test_dataset):
+    """
+    Generates and displays the AUC-ROC curve for a binary classification model using tf.data.Dataset.
 
-    '''
-    This function generates and displays the AUC-ROC curve for a binary classification model.
-    It computes the Area Under the Curve (AUC) and plots the ROC curve, displaying the AUC score on the graph.
-    
     Parameters:
-    - test_predictions: A list or array containing the predicted probabilities from the model for the positive class 
-                         (usually values between 0 and 1).
-    - test_true_labels: A list or array containing the true labels (actual ground truth) for the test data.
-                        For binary classification, these should be either 0 or 1.
-    
-    Process:
-    1. Calculates the AUC score using `roc_auc_score` to evaluate the model's ability to distinguish between positive and negative classes.
-    2. Computes the ROC curve using `roc_curve`, which plots the true positive rate (TPR) against the false positive rate (FPR) at various thresholds.
-    3. Plots the ROC curve and shows the AUC value on the graph.
-    4. Prints the AUC value to the console for reference.
-    
-    Return:
-    - AUC value
-    '''
+        model : keras.Model
+            Trained model to evaluate.
+        test_dataset : tf.data.Dataset
+            Dataset containing test images and labels.
 
-    # Get predictions from the model
-    test_predictions = model.predict(test_generator, steps=len(test_generator), verbose=1)
-    
-    # Convert predicted probabilities to class labels
-    test_pred_labels = np.argmax(test_predictions, axis=1)
-    
-    # Get true labels from the test generator
-    test_true_labels = test_generator.classes
-    
+    Process:
+        1. Extract true labels from `test_dataset`.
+        2. Predict probabilities for test images using the model.
+        3. Calculate AUC and the ROC curve.
+        4. Plot the ROC curve, including a reference line and the AUC score.
+
+    Returns:
+        auc : float
+            Area Under the Curve (AUC) value.
+    """
+    # Extract true labels from the dataset
+    true_labels = []
+    for _, labels in test_dataset:
+        true_labels.extend(labels.numpy())
+    true_labels = np.array(true_labels)
+
+    # Get predicted probabilities from the model
+    predictions = model.predict(test_dataset, verbose=1).flatten()
+
     # Calculate the AUC score
-    auc = roc_auc_score(test_true_labels, test_predictions)
-    print(f"AUC: {auc}")
-    
-    # Calculate the ROC curve (False Positive Rate and True Positive Rate)
-    fpr, tpr, thresholds = roc_curve(test_true_labels, test_pred_labels)
-    
+    auc = roc_auc_score(true_labels, predictions)
+    print(f"AUC: {auc:.4f}")
+
+    # Calculate the ROC curve
+    fpr, tpr, thresholds = roc_curve(true_labels, predictions)
+
     # Plot the ROC curve
     plt.figure(figsize=(8, 6))
     plt.plot(fpr, tpr, label=f'AUC = {auc:.2f}', color='blue')  # ROC curve plot
-    plt.plot([0, 1], [0, 1], 'k--', label='Random Guess')  # Reference line for random classifier
+    plt.plot([0, 1], [0, 1], 'k--', label='Random Guess', color='red')  # Reference line for random classifier
     plt.xlabel('False Positive Rate')
     plt.ylabel('True Positive Rate')
     plt.title('ROC Curve')
