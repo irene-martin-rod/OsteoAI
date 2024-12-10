@@ -1,6 +1,6 @@
 ###CALLBACKS
 import tensorflow as tf
-from tensorflow.keras.callbacks import ReduceLROnPlateau, EarlyStopping
+from tensorflow.keras.callbacks import ReduceLROnPlateau, EarlyStopping, ModelCheckpoint
 
 def create_reduce_lr_callback(monitor = "val_loss", factor = 0.5, patience = 3, min_lr = 1e-6):
     '''
@@ -40,6 +40,50 @@ def create_early_stopping_callback(monitor = "val_loss", patience = 3, restore_b
         patience = patience,              
         restore_best_weights = restore_best_weights 
     )
+
+
+
+
+
+
+def establish_checkpoints(filepath, monitor = "accuracy", verbose=1, save_best_only=True, mode='auto', save_freq='epoch'):
+
+    '''
+    Creates a ModelCheckpoint callback to save model weights during training.
+
+    Parameters:
+        filepath (str): The file path and format to save the model weights. 
+                        Use placeholders like `{epoch}` or `{val_loss}` for dynamic naming.
+        monitor (str): Metric to monitor. Default is "accuracy".
+        verbose (int): Verbosity mode. 0 = silent, 1 = progress messages.
+        save_best_only (bool): If True, only the best weights (based on monitored metric) will be saved.
+        mode (str): Mode for monitoring:
+                    'auto' - infers mode from the metric.
+                    'min' - saves when monitored metric decreases.
+                    'max' - saves when monitored metric increases.
+        save_freq (str or int): Frequency of saving weights:
+                                'epoch' - saves weights at the end of each epoch.
+                                int - saves weights at the specified number of training steps.
+
+    Returns:
+        tensorflow.keras.callbacks.ModelCheckpoint: Configured ModelCheckpoint callback.
+    '''
+
+
+    checkpoint = ModelCheckpoint(
+        filepath=filepath,
+        monitor=monitor,
+        verbose=verbose,
+        save_best_only=save_best_only,
+        mode=mode,
+        save_freq=save_freq
+    )
+    return checkpoint
+
+
+
+
+
 
 
 

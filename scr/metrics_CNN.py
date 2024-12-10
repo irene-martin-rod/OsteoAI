@@ -148,11 +148,12 @@ def plot_auc_curve(model, test_dataset):
     plt.figure(figsize=(8, 6))
     plt.plot(fpr, tpr, label=f'AUC = {auc:.2f}', color='blue')  # ROC curve plot
     plt.plot([0, 1], [0, 1], 'k--', label='Random Guess', color='red')  # Reference line for random classifier
-    plt.xlabel('False Positive Rate')
-    plt.ylabel('True Positive Rate')
-    plt.title('ROC Curve')
-    plt.legend(loc='lower right')
+    plt.xlabel('False Positive Rate', fontsize=12)
+    plt.ylabel('True Positive Rate', fontsize=12)
+    plt.title('ROC Curve', fontsize=15)
+    plt.legend(loc='lower right', fontsize=12)
     plt.grid(alpha=0.3)
+    plt.tight_layout()
     plt.show()
 
     return auc
