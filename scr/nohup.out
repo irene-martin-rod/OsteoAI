@@ -1,3 +1,8 @@
+vgg16
+
+Random Forest
+
+
 2024-12-11 11:54:59.437184: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:477] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
 WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
 E0000 00:00:1733914499.451125  909068 cuda_dnn.cc:8310] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
@@ -94,3 +99,896 @@ Fitting 5 folds for each of 1000 candidates, totalling 5000 fits
 
 Best estimator found by random search:
 RandomForestClassifier(max_depth=70, min_samples_split=102, n_estimators=1500)
+
+
+
+----------------
+SVC
+
+2024-12-12 16:16:14.125657: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:477] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1734016574.142589 3766672 cuda_dnn.cc:8310] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1734016574.147401 3766672 cuda_blas.cc:1418] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2024-12-12 16:16:14.164670: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+I0000 00:00:1734016576.982855 3766672 gpu_device.cc:2022] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 4791 MB memory:  -> device: 0, name: NVIDIA GeForce GTX 1660 Ti, pci bus id: 0000:01:00.0, compute capability: 7.5
+Model: "vgg16"
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
+┃ Layer (type)                    ┃ Output Shape           ┃       Param # ┃
+┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
+│ input_layer (InputLayer)        │ (None, 224, 224, 3)    │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ block1_conv1 (Conv2D)           │ (None, 224, 224, 64)   │         1,792 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ block1_conv2 (Conv2D)           │ (None, 224, 224, 64)   │        36,928 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ block1_pool (MaxPooling2D)      │ (None, 112, 112, 64)   │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ block2_conv1 (Conv2D)           │ (None, 112, 112, 128)  │        73,856 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ block2_conv2 (Conv2D)           │ (None, 112, 112, 128)  │       147,584 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ block2_pool (MaxPooling2D)      │ (None, 56, 56, 128)    │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ block3_conv1 (Conv2D)           │ (None, 56, 56, 256)    │       295,168 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ block3_conv2 (Conv2D)           │ (None, 56, 56, 256)    │       590,080 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ block3_conv3 (Conv2D)           │ (None, 56, 56, 256)    │       590,080 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ block3_pool (MaxPooling2D)      │ (None, 28, 28, 256)    │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ block4_conv1 (Conv2D)           │ (None, 28, 28, 512)    │     1,180,160 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ block4_conv2 (Conv2D)           │ (None, 28, 28, 512)    │     2,359,808 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ block4_conv3 (Conv2D)           │ (None, 28, 28, 512)    │     2,359,808 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ block4_pool (MaxPooling2D)      │ (None, 14, 14, 512)    │             0 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ block5_conv1 (Conv2D)           │ (None, 14, 14, 512)    │     2,359,808 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ block5_conv2 (Conv2D)           │ (None, 14, 14, 512)    │     2,359,808 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ block5_conv3 (Conv2D)           │ (None, 14, 14, 512)    │     2,359,808 │
+├─────────────────────────────────┼────────────────────────┼───────────────┤
+│ block5_pool (MaxPooling2D)      │ (None, 7, 7, 512)      │             0 │
+└─────────────────────────────────┴────────────────────────┴───────────────┘
+ Total params: 14,714,688 (56.13 MB)
+ Trainable params: 0 (0.00 B)
+ Non-trainable params: 14,714,688 (56.13 MB)
+Found 3140 files belonging to 2 classes.
+Found 615 files belonging to 2 classes.
+Found 767 files belonging to 2 classes.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1734016579.960532 3767831 service.cc:148] XLA service 0x7f50a80056a0 initialized for platform CUDA (this does not guarantee that XLA will be used). Devices:
+I0000 00:00:1734016579.960570 3767831 service.cc:156]   StreamExecutor device (0): NVIDIA GeForce GTX 1660 Ti, Compute Capability 7.5
+2024-12-12 16:16:19.971666: I tensorflow/compiler/mlir/tensorflow/utils/dump_mlir_util.cc:268] disabling MLIR crash reproducer, set env var `MLIR_CRASH_REPRODUCER_DIRECTORY` to enable.
+I0000 00:00:1734016580.022483 3767831 cuda_dnn.cc:529] Loaded cuDNN version 90300
+2024-12-12 16:16:20.291525: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[20,64,224,224]{3,2,1,0}, u8[0]{0}) custom-call(f32[20,3,224,224]{3,2,1,0}, f32[64,3,3,3]{3,2,1,0}, f32[64]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kRelu","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+2024-12-12 16:16:20.545376: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[20,64,224,224]{3,2,1,0}, u8[0]{0}) custom-call(f32[20,64,224,224]{3,2,1,0}, f32[64,64,3,3]{3,2,1,0}, f32[64]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kRelu","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+2024-12-12 16:16:21.935506: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[20,128,112,112]{3,2,1,0}, u8[0]{0}) custom-call(f32[20,64,112,112]{3,2,1,0}, f32[128,64,3,3]{3,2,1,0}, f32[128]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kRelu","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+2024-12-12 16:16:22.586417: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[20,128,112,112]{3,2,1,0}, u8[0]{0}) custom-call(f32[20,128,112,112]{3,2,1,0}, f32[128,128,3,3]{3,2,1,0}, f32[128]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kRelu","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+2024-12-12 16:16:23.593388: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[20,256,56,56]{3,2,1,0}, u8[0]{0}) custom-call(f32[20,128,56,56]{3,2,1,0}, f32[256,128,3,3]{3,2,1,0}, f32[256]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kRelu","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+2024-12-12 16:16:24.041578: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[20,256,56,56]{3,2,1,0}, u8[0]{0}) custom-call(f32[20,256,56,56]{3,2,1,0}, f32[256,256,3,3]{3,2,1,0}, f32[256]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kRelu","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+2024-12-12 16:16:24.899143: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[20,512,28,28]{3,2,1,0}, u8[0]{0}) custom-call(f32[20,256,28,28]{3,2,1,0}, f32[512,256,3,3]{3,2,1,0}, f32[512]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kRelu","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+2024-12-12 16:16:25.287219: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[20,512,28,28]{3,2,1,0}, u8[0]{0}) custom-call(f32[20,512,28,28]{3,2,1,0}, f32[512,512,3,3]{3,2,1,0}, f32[512]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kRelu","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+2024-12-12 16:16:26.298045: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[20,512,14,14]{3,2,1,0}, u8[0]{0}) custom-call(f32[20,512,14,14]{3,2,1,0}, f32[512,512,3,3]{3,2,1,0}, f32[512]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kRelu","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+I0000 00:00:1734016586.778916 3767831 device_compiler.h:188] Compiled cluster using XLA!  This line is logged at most once for the lifetime of the process.
+2024-12-12 16:16:54.178252: I tensorflow/core/framework/local_rendezvous.cc:405] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
+2024-12-12 16:16:59.936044: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[15,64,224,224]{3,2,1,0}, u8[0]{0}) custom-call(f32[15,3,224,224]{3,2,1,0}, f32[64,3,3,3]{3,2,1,0}, f32[64]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kRelu","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+2024-12-12 16:17:00.004445: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[15,64,224,224]{3,2,1,0}, u8[0]{0}) custom-call(f32[15,64,224,224]{3,2,1,0}, f32[64,64,3,3]{3,2,1,0}, f32[64]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kRelu","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+2024-12-12 16:17:01.132861: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[15,128,112,112]{3,2,1,0}, u8[0]{0}) custom-call(f32[15,64,112,112]{3,2,1,0}, f32[128,64,3,3]{3,2,1,0}, f32[128]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kRelu","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+2024-12-12 16:17:01.747139: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[15,128,112,112]{3,2,1,0}, u8[0]{0}) custom-call(f32[15,128,112,112]{3,2,1,0}, f32[128,128,3,3]{3,2,1,0}, f32[128]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kRelu","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+2024-12-12 16:17:02.562004: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[15,256,56,56]{3,2,1,0}, u8[0]{0}) custom-call(f32[15,128,56,56]{3,2,1,0}, f32[256,128,3,3]{3,2,1,0}, f32[256]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kRelu","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+2024-12-12 16:17:02.937774: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[15,256,56,56]{3,2,1,0}, u8[0]{0}) custom-call(f32[15,256,56,56]{3,2,1,0}, f32[256,256,3,3]{3,2,1,0}, f32[256]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kRelu","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+2024-12-12 16:17:03.648271: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[15,512,28,28]{3,2,1,0}, u8[0]{0}) custom-call(f32[15,256,28,28]{3,2,1,0}, f32[512,256,3,3]{3,2,1,0}, f32[512]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kRelu","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+2024-12-12 16:17:04.008269: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[15,512,28,28]{3,2,1,0}, u8[0]{0}) custom-call(f32[15,512,28,28]{3,2,1,0}, f32[512,512,3,3]{3,2,1,0}, f32[512]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kRelu","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+2024-12-12 16:17:04.596620: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[15,512,14,14]{3,2,1,0}, u8[0]{0}) custom-call(f32[15,512,14,14]{3,2,1,0}, f32[512,512,3,3]{3,2,1,0}, f32[512]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kRelu","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+2024-12-12 16:17:05.056342: I tensorflow/core/framework/local_rendezvous.cc:405] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
+2024-12-12 16:17:11.990804: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[7,64,224,224]{3,2,1,0}, u8[0]{0}) custom-call(f32[7,3,224,224]{3,2,1,0}, f32[64,3,3,3]{3,2,1,0}, f32[64]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kRelu","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+2024-12-12 16:17:12.071938: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[7,64,224,224]{3,2,1,0}, u8[0]{0}) custom-call(f32[7,64,224,224]{3,2,1,0}, f32[64,64,3,3]{3,2,1,0}, f32[64]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kRelu","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+2024-12-12 16:17:12.619126: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[7,128,112,112]{3,2,1,0}, u8[0]{0}) custom-call(f32[7,64,112,112]{3,2,1,0}, f32[128,64,3,3]{3,2,1,0}, f32[128]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kRelu","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+2024-12-12 16:17:12.883925: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[7,128,112,112]{3,2,1,0}, u8[0]{0}) custom-call(f32[7,128,112,112]{3,2,1,0}, f32[128,128,3,3]{3,2,1,0}, f32[128]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kRelu","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+2024-12-12 16:17:13.336173: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[7,256,56,56]{3,2,1,0}, u8[0]{0}) custom-call(f32[7,128,56,56]{3,2,1,0}, f32[256,128,3,3]{3,2,1,0}, f32[256]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kRelu","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+2024-12-12 16:17:13.567436: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[7,256,56,56]{3,2,1,0}, u8[0]{0}) custom-call(f32[7,256,56,56]{3,2,1,0}, f32[256,256,3,3]{3,2,1,0}, f32[256]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kRelu","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+2024-12-12 16:17:13.910628: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[7,512,28,28]{3,2,1,0}, u8[0]{0}) custom-call(f32[7,256,28,28]{3,2,1,0}, f32[512,256,3,3]{3,2,1,0}, f32[512]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kRelu","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+2024-12-12 16:17:14.128489: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[7,512,28,28]{3,2,1,0}, u8[0]{0}) custom-call(f32[7,512,28,28]{3,2,1,0}, f32[512,512,3,3]{3,2,1,0}, f32[512]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kRelu","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+2024-12-12 16:17:14.555247: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[7,512,14,14]{3,2,1,0}, u8[0]{0}) custom-call(f32[7,512,14,14]{3,2,1,0}, f32[512,512,3,3]{3,2,1,0}, f32[512]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kRelu","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+Fitting 5 folds for each of 1000 candidates, totalling 5000 fits
+/home/dtbird/Documentos/OsteoAI/venv/lib/python3.10/site-packages/sklearn/model_selection/_validation.py:540: FitFailedWarning: 
+3375 fits failed out of a total of 5000.
+The score on these train-test partitions for these parameters will be set to nan.
+If these failures are not expected, you can try to debug them by setting error_score='raise'.
+
+Below are more details about the failures:
+--------------------------------------------------------------------------------
+1740 fits failed with the following error:
+Traceback (most recent call last):
+  File "/home/dtbird/Documentos/OsteoAI/venv/lib/python3.10/site-packages/sklearn/model_selection/_validation.py", line 888, in _fit_and_score
+    estimator.fit(X_train, y_train, **fit_params)
+  File "/home/dtbird/Documentos/OsteoAI/venv/lib/python3.10/site-packages/sklearn/base.py", line 1466, in wrapper
+    estimator._validate_params()
+  File "/home/dtbird/Documentos/OsteoAI/venv/lib/python3.10/site-packages/sklearn/base.py", line 666, in _validate_params
+    validate_parameter_constraints(
+  File "/home/dtbird/Documentos/OsteoAI/venv/lib/python3.10/site-packages/sklearn/utils/_param_validation.py", line 95, in validate_parameter_constraints
+    raise InvalidParameterError(
+sklearn.utils._param_validation.InvalidParameterError: The 'class_weight' parameter of SVC must be a str among {'balanced'}, an instance of 'dict' or None. Got 'dict' instead.
+
+--------------------------------------------------------------------------------
+1635 fits failed with the following error:
+Traceback (most recent call last):
+  File "/home/dtbird/Documentos/OsteoAI/venv/lib/python3.10/site-packages/sklearn/model_selection/_validation.py", line 888, in _fit_and_score
+    estimator.fit(X_train, y_train, **fit_params)
+  File "/home/dtbird/Documentos/OsteoAI/venv/lib/python3.10/site-packages/sklearn/base.py", line 1466, in wrapper
+    estimator._validate_params()
+  File "/home/dtbird/Documentos/OsteoAI/venv/lib/python3.10/site-packages/sklearn/base.py", line 666, in _validate_params
+    validate_parameter_constraints(
+  File "/home/dtbird/Documentos/OsteoAI/venv/lib/python3.10/site-packages/sklearn/utils/_param_validation.py", line 95, in validate_parameter_constraints
+    raise InvalidParameterError(
+sklearn.utils._param_validation.InvalidParameterError: The 'class_weight' parameter of SVC must be a str among {'balanced'}, an instance of 'dict' or None. Got 'balance' instead.
+
+  warnings.warn(some_fits_failed_message, FitFailedWarning)
+/home/dtbird/Documentos/OsteoAI/venv/lib/python3.10/site-packages/sklearn/model_selection/_search.py:1103: UserWarning: One or more of the test scores are non-finite: [       nan 0.60573248 0.70700637 0.60573248 0.60573248        nan
+        nan 0.60573248        nan 0.60573248        nan        nan
+        nan        nan        nan        nan 0.78598726 0.60573248
+ 0.78152866        nan 0.63121019 0.72993631        nan 0.60573248
+        nan 0.60573248        nan        nan        nan        nan
+ 0.78248408        nan        nan        nan 0.78598726 0.63121019
+ 0.60573248        nan 0.64458599 0.78248408        nan        nan
+        nan 0.69203822        nan        nan        nan        nan
+ 0.64585987 0.65828025 0.60573248        nan        nan 0.60573248
+        nan        nan        nan 0.63025478        nan 0.64203822
+        nan        nan        nan        nan 0.60573248        nan
+        nan        nan        nan        nan 0.60573248        nan
+        nan        nan        nan        nan 0.79713376 0.78184713
+ 0.78598726        nan 0.76369427        nan 0.78248408        nan
+        nan        nan 0.60573248 0.63025478        nan        nan
+        nan        nan        nan        nan        nan        nan
+ 0.69203822        nan        nan 0.79840764        nan 0.78121019
+        nan 0.60573248 0.60573248 0.60573248 0.78216561        nan
+        nan 0.60573248        nan        nan 0.76273885        nan
+ 0.78566879 0.76273885        nan        nan        nan        nan
+        nan        nan        nan        nan        nan        nan
+        nan 0.78152866        nan 0.60573248        nan        nan
+        nan        nan 0.78121019 0.79490446 0.6933121  0.60573248
+        nan        nan        nan        nan 0.60573248 0.7977707
+        nan        nan 0.60573248 0.68375796 0.60573248        nan
+        nan        nan 0.79617834        nan        nan        nan
+ 0.79649682        nan 0.60573248 0.60573248        nan 0.79649682
+ 0.60573248 0.60573248        nan        nan        nan 0.68375796
+        nan        nan        nan        nan        nan        nan
+ 0.63025478        nan        nan        nan        nan        nan
+        nan        nan        nan        nan        nan 0.78280255
+        nan        nan        nan 0.70700637        nan 0.65828025
+        nan        nan        nan        nan        nan        nan
+        nan        nan        nan 0.78630573 0.63121019        nan
+        nan        nan        nan        nan        nan        nan
+        nan        nan        nan        nan        nan 0.60573248
+        nan        nan 0.79745223 0.79713376 0.70700637        nan
+        nan        nan        nan        nan        nan 0.76210191
+        nan 0.60573248        nan        nan        nan        nan
+        nan 0.60573248 0.60573248 0.78216561        nan 0.78121019
+        nan        nan        nan        nan 0.60573248        nan
+        nan        nan        nan        nan 0.79745223        nan
+ 0.78216561        nan 0.78598726        nan        nan        nan
+        nan        nan 0.60573248        nan 0.79745223 0.76369427
+ 0.78280255        nan        nan        nan        nan        nan
+        nan 0.79808917        nan        nan 0.78121019        nan
+        nan        nan 0.68630573        nan        nan 0.76369427
+        nan        nan 0.79713376 0.60573248 0.78184713        nan
+        nan        nan        nan 0.65828025        nan        nan
+        nan        nan 0.76369427 0.78184713        nan        nan
+        nan        nan        nan        nan        nan        nan
+        nan        nan        nan        nan        nan 0.60573248
+        nan        nan 0.65828025        nan        nan        nan
+ 0.65828025        nan        nan 0.60573248        nan        nan
+ 0.60573248        nan        nan 0.71942675 0.78216561 0.7589172
+        nan        nan        nan        nan 0.78216561 0.78216561
+        nan 0.78216561        nan        nan        nan        nan
+        nan        nan 0.60573248        nan 0.78248408        nan
+        nan        nan        nan        nan        nan        nan
+ 0.60573248        nan 0.76305732 0.73025478 0.79649682        nan
+        nan        nan        nan        nan        nan        nan
+ 0.60573248 0.79745223        nan        nan 0.60573248        nan
+        nan        nan 0.78121019        nan        nan 0.78152866
+ 0.78248408        nan 0.60573248 0.7955414         nan        nan
+        nan        nan        nan 0.78248408        nan 0.78216561
+        nan        nan 0.78248408        nan 0.65828025        nan
+        nan        nan        nan 0.78503185 0.78152866 0.63025478
+ 0.60859873        nan 0.78152866        nan 0.60573248        nan
+        nan        nan        nan 0.76687898        nan        nan
+        nan        nan 0.78216561        nan 0.78121019        nan
+        nan 0.60573248 0.7589172         nan        nan        nan
+        nan        nan        nan 0.76082803        nan        nan
+        nan 0.60573248        nan 0.78216561 0.60573248        nan
+        nan 0.76369427 0.60573248        nan 0.78503185 0.65828025
+        nan        nan        nan        nan        nan 0.79426752
+        nan        nan        nan 0.79363057        nan 0.78248408
+ 0.60573248        nan 0.60573248        nan        nan        nan
+        nan 0.78121019        nan 0.60573248        nan        nan
+        nan        nan 0.60573248        nan        nan        nan
+        nan        nan 0.70700637        nan        nan 0.68375796
+        nan        nan        nan        nan 0.78216561        nan
+        nan        nan 0.6933121  0.69363057        nan        nan
+        nan        nan        nan        nan        nan 0.78121019
+ 0.78121019        nan        nan        nan 0.60573248        nan
+        nan 0.78121019        nan        nan        nan        nan
+ 0.78152866 0.70700637        nan 0.79299363        nan        nan
+        nan        nan        nan        nan        nan 0.76369427
+ 0.79713376 0.69203822 0.78121019        nan 0.60859873 0.60573248
+        nan        nan        nan        nan        nan 0.64140127
+        nan 0.78216561 0.60573248        nan 0.60573248        nan
+ 0.60573248        nan        nan        nan 0.76369427        nan
+        nan        nan        nan        nan        nan        nan
+        nan        nan        nan        nan        nan        nan
+        nan 0.60573248        nan        nan 0.68630573        nan
+ 0.7589172  0.60573248 0.78789809        nan 0.80318471        nan
+        nan        nan        nan        nan        nan        nan
+        nan        nan        nan        nan        nan 0.60573248
+        nan 0.60573248        nan 0.63025478        nan 0.65828025
+        nan        nan        nan        nan 0.63121019        nan
+ 0.78184713        nan 0.6633758  0.60573248        nan        nan
+        nan 0.78121019 0.78121019        nan 0.78566879        nan
+        nan 0.63025478 0.78248408 0.78184713        nan        nan
+ 0.6933121  0.78248408        nan        nan        nan        nan
+ 0.60573248 0.78248408        nan        nan 0.60573248        nan
+ 0.60573248        nan 0.60573248        nan 0.60573248        nan
+        nan 0.60573248        nan        nan        nan 0.79203822
+ 0.78248408        nan 0.79713376        nan 0.60573248        nan
+        nan        nan        nan        nan        nan        nan
+        nan        nan        nan        nan        nan        nan
+ 0.60573248 0.60573248        nan        nan        nan        nan
+        nan 0.63025478        nan        nan        nan 0.60573248
+        nan        nan        nan 0.78152866 0.78121019        nan
+ 0.60573248        nan        nan        nan        nan        nan
+ 0.60573248        nan        nan        nan        nan        nan
+        nan 0.7589172  0.60573248        nan 0.78152866 0.60573248
+        nan        nan        nan        nan 0.78248408        nan
+        nan 0.60573248 0.79808917        nan        nan        nan
+        nan        nan        nan        nan        nan        nan
+        nan        nan        nan 0.78216561 0.60573248        nan
+ 0.60573248        nan        nan        nan        nan 0.60573248
+ 0.78152866        nan        nan        nan        nan        nan
+        nan        nan 0.7455414         nan 0.78248408 0.78566879
+        nan        nan        nan        nan        nan 0.60573248
+        nan        nan        nan        nan        nan        nan
+        nan 0.61847134        nan 0.7455414  0.78121019 0.78216561
+ 0.78184713        nan        nan        nan 0.65828025        nan
+ 0.78121019 0.78248408 0.78025478 0.78216561 0.60573248 0.78248408
+        nan        nan        nan        nan        nan 0.78248408
+        nan 0.60573248        nan 0.64203822        nan        nan
+ 0.60573248        nan        nan        nan        nan        nan
+        nan        nan 0.7066879         nan        nan        nan
+        nan        nan        nan 0.60573248        nan        nan
+ 0.60573248        nan        nan        nan        nan        nan
+        nan        nan        nan 0.65828025 0.7589172         nan
+        nan 0.78216561 0.68630573 0.78216561 0.60573248        nan
+        nan        nan 0.60573248 0.79426752 0.78248408        nan
+ 0.76210191        nan        nan        nan 0.78248408 0.79490446
+ 0.79713376        nan        nan        nan        nan 0.60859873
+ 0.73089172 0.7589172         nan        nan        nan        nan
+ 0.78184713        nan        nan 0.60573248        nan        nan
+        nan        nan 0.76242038        nan        nan        nan
+        nan 0.78152866        nan        nan 0.68630573        nan
+ 0.78216561 0.78598726 0.74490446 0.78598726        nan        nan
+        nan        nan        nan        nan 0.80318471        nan
+        nan        nan 0.78503185        nan        nan        nan
+        nan 0.7066879         nan        nan        nan        nan
+        nan        nan        nan 0.60573248 0.76369427        nan
+        nan        nan 0.60573248        nan 0.78152866        nan
+ 0.64203822        nan        nan        nan 0.69203822 0.78248408
+        nan 0.7866242  0.79458599        nan 0.78216561        nan
+ 0.60573248        nan        nan        nan 0.78184713        nan
+        nan 0.60573248        nan        nan        nan        nan
+        nan 0.78248408        nan        nan        nan 0.78184713
+        nan        nan        nan        nan        nan        nan
+        nan 0.78248408        nan 0.60573248 0.78216561        nan
+        nan        nan        nan        nan 0.60573248 0.79713376
+        nan 0.78757962 0.63025478        nan        nan 0.7843949
+        nan        nan        nan        nan 0.60573248        nan
+        nan        nan        nan 0.78248408 0.78184713        nan
+        nan        nan        nan        nan 0.78184713        nan
+        nan 0.79490446        nan        nan        nan        nan
+        nan 0.64458599        nan        nan 0.78566879 0.60859873
+        nan 0.76305732 0.78630573        nan        nan 0.78184713
+        nan        nan        nan        nan 0.7589172  0.60573248
+        nan        nan        nan        nan        nan        nan
+ 0.70700637        nan 0.78216561        nan 0.74522293 0.78152866
+        nan        nan 0.60573248 0.7589172 ]
+  warnings.warn(
+
+Best estimator found by random search:
+SVC(C=10, degree=5, kernel='poly', tol=0.01)
+
+
+
+-------------------------
+
+
+
+RESNET 50
+
+Random forest
+2024-12-16 12:42:10.142110: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:477] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1734349330.156716  817755 cuda_dnn.cc:8310] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1734349330.160968  817755 cuda_blas.cc:1418] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2024-12-16 12:42:10.175778: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+I0000 00:00:1734349332.945873  817755 gpu_device.cc:2022] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 734 MB memory:  -> device: 0, name: NVIDIA GeForce GTX 1660 Ti, pci bus id: 0000:01:00.0, compute capability: 7.5
+Model: "resnet50"
+┏━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━┓
+┃ Layer (type)        ┃ Output Shape      ┃    Param # ┃ Connected to      ┃
+┡━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━┩
+│ input_layer         │ (None, 224, 224,  │          0 │ -                 │
+│ (InputLayer)        │ 3)                │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv1_pad           │ (None, 230, 230,  │          0 │ input_layer[0][0] │
+│ (ZeroPadding2D)     │ 3)                │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv1_conv (Conv2D) │ (None, 112, 112,  │      9,472 │ conv1_pad[0][0]   │
+│                     │ 64)               │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv1_bn            │ (None, 112, 112,  │        256 │ conv1_conv[0][0]  │
+│ (BatchNormalizatio… │ 64)               │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv1_relu          │ (None, 112, 112,  │          0 │ conv1_bn[0][0]    │
+│ (Activation)        │ 64)               │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ pool1_pad           │ (None, 114, 114,  │          0 │ conv1_relu[0][0]  │
+│ (ZeroPadding2D)     │ 64)               │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ pool1_pool          │ (None, 56, 56,    │          0 │ pool1_pad[0][0]   │
+│ (MaxPooling2D)      │ 64)               │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv2_block1_1_conv │ (None, 56, 56,    │      4,160 │ pool1_pool[0][0]  │
+│ (Conv2D)            │ 64)               │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv2_block1_1_bn   │ (None, 56, 56,    │        256 │ conv2_block1_1_c… │
+│ (BatchNormalizatio… │ 64)               │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv2_block1_1_relu │ (None, 56, 56,    │          0 │ conv2_block1_1_b… │
+│ (Activation)        │ 64)               │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv2_block1_2_conv │ (None, 56, 56,    │     36,928 │ conv2_block1_1_r… │
+│ (Conv2D)            │ 64)               │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv2_block1_2_bn   │ (None, 56, 56,    │        256 │ conv2_block1_2_c… │
+│ (BatchNormalizatio… │ 64)               │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv2_block1_2_relu │ (None, 56, 56,    │          0 │ conv2_block1_2_b… │
+│ (Activation)        │ 64)               │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv2_block1_0_conv │ (None, 56, 56,    │     16,640 │ pool1_pool[0][0]  │
+│ (Conv2D)            │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv2_block1_3_conv │ (None, 56, 56,    │     16,640 │ conv2_block1_2_r… │
+│ (Conv2D)            │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv2_block1_0_bn   │ (None, 56, 56,    │      1,024 │ conv2_block1_0_c… │
+│ (BatchNormalizatio… │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv2_block1_3_bn   │ (None, 56, 56,    │      1,024 │ conv2_block1_3_c… │
+│ (BatchNormalizatio… │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv2_block1_add    │ (None, 56, 56,    │          0 │ conv2_block1_0_b… │
+│ (Add)               │ 256)              │            │ conv2_block1_3_b… │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv2_block1_out    │ (None, 56, 56,    │          0 │ conv2_block1_add… │
+│ (Activation)        │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv2_block2_1_conv │ (None, 56, 56,    │     16,448 │ conv2_block1_out… │
+│ (Conv2D)            │ 64)               │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv2_block2_1_bn   │ (None, 56, 56,    │        256 │ conv2_block2_1_c… │
+│ (BatchNormalizatio… │ 64)               │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv2_block2_1_relu │ (None, 56, 56,    │          0 │ conv2_block2_1_b… │
+│ (Activation)        │ 64)               │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv2_block2_2_conv │ (None, 56, 56,    │     36,928 │ conv2_block2_1_r… │
+│ (Conv2D)            │ 64)               │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv2_block2_2_bn   │ (None, 56, 56,    │        256 │ conv2_block2_2_c… │
+│ (BatchNormalizatio… │ 64)               │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv2_block2_2_relu │ (None, 56, 56,    │          0 │ conv2_block2_2_b… │
+│ (Activation)        │ 64)               │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv2_block2_3_conv │ (None, 56, 56,    │     16,640 │ conv2_block2_2_r… │
+│ (Conv2D)            │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv2_block2_3_bn   │ (None, 56, 56,    │      1,024 │ conv2_block2_3_c… │
+│ (BatchNormalizatio… │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv2_block2_add    │ (None, 56, 56,    │          0 │ conv2_block1_out… │
+│ (Add)               │ 256)              │            │ conv2_block2_3_b… │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv2_block2_out    │ (None, 56, 56,    │          0 │ conv2_block2_add… │
+│ (Activation)        │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv2_block3_1_conv │ (None, 56, 56,    │     16,448 │ conv2_block2_out… │
+│ (Conv2D)            │ 64)               │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv2_block3_1_bn   │ (None, 56, 56,    │        256 │ conv2_block3_1_c… │
+│ (BatchNormalizatio… │ 64)               │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv2_block3_1_relu │ (None, 56, 56,    │          0 │ conv2_block3_1_b… │
+│ (Activation)        │ 64)               │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv2_block3_2_conv │ (None, 56, 56,    │     36,928 │ conv2_block3_1_r… │
+│ (Conv2D)            │ 64)               │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv2_block3_2_bn   │ (None, 56, 56,    │        256 │ conv2_block3_2_c… │
+│ (BatchNormalizatio… │ 64)               │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv2_block3_2_relu │ (None, 56, 56,    │          0 │ conv2_block3_2_b… │
+│ (Activation)        │ 64)               │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv2_block3_3_conv │ (None, 56, 56,    │     16,640 │ conv2_block3_2_r… │
+│ (Conv2D)            │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv2_block3_3_bn   │ (None, 56, 56,    │      1,024 │ conv2_block3_3_c… │
+│ (BatchNormalizatio… │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv2_block3_add    │ (None, 56, 56,    │          0 │ conv2_block2_out… │
+│ (Add)               │ 256)              │            │ conv2_block3_3_b… │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv2_block3_out    │ (None, 56, 56,    │          0 │ conv2_block3_add… │
+│ (Activation)        │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block1_1_conv │ (None, 28, 28,    │     32,896 │ conv2_block3_out… │
+│ (Conv2D)            │ 128)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block1_1_bn   │ (None, 28, 28,    │        512 │ conv3_block1_1_c… │
+│ (BatchNormalizatio… │ 128)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block1_1_relu │ (None, 28, 28,    │          0 │ conv3_block1_1_b… │
+│ (Activation)        │ 128)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block1_2_conv │ (None, 28, 28,    │    147,584 │ conv3_block1_1_r… │
+│ (Conv2D)            │ 128)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block1_2_bn   │ (None, 28, 28,    │        512 │ conv3_block1_2_c… │
+│ (BatchNormalizatio… │ 128)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block1_2_relu │ (None, 28, 28,    │          0 │ conv3_block1_2_b… │
+│ (Activation)        │ 128)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block1_0_conv │ (None, 28, 28,    │    131,584 │ conv2_block3_out… │
+│ (Conv2D)            │ 512)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block1_3_conv │ (None, 28, 28,    │     66,048 │ conv3_block1_2_r… │
+│ (Conv2D)            │ 512)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block1_0_bn   │ (None, 28, 28,    │      2,048 │ conv3_block1_0_c… │
+│ (BatchNormalizatio… │ 512)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block1_3_bn   │ (None, 28, 28,    │      2,048 │ conv3_block1_3_c… │
+│ (BatchNormalizatio… │ 512)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block1_add    │ (None, 28, 28,    │          0 │ conv3_block1_0_b… │
+│ (Add)               │ 512)              │            │ conv3_block1_3_b… │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block1_out    │ (None, 28, 28,    │          0 │ conv3_block1_add… │
+│ (Activation)        │ 512)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block2_1_conv │ (None, 28, 28,    │     65,664 │ conv3_block1_out… │
+│ (Conv2D)            │ 128)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block2_1_bn   │ (None, 28, 28,    │        512 │ conv3_block2_1_c… │
+│ (BatchNormalizatio… │ 128)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block2_1_relu │ (None, 28, 28,    │          0 │ conv3_block2_1_b… │
+│ (Activation)        │ 128)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block2_2_conv │ (None, 28, 28,    │    147,584 │ conv3_block2_1_r… │
+│ (Conv2D)            │ 128)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block2_2_bn   │ (None, 28, 28,    │        512 │ conv3_block2_2_c… │
+│ (BatchNormalizatio… │ 128)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block2_2_relu │ (None, 28, 28,    │          0 │ conv3_block2_2_b… │
+│ (Activation)        │ 128)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block2_3_conv │ (None, 28, 28,    │     66,048 │ conv3_block2_2_r… │
+│ (Conv2D)            │ 512)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block2_3_bn   │ (None, 28, 28,    │      2,048 │ conv3_block2_3_c… │
+│ (BatchNormalizatio… │ 512)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block2_add    │ (None, 28, 28,    │          0 │ conv3_block1_out… │
+│ (Add)               │ 512)              │            │ conv3_block2_3_b… │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block2_out    │ (None, 28, 28,    │          0 │ conv3_block2_add… │
+│ (Activation)        │ 512)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block3_1_conv │ (None, 28, 28,    │     65,664 │ conv3_block2_out… │
+│ (Conv2D)            │ 128)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block3_1_bn   │ (None, 28, 28,    │        512 │ conv3_block3_1_c… │
+│ (BatchNormalizatio… │ 128)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block3_1_relu │ (None, 28, 28,    │          0 │ conv3_block3_1_b… │
+│ (Activation)        │ 128)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block3_2_conv │ (None, 28, 28,    │    147,584 │ conv3_block3_1_r… │
+│ (Conv2D)            │ 128)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block3_2_bn   │ (None, 28, 28,    │        512 │ conv3_block3_2_c… │
+│ (BatchNormalizatio… │ 128)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block3_2_relu │ (None, 28, 28,    │          0 │ conv3_block3_2_b… │
+│ (Activation)        │ 128)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block3_3_conv │ (None, 28, 28,    │     66,048 │ conv3_block3_2_r… │
+│ (Conv2D)            │ 512)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block3_3_bn   │ (None, 28, 28,    │      2,048 │ conv3_block3_3_c… │
+│ (BatchNormalizatio… │ 512)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block3_add    │ (None, 28, 28,    │          0 │ conv3_block2_out… │
+│ (Add)               │ 512)              │            │ conv3_block3_3_b… │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block3_out    │ (None, 28, 28,    │          0 │ conv3_block3_add… │
+│ (Activation)        │ 512)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block4_1_conv │ (None, 28, 28,    │     65,664 │ conv3_block3_out… │
+│ (Conv2D)            │ 128)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block4_1_bn   │ (None, 28, 28,    │        512 │ conv3_block4_1_c… │
+│ (BatchNormalizatio… │ 128)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block4_1_relu │ (None, 28, 28,    │          0 │ conv3_block4_1_b… │
+│ (Activation)        │ 128)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block4_2_conv │ (None, 28, 28,    │    147,584 │ conv3_block4_1_r… │
+│ (Conv2D)            │ 128)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block4_2_bn   │ (None, 28, 28,    │        512 │ conv3_block4_2_c… │
+│ (BatchNormalizatio… │ 128)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block4_2_relu │ (None, 28, 28,    │          0 │ conv3_block4_2_b… │
+│ (Activation)        │ 128)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block4_3_conv │ (None, 28, 28,    │     66,048 │ conv3_block4_2_r… │
+│ (Conv2D)            │ 512)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block4_3_bn   │ (None, 28, 28,    │      2,048 │ conv3_block4_3_c… │
+│ (BatchNormalizatio… │ 512)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block4_add    │ (None, 28, 28,    │          0 │ conv3_block3_out… │
+│ (Add)               │ 512)              │            │ conv3_block4_3_b… │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv3_block4_out    │ (None, 28, 28,    │          0 │ conv3_block4_add… │
+│ (Activation)        │ 512)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block1_1_conv │ (None, 14, 14,    │    131,328 │ conv3_block4_out… │
+│ (Conv2D)            │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block1_1_bn   │ (None, 14, 14,    │      1,024 │ conv4_block1_1_c… │
+│ (BatchNormalizatio… │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block1_1_relu │ (None, 14, 14,    │          0 │ conv4_block1_1_b… │
+│ (Activation)        │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block1_2_conv │ (None, 14, 14,    │    590,080 │ conv4_block1_1_r… │
+│ (Conv2D)            │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block1_2_bn   │ (None, 14, 14,    │      1,024 │ conv4_block1_2_c… │
+│ (BatchNormalizatio… │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block1_2_relu │ (None, 14, 14,    │          0 │ conv4_block1_2_b… │
+│ (Activation)        │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block1_0_conv │ (None, 14, 14,    │    525,312 │ conv3_block4_out… │
+│ (Conv2D)            │ 1024)             │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block1_3_conv │ (None, 14, 14,    │    263,168 │ conv4_block1_2_r… │
+│ (Conv2D)            │ 1024)             │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block1_0_bn   │ (None, 14, 14,    │      4,096 │ conv4_block1_0_c… │
+│ (BatchNormalizatio… │ 1024)             │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block1_3_bn   │ (None, 14, 14,    │      4,096 │ conv4_block1_3_c… │
+│ (BatchNormalizatio… │ 1024)             │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block1_add    │ (None, 14, 14,    │          0 │ conv4_block1_0_b… │
+│ (Add)               │ 1024)             │            │ conv4_block1_3_b… │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block1_out    │ (None, 14, 14,    │          0 │ conv4_block1_add… │
+│ (Activation)        │ 1024)             │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block2_1_conv │ (None, 14, 14,    │    262,400 │ conv4_block1_out… │
+│ (Conv2D)            │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block2_1_bn   │ (None, 14, 14,    │      1,024 │ conv4_block2_1_c… │
+│ (BatchNormalizatio… │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block2_1_relu │ (None, 14, 14,    │          0 │ conv4_block2_1_b… │
+│ (Activation)        │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block2_2_conv │ (None, 14, 14,    │    590,080 │ conv4_block2_1_r… │
+│ (Conv2D)            │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block2_2_bn   │ (None, 14, 14,    │      1,024 │ conv4_block2_2_c… │
+│ (BatchNormalizatio… │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block2_2_relu │ (None, 14, 14,    │          0 │ conv4_block2_2_b… │
+│ (Activation)        │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block2_3_conv │ (None, 14, 14,    │    263,168 │ conv4_block2_2_r… │
+│ (Conv2D)            │ 1024)             │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block2_3_bn   │ (None, 14, 14,    │      4,096 │ conv4_block2_3_c… │
+│ (BatchNormalizatio… │ 1024)             │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block2_add    │ (None, 14, 14,    │          0 │ conv4_block1_out… │
+│ (Add)               │ 1024)             │            │ conv4_block2_3_b… │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block2_out    │ (None, 14, 14,    │          0 │ conv4_block2_add… │
+│ (Activation)        │ 1024)             │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block3_1_conv │ (None, 14, 14,    │    262,400 │ conv4_block2_out… │
+│ (Conv2D)            │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block3_1_bn   │ (None, 14, 14,    │      1,024 │ conv4_block3_1_c… │
+│ (BatchNormalizatio… │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block3_1_relu │ (None, 14, 14,    │          0 │ conv4_block3_1_b… │
+│ (Activation)        │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block3_2_conv │ (None, 14, 14,    │    590,080 │ conv4_block3_1_r… │
+│ (Conv2D)            │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block3_2_bn   │ (None, 14, 14,    │      1,024 │ conv4_block3_2_c… │
+│ (BatchNormalizatio… │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block3_2_relu │ (None, 14, 14,    │          0 │ conv4_block3_2_b… │
+│ (Activation)        │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block3_3_conv │ (None, 14, 14,    │    263,168 │ conv4_block3_2_r… │
+│ (Conv2D)            │ 1024)             │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block3_3_bn   │ (None, 14, 14,    │      4,096 │ conv4_block3_3_c… │
+│ (BatchNormalizatio… │ 1024)             │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block3_add    │ (None, 14, 14,    │          0 │ conv4_block2_out… │
+│ (Add)               │ 1024)             │            │ conv4_block3_3_b… │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block3_out    │ (None, 14, 14,    │          0 │ conv4_block3_add… │
+│ (Activation)        │ 1024)             │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block4_1_conv │ (None, 14, 14,    │    262,400 │ conv4_block3_out… │
+│ (Conv2D)            │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block4_1_bn   │ (None, 14, 14,    │      1,024 │ conv4_block4_1_c… │
+│ (BatchNormalizatio… │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block4_1_relu │ (None, 14, 14,    │          0 │ conv4_block4_1_b… │
+│ (Activation)        │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block4_2_conv │ (None, 14, 14,    │    590,080 │ conv4_block4_1_r… │
+│ (Conv2D)            │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block4_2_bn   │ (None, 14, 14,    │      1,024 │ conv4_block4_2_c… │
+│ (BatchNormalizatio… │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block4_2_relu │ (None, 14, 14,    │          0 │ conv4_block4_2_b… │
+│ (Activation)        │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block4_3_conv │ (None, 14, 14,    │    263,168 │ conv4_block4_2_r… │
+│ (Conv2D)            │ 1024)             │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block4_3_bn   │ (None, 14, 14,    │      4,096 │ conv4_block4_3_c… │
+│ (BatchNormalizatio… │ 1024)             │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block4_add    │ (None, 14, 14,    │          0 │ conv4_block3_out… │
+│ (Add)               │ 1024)             │            │ conv4_block4_3_b… │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block4_out    │ (None, 14, 14,    │          0 │ conv4_block4_add… │
+│ (Activation)        │ 1024)             │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block5_1_conv │ (None, 14, 14,    │    262,400 │ conv4_block4_out… │
+│ (Conv2D)            │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block5_1_bn   │ (None, 14, 14,    │      1,024 │ conv4_block5_1_c… │
+│ (BatchNormalizatio… │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block5_1_relu │ (None, 14, 14,    │          0 │ conv4_block5_1_b… │
+│ (Activation)        │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block5_2_conv │ (None, 14, 14,    │    590,080 │ conv4_block5_1_r… │
+│ (Conv2D)            │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block5_2_bn   │ (None, 14, 14,    │      1,024 │ conv4_block5_2_c… │
+│ (BatchNormalizatio… │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block5_2_relu │ (None, 14, 14,    │          0 │ conv4_block5_2_b… │
+│ (Activation)        │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block5_3_conv │ (None, 14, 14,    │    263,168 │ conv4_block5_2_r… │
+│ (Conv2D)            │ 1024)             │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block5_3_bn   │ (None, 14, 14,    │      4,096 │ conv4_block5_3_c… │
+│ (BatchNormalizatio… │ 1024)             │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block5_add    │ (None, 14, 14,    │          0 │ conv4_block4_out… │
+│ (Add)               │ 1024)             │            │ conv4_block5_3_b… │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block5_out    │ (None, 14, 14,    │          0 │ conv4_block5_add… │
+│ (Activation)        │ 1024)             │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block6_1_conv │ (None, 14, 14,    │    262,400 │ conv4_block5_out… │
+│ (Conv2D)            │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block6_1_bn   │ (None, 14, 14,    │      1,024 │ conv4_block6_1_c… │
+│ (BatchNormalizatio… │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block6_1_relu │ (None, 14, 14,    │          0 │ conv4_block6_1_b… │
+│ (Activation)        │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block6_2_conv │ (None, 14, 14,    │    590,080 │ conv4_block6_1_r… │
+│ (Conv2D)            │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block6_2_bn   │ (None, 14, 14,    │      1,024 │ conv4_block6_2_c… │
+│ (BatchNormalizatio… │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block6_2_relu │ (None, 14, 14,    │          0 │ conv4_block6_2_b… │
+│ (Activation)        │ 256)              │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block6_3_conv │ (None, 14, 14,    │    263,168 │ conv4_block6_2_r… │
+│ (Conv2D)            │ 1024)             │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block6_3_bn   │ (None, 14, 14,    │      4,096 │ conv4_block6_3_c… │
+│ (BatchNormalizatio… │ 1024)             │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block6_add    │ (None, 14, 14,    │          0 │ conv4_block5_out… │
+│ (Add)               │ 1024)             │            │ conv4_block6_3_b… │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv4_block6_out    │ (None, 14, 14,    │          0 │ conv4_block6_add… │
+│ (Activation)        │ 1024)             │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv5_block1_1_conv │ (None, 7, 7, 512) │    524,800 │ conv4_block6_out… │
+│ (Conv2D)            │                   │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv5_block1_1_bn   │ (None, 7, 7, 512) │      2,048 │ conv5_block1_1_c… │
+│ (BatchNormalizatio… │                   │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv5_block1_1_relu │ (None, 7, 7, 512) │          0 │ conv5_block1_1_b… │
+│ (Activation)        │                   │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv5_block1_2_conv │ (None, 7, 7, 512) │  2,359,808 │ conv5_block1_1_r… │
+│ (Conv2D)            │                   │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv5_block1_2_bn   │ (None, 7, 7, 512) │      2,048 │ conv5_block1_2_c… │
+│ (BatchNormalizatio… │                   │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv5_block1_2_relu │ (None, 7, 7, 512) │          0 │ conv5_block1_2_b… │
+│ (Activation)        │                   │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv5_block1_0_conv │ (None, 7, 7,      │  2,099,200 │ conv4_block6_out… │
+│ (Conv2D)            │ 2048)             │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv5_block1_3_conv │ (None, 7, 7,      │  1,050,624 │ conv5_block1_2_r… │
+│ (Conv2D)            │ 2048)             │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv5_block1_0_bn   │ (None, 7, 7,      │      8,192 │ conv5_block1_0_c… │
+│ (BatchNormalizatio… │ 2048)             │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv5_block1_3_bn   │ (None, 7, 7,      │      8,192 │ conv5_block1_3_c… │
+│ (BatchNormalizatio… │ 2048)             │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv5_block1_add    │ (None, 7, 7,      │          0 │ conv5_block1_0_b… │
+│ (Add)               │ 2048)             │            │ conv5_block1_3_b… │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv5_block1_out    │ (None, 7, 7,      │          0 │ conv5_block1_add… │
+│ (Activation)        │ 2048)             │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv5_block2_1_conv │ (None, 7, 7, 512) │  1,049,088 │ conv5_block1_out… │
+│ (Conv2D)            │                   │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv5_block2_1_bn   │ (None, 7, 7, 512) │      2,048 │ conv5_block2_1_c… │
+│ (BatchNormalizatio… │                   │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv5_block2_1_relu │ (None, 7, 7, 512) │          0 │ conv5_block2_1_b… │
+│ (Activation)        │                   │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv5_block2_2_conv │ (None, 7, 7, 512) │  2,359,808 │ conv5_block2_1_r… │
+│ (Conv2D)            │                   │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv5_block2_2_bn   │ (None, 7, 7, 512) │      2,048 │ conv5_block2_2_c… │
+│ (BatchNormalizatio… │                   │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv5_block2_2_relu │ (None, 7, 7, 512) │          0 │ conv5_block2_2_b… │
+│ (Activation)        │                   │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv5_block2_3_conv │ (None, 7, 7,      │  1,050,624 │ conv5_block2_2_r… │
+│ (Conv2D)            │ 2048)             │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv5_block2_3_bn   │ (None, 7, 7,      │      8,192 │ conv5_block2_3_c… │
+│ (BatchNormalizatio… │ 2048)             │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv5_block2_add    │ (None, 7, 7,      │          0 │ conv5_block1_out… │
+│ (Add)               │ 2048)             │            │ conv5_block2_3_b… │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv5_block2_out    │ (None, 7, 7,      │          0 │ conv5_block2_add… │
+│ (Activation)        │ 2048)             │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv5_block3_1_conv │ (None, 7, 7, 512) │  1,049,088 │ conv5_block2_out… │
+│ (Conv2D)            │                   │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv5_block3_1_bn   │ (None, 7, 7, 512) │      2,048 │ conv5_block3_1_c… │
+│ (BatchNormalizatio… │                   │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv5_block3_1_relu │ (None, 7, 7, 512) │          0 │ conv5_block3_1_b… │
+│ (Activation)        │                   │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv5_block3_2_conv │ (None, 7, 7, 512) │  2,359,808 │ conv5_block3_1_r… │
+│ (Conv2D)            │                   │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv5_block3_2_bn   │ (None, 7, 7, 512) │      2,048 │ conv5_block3_2_c… │
+│ (BatchNormalizatio… │                   │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv5_block3_2_relu │ (None, 7, 7, 512) │          0 │ conv5_block3_2_b… │
+│ (Activation)        │                   │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv5_block3_3_conv │ (None, 7, 7,      │  1,050,624 │ conv5_block3_2_r… │
+│ (Conv2D)            │ 2048)             │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv5_block3_3_bn   │ (None, 7, 7,      │      8,192 │ conv5_block3_3_c… │
+│ (BatchNormalizatio… │ 2048)             │            │                   │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv5_block3_add    │ (None, 7, 7,      │          0 │ conv5_block2_out… │
+│ (Add)               │ 2048)             │            │ conv5_block3_3_b… │
+├─────────────────────┼───────────────────┼────────────┼───────────────────┤
+│ conv5_block3_out    │ (None, 7, 7,      │          0 │ conv5_block3_add… │
+│ (Activation)        │ 2048)             │            │                   │
+└─────────────────────┴───────────────────┴────────────┴───────────────────┘
+ Total params: 23,587,712 (89.98 MB)
+ Trainable params: 0 (0.00 B)
+ Non-trainable params: 23,587,712 (89.98 MB)
+Found 3140 files belonging to 2 classes.
+Found 615 files belonging to 2 classes.
+Found 767 files belonging to 2 classes.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1734349338.070017  818294 service.cc:148] XLA service 0x7fcc9c002270 initialized for platform CUDA (this does not guarantee that XLA will be used). Devices:
+I0000 00:00:1734349338.070065  818294 service.cc:156]   StreamExecutor device (0): NVIDIA GeForce GTX 1660 Ti, Compute Capability 7.5
+2024-12-16 12:42:18.157450: I tensorflow/compiler/mlir/tensorflow/utils/dump_mlir_util.cc:268] disabling MLIR crash reproducer, set env var `MLIR_CRASH_REPRODUCER_DIRECTORY` to enable.
+I0000 00:00:1734349338.607372  818294 cuda_dnn.cc:529] Loaded cuDNN version 90300
+2024-12-16 12:42:19.083342: W external/local_xla/xla/tsl/framework/bfc_allocator.cc:306] Allocator (GPU_0_bfc) ran out of memory trying to allocate 610.06MiB with freed_by_count=0. The caller indicates that this is not a failure, but this may mean that there could be performance gains if more memory were available.
+2024-12-16 12:42:19.167626: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[32,64,56,56]{3,2,1,0}, u8[0]{0}) custom-call(f32[32,64,56,56]{3,2,1,0}, f32[64,64,3,3]{3,2,1,0}, f32[64]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+2024-12-16 12:42:19.396819: W external/local_xla/xla/tsl/framework/bfc_allocator.cc:306] Allocator (GPU_0_bfc) ran out of memory trying to allocate 808.06MiB with freed_by_count=0. The caller indicates that this is not a failure, but this may mean that there could be performance gains if more memory were available.
+2024-12-16 12:42:19.565298: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[32,128,28,28]{3,2,1,0}, u8[0]{0}) custom-call(f32[32,128,28,28]{3,2,1,0}, f32[128,128,3,3]{3,2,1,0}, f32[128]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+2024-12-16 12:42:19.757541: W external/local_xla/xla/tsl/framework/bfc_allocator.cc:306] Allocator (GPU_0_bfc) ran out of memory trying to allocate 594.25MiB with freed_by_count=0. The caller indicates that this is not a failure, but this may mean that there could be performance gains if more memory were available.
+2024-12-16 12:42:19.830184: W external/local_xla/xla/tsl/framework/bfc_allocator.cc:306] Allocator (GPU_0_bfc) ran out of memory trying to allocate 696.25MiB with freed_by_count=0. The caller indicates that this is not a failure, but this may mean that there could be performance gains if more memory were available.
+2024-12-16 12:42:20.016936: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[32,256,14,14]{3,2,1,0}, u8[0]{0}) custom-call(f32[32,256,14,14]{3,2,1,0}, f32[256,256,3,3]{3,2,1,0}, f32[256]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+2024-12-16 12:42:20.094370: W external/local_xla/xla/tsl/framework/bfc_allocator.cc:306] Allocator (GPU_0_bfc) ran out of memory trying to allocate 356.00MiB with freed_by_count=0. The caller indicates that this is not a failure, but this may mean that there could be performance gains if more memory were available.
+2024-12-16 12:42:20.186260: W external/local_xla/xla/tsl/framework/bfc_allocator.cc:306] Allocator (GPU_0_bfc) ran out of memory trying to allocate 611.00MiB with freed_by_count=0. The caller indicates that this is not a failure, but this may mean that there could be performance gains if more memory were available.
+2024-12-16 12:42:20.248116: W external/local_xla/xla/tsl/framework/bfc_allocator.cc:306] Allocator (GPU_0_bfc) ran out of memory trying to allocate 665.00MiB with freed_by_count=0. The caller indicates that this is not a failure, but this may mean that there could be performance gains if more memory were available.
+2024-12-16 12:42:20.451038: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[32,512,7,7]{3,2,1,0}, u8[0]{0}) custom-call(f32[32,512,7,7]{3,2,1,0}, f32[512,512,3,3]{3,2,1,0}, f32[512]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+2024-12-16 12:42:20.559678: W external/local_xla/xla/tsl/framework/bfc_allocator.cc:306] Allocator (GPU_0_bfc) ran out of memory trying to allocate 637.00MiB with freed_by_count=0. The caller indicates that this is not a failure, but this may mean that there could be performance gains if more memory were available.
+2024-12-16 12:42:20.559719: W external/local_xla/xla/tsl/framework/bfc_allocator.cc:306] Allocator (GPU_0_bfc) ran out of memory trying to allocate 1.21GiB with freed_by_count=0. The caller indicates that this is not a failure, but this may mean that there could be performance gains if more memory were available.
+2024-12-16 12:42:20.618740: W external/local_xla/xla/tsl/framework/bfc_allocator.cc:306] Allocator (GPU_0_bfc) ran out of memory trying to allocate 2.30GiB with freed_by_count=0. The caller indicates that this is not a failure, but this may mean that there could be performance gains if more memory were available.
+I0000 00:00:1734349341.478013  818294 device_compiler.h:188] Compiled cluster using XLA!  This line is logged at most once for the lifetime of the process.
+2024-12-16 12:42:38.135834: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[4,64,56,56]{3,2,1,0}, u8[0]{0}) custom-call(f32[4,64,56,56]{3,2,1,0}, f32[64,64,3,3]{3,2,1,0}, f32[64]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+2024-12-16 12:42:38.313672: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[4,128,28,28]{3,2,1,0}, u8[0]{0}) custom-call(f32[4,128,28,28]{3,2,1,0}, f32[128,128,3,3]{3,2,1,0}, f32[128]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+2024-12-16 12:42:38.502188: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[4,256,14,14]{3,2,1,0}, u8[0]{0}) custom-call(f32[4,256,14,14]{3,2,1,0}, f32[256,256,3,3]{3,2,1,0}, f32[256]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+2024-12-16 12:42:38.735183: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[4,512,7,7]{3,2,1,0}, u8[0]{0}) custom-call(f32[4,512,7,7]{3,2,1,0}, f32[512,512,3,3]{3,2,1,0}, f32[512]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+2024-12-16 12:42:39.774971: I tensorflow/core/framework/local_rendezvous.cc:405] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
+2024-12-16 12:42:43.725369: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[7,64,56,56]{3,2,1,0}, u8[0]{0}) custom-call(f32[7,64,56,56]{3,2,1,0}, f32[64,64,3,3]{3,2,1,0}, f32[64]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+2024-12-16 12:42:43.946135: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[7,128,28,28]{3,2,1,0}, u8[0]{0}) custom-call(f32[7,128,28,28]{3,2,1,0}, f32[128,128,3,3]{3,2,1,0}, f32[128]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+2024-12-16 12:42:44.205215: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[7,256,14,14]{3,2,1,0}, u8[0]{0}) custom-call(f32[7,256,14,14]{3,2,1,0}, f32[256,256,3,3]{3,2,1,0}, f32[256]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+2024-12-16 12:42:44.468046: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[7,512,7,7]{3,2,1,0}, u8[0]{0}) custom-call(f32[7,512,7,7]{3,2,1,0}, f32[512,512,3,3]{3,2,1,0}, f32[512]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+2024-12-16 12:42:45.372974: I tensorflow/core/framework/local_rendezvous.cc:405] Local rendezvous is aborting with status: OUT_OF_RANGE: End of sequence
+2024-12-16 12:42:49.969146: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[31,64,56,56]{3,2,1,0}, u8[0]{0}) custom-call(f32[31,64,56,56]{3,2,1,0}, f32[64,64,3,3]{3,2,1,0}, f32[64]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+2024-12-16 12:42:50.357593: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[31,128,28,28]{3,2,1,0}, u8[0]{0}) custom-call(f32[31,128,28,28]{3,2,1,0}, f32[128,128,3,3]{3,2,1,0}, f32[128]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+2024-12-16 12:42:50.802645: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[31,256,14,14]{3,2,1,0}, u8[0]{0}) custom-call(f32[31,256,14,14]{3,2,1,0}, f32[256,256,3,3]{3,2,1,0}, f32[256]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+2024-12-16 12:42:51.226266: I external/local_xla/xla/service/gpu/autotuning/conv_algorithm_picker.cc:557] Omitted potentially buggy algorithm eng14{k25=0} for conv (f32[31,512,7,7]{3,2,1,0}, u8[0]{0}) custom-call(f32[31,512,7,7]{3,2,1,0}, f32[512,512,3,3]{3,2,1,0}, f32[512]{0}), window={size=3x3 pad=1_1x1_1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"cudnn_conv_backend_config":{"activation_mode":"kNone","conv_result_scale":1,"leakyrelu_alpha":0,"side_input_scale":0},"force_earliest_schedule":false,"operation_queue_id":"0","wait_on_operation_queues":[]}
+Fitting 5 folds for each of 1000 candidates, totalling 5000 fits
+/home/dtbird/Documentos/OsteoAI/venv/lib/python3.10/site-packages/numpy/ma/core.py:2846: RuntimeWarning: invalid value encountered in cast
+  _data = np.array(data, dtype=dtype, copy=copy,
+
+Best estimator found by random search:
+RandomForestClassifier(criterion='entropy', max_depth=49, min_samples_split=102)

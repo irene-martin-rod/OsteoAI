@@ -10,3 +10,4 @@ tensorflow
 graphviz
 pydot
 scikit-learn
+xgboost
