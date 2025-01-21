@@ -86,16 +86,15 @@ test_features = test_features.reshape(test_features.shape[0], -1)
 
 
 
-params =[{
-    "C":[0.1, 1, 10, 100, 1000],
-    "kernel":["linear", "poly", "rbf", "sigmoid"],
-    "degree":[1, 2, 3, 4, 5],
+params = [{
+    "C": [10, 100, 1000],
+    "kernel": ["linear", "rbf"],  # Reduced kernels
     "gamma": ["scale", "auto"],
-    "shrinking":[True, False],
-    "tol": [1e-1, 1e-2, 1e-3],
-    "class_weight":["dict", "balance", None],
-    "decision_function_shape":["ovo", "ovr"]     
-}] 
+    "shrinking": [True, False],
+    "tol": [1e-1, 1e-3],  # Focused tolerance
+    "class_weight": [None, "balanced"],
+    "decision_function_shape": ["ovo", "ovr"]
+}]
 
 #SVC
 svc = RandomizedSearchCV(SVC(), params, cv = 5, n_iter = 1000, verbose = 1, random_state=42, n_jobs = 6)
