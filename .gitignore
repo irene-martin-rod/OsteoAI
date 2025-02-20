@@ -131,9 +131,9 @@ env.bak/
 venv.bak/
 
 #Data
-Data/Processed/ml-dp/test
-Data/Processed/ml-dp/train
-Data/Processed/ml-dp/valid
+#Data/Processed/ml-dp/test
+#Data/Processed/ml-dp/train
+#Data/Processed/ml-dp/valid
 
 scr/lgb_VGG16.py
 scr/nohup.out
