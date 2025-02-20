@@ -130,11 +130,19 @@ ENV/
 env.bak/
 venv.bak/
 
-#Models
-2-Scripts\yolov10s.pt
-2-Scripts\yolov10m.pt
-2-Scripts\yolov10b.pt
-runs
+#Data
+Data/Processed/ml-dp/test
+Data/Processed/ml-dp/train
+Data/Processed/ml-dp/valid
+
+scr/lgb_VGG16.py
+scr/nohup.out
+scr/random_forest_resnet50.py
+scr/random_forest_VGG16_12.py
+scr/random_forest_VGG16.py
+scr/svc_resnet50.py
+scr/svc_VGG16.py
+scr/xgboost_VGG16.py
 
 # Spyder project settings
 .spyderproject

@@ -3,6 +3,58 @@
 
 THIS PROJECT IS UNDER CONSTRUCTION
 
+### **Project estructure**
+``` markdown
+/OSTEOAI/
+|-- /data/
+
+    |-- /Processed/ 
+
+        |-- /BoneFractureYolo8/ <-- Here, it is saved all image and labels after quality screening but maintaining the original labels of the dataset (8 categories)
+            |-- /test/
+                |-- /images/
+                |-- /labels/
+            |-- /train/
+                |-- /images/
+                |-- /labels/
+            |-- /valid/
+                |-- /images/
+                |-- /labels/
+            |-- data.yaml <-- Configuration file
+            |-- README.dataset.txt
+
+        |-- /ml-dp/ <-- Folder structurized for DL and ML algorithms
+            |-- /fracture/ <-- Contains images classified as fracture
+            |-- /nofracture/ <-- Contains images classified as non-fracture
+
+        |-- /Yolo-binary/ <-- Folder structurized for Yolo, but only has 2 categories (fractuve vs. non-fracture)
+            |-- /images/
+            |-- /labels/
+            |-- data.yaml
+
+|-- /Notebooks/
+    |-- 1-Create_directories.ipynb <-- Create the directories train, test and valid in the folder /ml-dp/
+    |-- 2-CNN_proofs.ipynb <-- Notebooks with all DL and ML models
+
+|-- /Plots/
+
+|-- /scr/
+    │-- callback_training_CNN.py
+    |-- copy_images.py
+    |-- creating.directories.py
+    |-- extract_features.py
+    |-- image_loader.py
+    |-- image_preporcesser.py
+    |-- import_images.py
+    |-- lgb_Vgg16.py
+    |-- metrics_CNN.py
+
+|-- LICENSE
+|-- README.md
+|-- requirements.txt
+```
+
+
 ### **Materials and Methods**
 **Data cleansing**
 Data were obtained in (https://www.kaggle.com/), tittled Bone Fracture Detection: Computer Vision Project (Darabi 2024). For this project, only the file *BoneFractureYolo8* was used. The original dataset had eight different classes: non-fractured bone, humerus, humerus fracture, elbow positive, fingers positive, forearm fracture, shoulder fractures and wrist positive. A data cleansing was carried out, deleting images with poor quality, in other words, very dark or light images. Also, data were restructures in two categories: fracture (this category collects all images and labels associated with any type of fracture in the original dataset) and non-fracture.
@@ -14,7 +66,9 @@ Dataset were divided in three subdataset: train (64% of images of dataset), vali
 
 In the case of pre-trainning CNNs, I used fine-tunning and transfer-learning to train them to the new dataset. Also, I used a combination of CNN and Machine learning classification algorithims. For that, image feature were extracted (see extract_features.py in scr folder) using the CNN and then, these features were used for training a Machine learning algorithm, such as random forest and SVC, using the library Scikit-Learn (Pedregosa et al 2011). To run models, I used *Adam* as optimizer, *binary cross-entropy* as loss function and *accuracy* as metric. The learning rate was variable depend on the model. Also, I used two callbacks: *ReduceLROnPlateau* to reduece learning rate if the validation loss function was not reduce each certain epochs and *EarlyStopping* to avoid overfitting if the model did not improve after some epochs (see callbacks_training_CNN.py in scr folder). 
 
-After running a model, I plotted the accuracy and loss function hostory of training and validation dataset using *Matplotlib* (Hunter 2007). In case both metrics were good, I obtained the confusion matrix (with metrics such as recall, precision and F1-score) and ROC curve. Both metrics were used to compare the best model among the better models (see CNN_proofs.ipynb in the Notebooks folder).
+After running a model, I plotted the accuracy and loss function hostory of training and validation dataset using *Matplotlib* (Hunter 2007). In case both metrics were good, I obtained the confusion matrix (with metrics such as recall, precision and F1-score) and ROC curve. Both metrics were used to compare the best model among the better models (see CNN_proofs.ipynb in the Notebooks folder). 
+
+After model selection explained above, I selected as the best model teh combination of the *VGG16* neural network and XGBoost. Although, XGBoost was not so accuracy as SVC or LightGBoost, its computing speed made that I selected as the best model to to further refine the model. 
 
 **Fracture detection**
 Images were loaded and preprocessing, reescaling all images to the same size (the size depending of the model) and normalized.  
