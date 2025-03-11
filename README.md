@@ -68,7 +68,7 @@ In the case of pre-trainning CNNs, I used fine-tunning and transfer-learning to 
 
 After running a model, I plotted the accuracy and loss function hostory of training and validation dataset using *Matplotlib* (Hunter 2007). In case both metrics were good, I obtained the confusion matrix (with metrics such as recall, precision and F1-score) and ROC curve. Both metrics were used to compare the best model among the better models (see CNN_proofs.ipynb in the Notebooks folder). 
 
-After model selection explained above, I selected as the best model teh combination of the *VGG16* neural network and XGBoost. Although, XGBoost was not so accuracy as SVC or LightGBoost, its computing speed made that I selected as the best model to to further refine the model. 
+After model selection explained above, I selected as the best model the combination of the *VGG16* neural network and LightGBM (AUC = 0.8737). 
 
 **Fracture detection**
 Images were loaded and preprocessing, reescaling all images to the same size (the size depending of the model) and normalized.  
