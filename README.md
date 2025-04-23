@@ -1,58 +1,63 @@
-# **OsteoAI**
+# 🦴 **OsteoAI**
 ## *Automatic detection of bone fractures*
 
 THIS PROJECT IS UNDER CONSTRUCTION
 
 ### **Project estructure**
+
 ``` markdown
-/OSTEOAI/
-|-- /data/
-
-    |-- /Processed/ 
-
-        |-- /BoneFractureYolo8/ <-- Here, it is saved all image and labels after quality screening but maintaining the original labels of the dataset (8 categories)
-            |-- /test/
-                |-- /images/
-                |-- /labels/
-            |-- /train/
-                |-- /images/
-                |-- /labels/
-            |-- /valid/
-                |-- /images/
-                |-- /labels/
-            |-- data.yaml <-- Configuration file
-            |-- README.dataset.txt
-
-        |-- /ml-dp/ <-- Folder structurized for DL and ML algorithms
-            |-- /fracture/ <-- Contains images classified as fracture
-            |-- /nofracture/ <-- Contains images classified as non-fracture
-
-        |-- /Yolo-binary/ <-- Folder structurized for Yolo, but only has 2 categories (fractuve vs. non-fracture)
-            |-- /images/
-            |-- /labels/
-            |-- data.yaml
-
-|-- /Notebooks/
-    |-- 1-Create_directories.ipynb <-- Create the directories train, test and valid in the folder /ml-dp/
-    |-- 2-CNN_proofs.ipynb <-- Notebooks with all DL and ML models
-
-|-- /Plots/
-
-|-- /scr/
-    │-- callback_training_CNN.py
-    |-- copy_images.py
-    |-- creating.directories.py
-    |-- extract_features.py
-    |-- image_loader.py
-    |-- image_preporcesser.py
-    |-- import_images.py
-    |-- lgb_Vgg16.py
-    |-- metrics_CNN.py
-
-|-- LICENSE
-|-- README.md
-|-- requirements.txt
+OsteoAI/
+├── data/
+│   └── Processed/
+│       ├── BoneFractureYolo8/  ← Images and labels after quality screening, keeping original 8-class labels
+│       │   ├── test/
+│       │   │   ├── images/
+│       │   │   └── labels/
+│       │   ├── train/
+│       │   │   ├── images/
+│       │   │   └── labels/
+│       │   ├── valid/
+│       │   │   ├── images/
+│       │   │   └── labels/
+│       │   ├── data.yaml         ← YOLO config file
+│       │   └── README.dataset.txt
+│       ├── ml-dp/  ← Structured folders for Deep Learning and Machine Learning models
+│       │   ├── fracture/
+│       │   └── nofracture/
+│       └── Yolo-binary/  ← YOLO structure with binary classification (fracture vs. no-fracture)
+│           ├── images/
+│           ├── labels/
+│           └── data.yaml
+├── Notebooks/
+│   ├── 1-Create_directories.ipynb  ← Creates train/test/valid folders inside /ml-dp/
+│   └── 2-CNN_proofs.ipynb         ← Experiments with DL and ML models
+├── Plots/
+├── src/
+│   ├── callback_training_CNN.py
+│   ├── copy_images.py
+│   ├── creating.directories.py
+│   ├── extract_features.py
+│   ├── image_loader.py
+│   ├── image_preporcesser.py
+│   ├── import_images.py
+│   ├── lgb_Vgg16.py
+│   └── metrics_CNN.py
+├── LICENSE
+├── README.md
+└── requirements.txt
 ```
+
+### **Introduction**
+
+OsteoAI is a machine learning and deep learning project focused on the automatic detection of bone fractures from medical images. It combines classical ML techniques with CNN-based feature extraction to classify fractures.
+
+This repository contains the full pipeline, including:
+- Preprocessing and organizing datasets for both binary and multi-class classification tasks.
+- Training and evaluation of various ML/DL models.
+- A clean project structure to support scalability and reproducibility.
+- Integration with Streamlit for a user-friendly web interface.
+
+The goal of OsteoAI is to assist radiologists and medical professionals by providing accurate, explainable, and fast predictions for fracture detection.
 
 
 ### **Materials and Methods**
