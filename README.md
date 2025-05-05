@@ -1,86 +1,84 @@
-# 🦴 **OsteoAI**
-## *Automatic detection of bone fractures*
+# 🦴 **OsteoAI**  
+## *Automatic classification of X-ray images in bone fractures or no fratures using Deep and Machine Learning*  
 
-THIS PROJECT IS UNDER CONSTRUCTION
+**THIS PROJECT IS UNDER CONSTRUCTION**
 
-### **Project estructure**
+### **Project Structure**
 
 ``` markdown
 OsteoAI/
+├── App/
+│    ├── app.py    ← Creates Streamlit app
+│    └── lgbm.pkl  ← Model used for X-ray images classification (fracture vs non-fracture)
+
 ├── data/
 │   └── Processed/
-│       ├── BoneFractureYolo8/  ← Images and labels after quality screening, keeping original 8-class labels
-│       │   ├── test/
-│       │   │   ├── images/
-│       │   │   └── labels/
-│       │   ├── train/
-│       │   │   ├── images/
-│       │   │   └── labels/
-│       │   ├── valid/
-│       │   │   ├── images/
-│       │   │   └── labels/
-│       │   ├── data.yaml         ← YOLO config file
-│       │   └── README.dataset.txt
-│       ├── ml-dp/  ← Structured folders for Deep Learning and Machine Learning models
+│       └── ml-dp/  ← Structured folders for Deep Learning and Machine Learning models
 │       │   ├── fracture/
 │       │   └── nofracture/
-│       └── Yolo-binary/  ← YOLO structure with binary classification (fracture vs. no-fracture)
-│           ├── images/
-│           ├── labels/
-│           └── data.yaml
+
 ├── Notebooks/
 │   ├── 1-Create_directories.ipynb  ← Creates train/test/valid folders inside /ml-dp/
-│   └── 2-CNN_proofs.ipynb         ← Experiments with DL and ML models
+│   ├── 2-CNN_proofs.ipynb          ← Experiments with DL and ML models
+|   └── 3-lgbm.proofs.ipynb         ← Experiments with Light Gradient-Boosting Model
+
 ├── Plots/
+
 ├── src/
-│   ├── callback_training_CNN.py
-│   ├── copy_images.py
-│   ├── creating.directories.py
-│   ├── extract_features.py
-│   ├── image_loader.py
-│   ├── image_preporcesser.py
-│   ├── import_images.py
-│   ├── lgb_Vgg16.py
-│   └── metrics_CNN.py
+│   ├── callback_training_CNN.py  ← Callbacks for CNN training
+│   ├── copy_images.py            ← Copies images between directories
+│   ├── creating.directories.py   ← Creates necessary directories
+│   ├── extract_features.py       ← Extracts image features using CNN for ML model training
+│   ├── image_loader.py           ← Loads and visualizes images
+│   ├── image_preprocessor.py     ← Performs data augmentation and image normalization
+│   ├── import_images.py          ← Creates datasets
+│   └── metrics_CNN.py            ← Metrics for evaluating CNN performance (accuracy, loss, confusion matrix, AUC-ROC curve)
+
 ├── LICENSE
+
 ├── README.md
+
 └── requirements.txt
 ```
 
 ### **Introduction**
 
-OsteoAI is a machine learning and deep learning project focused on the automatic detection of bone fractures from medical images. It combines classical ML techniques with CNN-based feature extraction to classify fractures.
+**OsteoAI** is a **machine learning and deep learning** project focused on the **automatic classification of bone fractures from medical images**, specifically **X-ray images**. The project combines classical machine learning techniques with convolutional neural networks (CNN) to extract image features and classify the radiographs as either fracture or non-fracture.
 
-This repository contains the full pipeline, including:
-- Preprocessing and organizing datasets for both binary and multi-class classification tasks.
-- Training and evaluation of various ML/DL models.
-- A clean project structure to support scalability and reproducibility.
+This repository contains the complete pipeline, including:
+- Data preprocessing and dataset organization for both binary and multi-class classification tasks.
+- Training and evaluation of various machine learning and deep learning models.
 - Integration with Streamlit for a user-friendly web interface.
 
-The goal of OsteoAI is to assist radiologists and medical professionals by providing accurate, explainable, and fast predictions for fracture detection.
+**The goal of OsteoAI is to assist radiologists and medical professionals by providing accurate, explainable, and fast fracture detection predictions**.
 
 
 ### **Materials and Methods**
 **Data cleansing**
-Data were obtained in (https://www.kaggle.com/), tittled Bone Fracture Detection: Computer Vision Project (Darabi 2024). For this project, only the file *BoneFractureYolo8* was used. The original dataset had eight different classes: non-fractured bone, humerus, humerus fracture, elbow positive, fingers positive, forearm fracture, shoulder fractures and wrist positive. A data cleansing was carried out, deleting images with poor quality, in other words, very dark or light images. Also, data were restructures in two categories: fracture (this category collects all images and labels associated with any type of fracture in the original dataset) and non-fracture.
+Data were obtained in (https://www.kaggle.com/), tittled *Bone Fracture Detection: Computer Vision Project* (Darabi 2024). For this project, only the file *BoneFractureYolo8* was used. The original dataset had eight different classes: non-fractured bone, humerus, humerus fracture, elbow positive, fingers positive, forearm fracture, shoulder fractures and wrist positive. 
+
+Data cleansing was was performed to remove images with poor quality (e.g., overly dark or light images). Additionally, the data was restructured into two categories: fracture (which includes all images and labels associated with any type of fracture in the original dataset) and non-fracture.
 
 **Fracture and non-fracture classification using CNNs**
-All the processing and modelling was maded using Python 3.10.12 (Van Rossum & Drake 2009). Before modelling a CNN, all images were loaded and preprocessed: they were rescaling and normalized (see import_image.py, image_loader.py and image_preprocesser.py in scr folder) using the libraries *TensorFlow* (Abadi et al 2015), *OpenCV* (Bradski 2000) and *Matplotlib* (Hunter 2007). The imagen size depended on the used CNN. 
+All processing and modeling were done using Python 3.10.12 (Van Rossum & Drake, 2009). Before modeling a CNN, all images were loaded and preprocessed (rescaled and normalized). Libraries used included *TensorFlow* (Abadi et al., 2015), *OpenCV* (Bradski, 2000), *Keras* (Chollet et al., 2015), and *Matplotlib* (Hunter, 2007).
 
-Dataset were divided in three subdataset: train (64% of images of dataset), validation (16% of images of the dataset) and test (20% of images of dataset)(see 1-Create_directories.ipynb in Notebooks folders). Several CNNs were proved: a CNN built from scratch using an imagen size of 256x256 Mpx, *VGG16* neural network (Simonyan & Zisserman 2014; https://www.tensorflow.org/api_docs/python/tf/keras/applications/VGG16), using an image size of 224x224 Mpx, and ResNet-50 neural network (He et al 2015; ttps://www.tensorflow.org/api_docs/python/tf/keras/applications/ResNet50), using an image size of 224x224 Mpx. All CNNs were import and/or training and validation using the library *Keras* (Chollet et al 2015). 
+The dataset was split into three subsets: training (64%), validation (16%), and testing (20%) (see `1-Create_directories.ipynb` in the `Notebooks` folder).
 
-In the case of pre-trainning CNNs, I used fine-tunning and transfer-learning to train them to the new dataset. Also, I used a combination of CNN and Machine learning classification algorithims. For that, image feature were extracted (see extract_features.py in scr folder) using the CNN and then, these features were used for training a Machine learning algorithm, such as random forest and SVC, using the library Scikit-Learn (Pedregosa et al 2011). To run models, I used *Adam* as optimizer, *binary cross-entropy* as loss function and *accuracy* as metric. The learning rate was variable depend on the model. Also, I used two callbacks: *ReduceLROnPlateau* to reduece learning rate if the validation loss function was not reduce each certain epochs and *EarlyStopping* to avoid overfitting if the model did not improve after some epochs (see callbacks_training_CNN.py in scr folder). 
+*Tested models*:
+- <u>Personalized CNNs</u>: Image size of 256x256 pixels
+- <u>VGG16</u>: Image size of 224x224 pixels (Simonyan & Zisserman 2014; https://www.tensorflow.org/api_docs/python/tf/keras/applications/VGG16)
+- <u>ResNet-50</u>: Image size of 224x224 pixels (He et al 2015; ttps://www.tensorflow.org/api_docs/python/tf/keras/applications/ResNet50)
 
-After running a model, I plotted the accuracy and loss function hostory of training and validation dataset using *Matplotlib* (Hunter 2007). In case both metrics were good, I obtained the confusion matrix (with metrics such as recall, precision and F1-score) and ROC curve. Both metrics were used to compare the best model among the better models (see CNN_proofs.ipynb in the Notebooks folder). 
 
-After model selection explained above, I selected as the best model the combination of the *VGG16* neural network and LightGBM (AUC = 0.8737). 
+For pre-trained CNNs, **fine-tuning** and **transfer learning** were applied to adapt them to the new dataset. Additionally, CNNs were combined with machine learning classification algorithms (e.g., Random Forest, SVC, SGBoots, and LightGBM) to enhance results.  Models were trained using *Adam optimizer*, *binary cross-entropy loss*, and *accuracy* as the evaluation metric. The learning rate varied depending on the model. Two callbacks were used: *ReduceLROnPlateau* (to reduce the learning rate when the validation loss plateaued) and *EarlyStopping* (to avoid overfitting if the model did not improve after a certain number of epochs)(see `callbacks_training_CNN.py` in the `src` folder).
 
-**Fracture detection**
-Images were loaded and preprocessing, reescaling all images to the same size (the size depending of the model) and normalized.  
+After training the models, they were evaluated using metrics such as the confusion matrix, precision, recall, and the AUC-ROC curve (see `metrics_CNN.py` in the `src` folder).
 
-and Images were reescale to the same size (640x640 Mpx) together with YOLO (You Only Look Once) labels, they were converted to a grayscale and normalized. For that, I used the libraries *Numpy* (Harris et al. 2020), *Matplotlib* (Hunter 2007) and *OpenCV* (Bradski 2000).
+**Machine Learning Integration**
+Image features were extracted using CNNs (see `extract_features.py` in the `src` folder) and used to train various machine learning classifiers, employing *Scikit-Learn* (Pedregosa et al., 2011).
 
-A model selctions was first maded using *YOLOv10-Small*, *YOLOv10-Medium* and *YOLOv10-Balanced* models of *Ultralytics* library (Wang et al. 2024). I run these model using 100 epochs and a batch size of 16 images. 
+### **Results**
+The best performing model combined the **VGG16 neural network** to extract image features and the **Light Gradient-Boosting Model** for classification.
 
 ### **References**
     Abadi M, Agarwal A, Barham P, Brevdo E, Chen Z, ..., Zheng X. (2015). TensorFlow: Large-scale machine learning on heterogeneous systems. Software available from tensorflow.
@@ -99,3 +97,14 @@ org
     Simonyan K, Zisserman A. (2014). Very Deep Convuntional Networks for Large-Scale Image Recognition. *arXiv*. https://doi.org/10.48550/arXiv.1409.1556
     Wang A, Chen H, Liu L, Chen K, Lin Z, Han J, Ding G. (2024). YOLOv10: Real-Time End-to-End 
 Object Detection. DOI: 10.48550/arXiv.2405.14458
+
+
+### **License**
+
+This project is licensed under the [MIT License](./LICENSE).
+
+### **Author**
+
+**Irene Martín Rodríguez**  
+GitHub: [@irene-martin-rod](https://github.com/irene-martin-rod)  
+Email: your.email@example.com
