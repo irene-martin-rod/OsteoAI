@@ -70,7 +70,7 @@ if uploaded_files:
 
     st.markdown("### 🧠 Predictions:")
     for i, pred in enumerate(predictions):
-        label = "🟥 Fracture" if pred == 1 else "🟩 No Fracture"
+        label = "🟥 Fracture" if pred == 0 else "🟩 No Fracture"
         st.write(f"**{uploaded_files[i].name}** → {label}")
 
 
