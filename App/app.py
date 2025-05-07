@@ -1,10 +1,9 @@
-# Script with the model workflow used for model deploy in Streamlit
-
 # === IMPORTS ===
 import streamlit as st
 from PIL import Image
 import os
 import sys
+import base64
 sys.path.append(os.path.abspath('../src'))
 from image_preprocesser import preprocess_image
 from extract_features import extract_features
@@ -13,73 +12,74 @@ from keras.applications import VGG16
 import numpy as np
 import joblib
 
-
 # === PAGE SETTINGS ===
-st.set_page_config(page_title="🦴 OsteoAI: Fracture Classifier", layout="centered")
+st.set_page_config(page_title="OsteoAI", page_icon="🦴", layout="wide")
+
+# === CUSTOM STYLES ===
 st.markdown("""
     <style>
-        .banner {
+        html, body, [class*="css"] {
             background-color: #e3f2fd;
-            padding: 2rem;
-            border-radius: 1rem;
+        }
+        .title {
+            color: #1e88e5;
+            font-size: 3rem;
             text-align: center;
-            border: 2px solid #64b5f6;
+            margin-bottom: 0.2rem;
+        }
+        .subtitle {
+            color: #555;
+            text-align: center;
+            font-size: 1.3rem;
             margin-bottom: 2rem;
         }
-        .banner h1 {
-            color: #1e88e5;
-            font-size: 2.5rem;
+        .card {
+            background-color: #f5f5f5;
+            padding: 1rem;
+            border-radius: 15px;
+            text-align: center;
+            margin: 1rem auto;
+            width: 300px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-        .banner p {
-            color: #333;
+        .fracture {
+            color: #e57373;
+            font-weight: bold;
             font-size: 1.2rem;
         }
-
-        .upload-box {
-            border: 2px dashed #90caf9;
-            padding: 2rem;
-            text-align: center;
-            border-radius: 10px;
-            background-color: #f5faff;
-            margin-bottom: 2rem;
-        }
-
-        .prediction-box {
-            padding: 1rem;
-            border-radius: 10px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-        }
-
-        .fracture {
-            background-color: #ffebee;
-            color: #c62828;
-        }
-
         .nofracture {
-            background-color: #e8f5e9;
-            color: #2e7d32;
+            color: #81c784;
+            font-weight: bold;
+            font-size: 1.2rem;
         }
     </style>
-
-    <div class="banner">
-        <h1>🦴 OsteoAI</h1>
-        <p>Automatic X-Ray Classifier for Bone Fractures</p>
-    </div>
 """, unsafe_allow_html=True)
 
+# === HEADER ===
+st.markdown("<div class='title'>🦴 OsteoAI</div>", unsafe_allow_html=True)
+st.markdown("<div class='subtitle'>Automatic X-ray Fracture Classifier</div>", unsafe_allow_html=True)
+
+# === SIDEBAR ===
+with st.sidebar:
+    #st.image("logo.png", use_container_width=True)
+    st.markdown("## 📤 Upload X-rays")
+    uploaded_files = st.file_uploader("Choose JPG/PNG files", type=["jpg", "jpeg", "png"], accept_multiple_files=True)
+
+    st.markdown("---")
+    st.markdown("### ℹ️ About")
+    st.info("""
+        OsteoAI helps detect bone fractures from X-rays using deep learning.
+        \nModel: VGG16 + LightGBM
+    """)
+    st.markdown("⚠️ This is a theoretical prototype. Not for medical use.")
 
 # === MODEL LOADING ===
 @st.cache_resource
 def load_model():
-    '''Function to load LGBM model'''
     return joblib.load("lgbm.pkl")
 
 @st.cache_resource
 def load_vgg16():
-    '''Function to load VGG16 network'''
     base_model = VGG16(weights="imagenet", include_top=False, input_shape=(224, 224, 3))
     for layer in base_model.layers:
         layer.trainable = False
@@ -90,41 +90,62 @@ def load_vgg16():
 model = load_model()
 vgg16 = load_vgg16()
 
+# === DEMO EXAMPLES ===
+st.markdown("### 🧪 Examples")
 
-# === IMAGE UPLOADER ===
-st.markdown('<div class="upload-box">', unsafe_allow_html=True)
-uploaded_files = st.file_uploader("📤 Upload one or more X-ray images (JPG/PNG)", 
-                                   type=["jpg", "jpeg", "png"], 
-                                   accept_multiple_files=True)
-st.markdown('</div>', unsafe_allow_html=True)
+col1, col2 = st.columns(2)
+with col1:
+    st.markdown("#### 🟥 Fracture Example")
+    image = Image.open("example_fracture.jpg").resize((300, 300))
+    st.image(image, caption="Fracture Detected", use_container_width=False)
+    st.markdown("<p class='fracture'>🟥 Fracture</p>", unsafe_allow_html=True)
 
+with col2:
+    st.markdown("#### 🟩 No Fracture Example")
+    image = Image.open("example_nofracture.jpg").resize((300, 300))
+    st.image(image, caption="Healthy X-ray", use_container_width=False)
+    st.markdown("<p class='nofracture'>🟩 No Fracture</p>", unsafe_allow_html=True)
 
-# === PREDICTION WORKFLOW ===
+st.markdown("---")
+
+# === PREDICTION ===
 if uploaded_files:
-    st.markdown("### 📸 Uploaded Images")
+    st.markdown("### 🔍 Results")
+
     images_to_predict = []
+    image_data = []
 
     for file in uploaded_files:
-        image = Image.open(file).convert("RGB")
-        st.image(image, caption=file.name, use_column_width=True)
-
+        image = Image.open(file).convert("RGB").resize((224, 224))
         image_tensor = tf.convert_to_tensor(np.array(image), dtype=tf.float32)
-        image_preprocessed, _ = preprocess_image(image_tensor, label=0, rescale=1./255, output_size=(224, 224))
-        images_to_predict.append(image_preprocessed)
+        preprocessed, _ = preprocess_image(image_tensor, label=0, rescale=1./255, output_size=(224, 224))
+        images_to_predict.append(preprocessed)
 
-    with st.spinner("🧠 Processing images... please wait"):
+        # Base64 encode
+        buffered = image.copy()
+        buffered.save("temp.png", format="PNG")
+        with open("temp.png", "rb") as f:
+            encoded = base64.b64encode(f.read()).decode()
+        image_data.append(encoded)
+
+    with st.spinner("Analyzing..."):
         batch_tensor = tf.stack(images_to_predict)
         features = vgg16.predict(batch_tensor)
         features_flat = features.reshape((features.shape[0], -1))
         predictions = model.predict(features_flat)
 
-    st.markdown("### 🔍 Predictions")
+    # SHOW PREDICTIONS
     for i, pred in enumerate(predictions):
-        label_text = "🟩 No Fracture" if pred == 1 else "🟥 Fracture"
-        css_class = "nofracture" if pred == 1 else "fracture"
+        label = "🟩 No Fracture" if pred == 1 else "🟥 Fracture"
+        css = "nofracture" if pred == 1 else "fracture"
+
         st.markdown(f"""
-            <div class="prediction-box {css_class}">
-                <strong>{uploaded_files[i].name}</strong><br>
-                {label_text}
+            <div class='card'>
+                <img src='data:image/png;base64,{image_data[i]}' style='width:100%; border-radius:10px;'/>
+                <p class='{css}'>{label}</p>
             </div>
         """, unsafe_allow_html=True)
+
+# === FOOTER ===
+st.markdown("<hr>", unsafe_allow_html=True)
+st.markdown("<div style='text-align:center; color:#999;'>© 2025 OsteoAI</div>", unsafe_allow_html=True)
