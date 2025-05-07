@@ -21,14 +21,17 @@ st.markdown("""
         html, body, [class*="css"] {
             background-color: #e3f2fd;
         }
+        section[data-testid="stSidebar"] {
+        background-color: #7CC5E2 !important;
+        }    
         .title {
-            color: #1e88e5;
+            color: #0a4475;
             font-size: 3rem;
             text-align: center;
             margin-bottom: 0.2rem;
         }
         .subtitle {
-            color: #555;
+            color: #0a4475;
             text-align: center;
             font-size: 1.3rem;
             margin-bottom: 2rem;
@@ -61,7 +64,7 @@ st.markdown("<div class='subtitle'>Automatic X-ray Fracture Classifier</div>", u
 
 # === SIDEBAR ===
 with st.sidebar:
-    #st.image("logo.png", use_container_width=True)
+    st.image("logo.jpg", use_container_width=True)
     st.markdown("## 📤 Upload X-rays")
     uploaded_files = st.file_uploader("Choose JPG/PNG files", type=["jpg", "jpeg", "png"], accept_multiple_files=True)
 
