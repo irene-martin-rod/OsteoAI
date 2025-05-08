@@ -95,7 +95,8 @@ st.markdown("""
             
         .about-section-title {
             font-size: 1.05rem;
-            font-weight: bold; 
+            font-weight: bold;
+            font-family: 'Montserrast', sans-serif; 
         }
 
         .about-section p {
@@ -133,6 +134,7 @@ with st.sidebar:
             font-weight: bold;
             font-size: 2rem; 
             margin-top: 2rem;
+            font-family: 'Montserrat', sans-serif;
         }}
 
         /* Uploader box */
@@ -184,10 +186,10 @@ with st.sidebar:
         <div class="about-section">
         <div class="about-section-title">About</div>
         <p>OsteoAi is an application that uses deep learning and machine learning models to classify X-ray images and detect potential bone fractures.</p>
+        <p>⚠️ This is a theoretical prototype. Not for medical use.</p>
         <p>Author: Irene Martín Rodríguez</p>
         <p>Last updated: May 2025</p>
         <p>MIT License</p>
-        <p>⚠️ This is a theoretical prototype. Not for medical use.</p>
     </div>
     """, unsafe_allow_html=True)
 
