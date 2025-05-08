@@ -27,7 +27,7 @@ st.markdown("""
             padding-top: 2rem;
         }
         section[data-testid="stSidebar"] {
-            background-color: #c4e9F7 !important;
+            background-color: #C4E9F7 !important;
         }
 
         .title {
@@ -88,8 +88,19 @@ st.markdown("""
         }
 
         .about-section {
-            font-size: 0.9rem;
-            color: #333;
+            margin-top: 2rem; 
+            text-align: left;
+            color: #0A4475;
+        }
+            
+        .about-section-title {
+            font-size: 1.05rem;
+            font-weight: bold; 
+        }
+
+        .about-section p {
+            font-size: 1rem;
+            text-align: justify;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -132,6 +143,7 @@ with st.sidebar:
             color: #0A4475;
             text-align: center;
             margin-top: 3rem;
+            margin-bottom: 7rem;
         }}
 
         /* Inner style of uoloader box */
@@ -140,7 +152,7 @@ with st.sidebar:
             border-radius: 8px;
             background-color: #ffffff;
             padding: 1.2rem;
-            color: #0A4475;
+            color: #000000;
             font-weight: bold;
         }}
 
@@ -170,11 +182,13 @@ with st.sidebar:
     st.markdown("---")
     st.markdown("""
         <div class="about-section">
-            <p><strong>ℹ️ About</strong></p>
-            <p>OsteoAI helps detect bone fractures from X-rays using deep learning.</p>
-            <p>Model: VGG16 + LightGBM</p>
-            <p>⚠️ This is a theoretical prototype. Not for medical use.</strong></p>
-        </div>
+        <div class="about-section-title">About</div>
+        <p>OsteoAi is an application that uses deep learning and machine learning models to classify X-ray images and detect potential bone fractures.</p>
+        <p>Author: Irene Martín Rodríguez</p>
+        <p>Last updated: May 2025</p>
+        <p>MIT License</p>
+        <p>⚠️ This is a theoretical prototype. Not for medical use.</p>
+    </div>
     """, unsafe_allow_html=True)
 
 
