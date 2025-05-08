@@ -8,6 +8,7 @@ import numpy as np
 import tensorflow as tf
 import joblib
 from keras.applications import VGG16
+import base64
 
 sys.path.append(os.path.abspath('../src'))
 from image_preprocesser import preprocess_image
@@ -15,6 +16,11 @@ from extract_features import extract_features
 
 # === PAGE SETTINGS ===
 st.set_page_config(page_title="OsteoAI", page_icon="🦴", layout="wide")
+
+# === LOAD FONTS ===
+st.markdown("""
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+""", unsafe_allow_html=True)
 
 # === CUSTOM CSS ===
 st.markdown("""
@@ -35,14 +41,27 @@ st.markdown("""
             font-size: 3rem;
             text-align: center;
             margin-bottom: 0.2rem;
+            font-weight: bold;
+            font-family: 'Montserrat', sans-serif;
         }
 
         .subtitle {
             color: #0a4475;
             text-align: center;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             margin-bottom: 2rem;
+            font-weight: bold;
+            font-family: 'Montserrat', sans-serif;
         }
+            
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            color: #0A4475;
+            font-weight: bold;
+            font-size: 1.05rem;
+            margin-top: 5rem;
+            margin-bottom: 1rem;
+}
 
         .card {
             background-color: #f5f5f5;
@@ -50,7 +69,7 @@ st.markdown("""
             border-radius: 15px;
             text-align: center;
             margin: 1rem auto;
-            width: 320px;
+            width: 400px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
@@ -96,7 +115,8 @@ st.markdown("""
         .about-section-title {
             font-size: 1.05rem;
             font-weight: bold;
-            font-family: 'Montserrast', sans-serif; 
+            font-family: 'Montserrat', sans-serif;
+            margin-bottom: 1rem; 
         }
 
         .about-section p {
@@ -107,8 +127,8 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # === HEADER ===
-st.markdown("<div class='title'>🦴 OsteoAI</div>", unsafe_allow_html=True)
-st.markdown("<div class='subtitle'>Automatic X-ray Classifier for Bone Fractures</div>", unsafe_allow_html=True)
+st.markdown("<div class='title'>OsteoAI</div>", unsafe_allow_html=True)
+st.markdown("<div class='subtitle'>Automatic X-Ray Classifier for Bone Fractures by Artificial Intelligence</div>", unsafe_allow_html=True)
 
 # === SIDEBAR ===
 with st.sidebar:
@@ -148,7 +168,7 @@ with st.sidebar:
             margin-bottom: 7rem;
         }}
 
-        /* Inner style of uoloader box */
+        /* Inner style of uploader box */
         section[data-testid="stFileUploader"] > div {{
             border: 2px dashed #0A4475;
             border-radius: 8px;
@@ -195,25 +215,31 @@ with st.sidebar:
 
 
 
-
-
-
 # === EXAMPLES ===
-st.markdown("### Examples")
+st.markdown("<div class='section-title'>Examples</div>", unsafe_allow_html=True)
+
+@st.cache_data
+def image_to_base64(image_path):
+    with open(image_path, "rb") as img_file:
+        return base64.b64encode(img_file.read()).decode()
+
+fracture_img_base64 = image_to_base64("example_fracture.jpg")
+nofracture_img_base64 = image_to_base64("example_nofracture.jpg")
+
 
 col1, col2 = st.columns(2)
 with col1:
-    st.markdown("""
+    st.markdown(f"""
         <div class='card'>
-            <img src='example_fracture.jpg' style='width:100%; border-radius:10px; margin-bottom:10px;'/>
+            <img src='data:image/jpeg;base64,{fracture_img_base64}' style='width:100%; height:400px; object-fit: cover; border-radius:10px; margin-bottom:10px;'/>
             <div class='fracture-box'>Fracture</div>
         </div>
     """, unsafe_allow_html=True)
 
 with col2:
-    st.markdown("""
+    st.markdown(f"""
         <div class='card'>
-            <img src='example_nofracture.jpg' style='width:100%; border-radius:10px; margin-bottom:10px;'/>
+            <img src='data:image/jpeg;base64,{nofracture_img_base64}' style='width:100%; height:400px; object-fit: cover; border-radius:10px; margin-bottom:10px;'/>
             <div class='nofracture-box'>No Fracture</div>
         </div>
     """, unsafe_allow_html=True)
@@ -237,9 +263,10 @@ def load_vgg16():
 model = load_model()
 vgg16 = load_vgg16()
 
+
 # === PREDICTION ===
 if uploaded_files:
-    st.markdown("### Results")
+    st.markdown("<div class='section-title'>Results</div>", unsafe_allow_html=True)
 
     images_to_predict = []
     image_data = []
