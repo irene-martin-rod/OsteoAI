@@ -101,39 +101,71 @@ st.markdown("<div class='subtitle'>Automatic X-ray Classifier for Bone Fractures
 # === SIDEBAR ===
 with st.sidebar:
     logo_encoded = base64.b64encode(open("logo.png", "rb").read()).decode()
+
+    # CSS to personilze the uploader
     st.markdown(f"""
         <style>
-        .sidebar-container {{
-            background-color: #B3E5FC;
-            padding: 2rem 1rem;
-            border-radius: 12px;
+        /* Logo box (without upper margin) */
+        .logo-container {{
             text-align: center;
+            margin-top: 0rem; /* No margin */
+            margin-bottom: 2rem; /* Space below  */
+        }}
+
+        .logo-container img {{
+            width: 150px; /* Logo size */
+        }}
+
+        /* Text "Upload your X-ray images" */
+        .upload-text {{
+            color: #0A4475;
+            font-weight: bold;
+            font-size: 2rem; 
             margin-top: 2rem;
         }}
-        .sidebar-upload-btn {{
-            background-color: white;
-            border-radius: 8px;
-            border: 2px dashed #039BE5;
-            color: #039BE5;
-            font-weight: bold;
-            padding: 1rem;
-            margin-top: 1rem;
+
+        /* Uploader box */
+        section[data-testid="stFileUploader"] {{
+            background-color: #f5f5f5;
+            border-radius: 12px;
+            padding: 2rem 1rem;
+            color: #0A4475;
+            text-align: center;
+            margin-top: 3rem;
         }}
-        .sidebar-upload-btn:hover {{
-            background-color: #E1F5FE;
-            cursor: pointer;
+
+        /* Inner style of uoloader box */
+        section[data-testid="stFileUploader"] > div {{
+            border: 2px dashed #0A4475;
+            border-radius: 8px;
+            background-color: #ffffff;
+            padding: 1.2rem;
+            color: #0A4475;
+            font-weight: bold;
+        }}
+
+        /* Hide automatic label */
+        section[data-testid="stFileUploader"] label {{
+            display: none !important;
         }}
         </style>
-        <div style="text-align:center;">
-            <img src="data:image/png;base64,{logo_encoded}" width="100" />
-        </div>
-        <div class="sidebar-container">
-            <p style="color:#01579B; font-weight:bold;">Upload X-ray images</p>
-            <div class="sidebar-upload-btn">📁 Browse files</div>
-        </div>
     """, unsafe_allow_html=True)
 
-    uploaded_files = st.file_uploader("", type=["jpg", "jpeg", "png"], accept_multiple_files=True)
+    # Logo ans text insided box
+    st.markdown(f"""
+        <div class="logo-container">
+            <img src="data:image/png;base64,{logo_encoded}" />
+        </div>
+        <p class="upload-text">Upload your X-ray images</p>
+    """, unsafe_allow_html=True)
+
+    # Uploader
+    uploaded_files = st.file_uploader(
+        label="",
+        type=["jpg", "jpeg", "png"],
+        accept_multiple_files=True,
+        label_visibility="collapsed"
+    )
 
     st.markdown("---")
     st.markdown("""
@@ -144,6 +176,11 @@ with st.sidebar:
             <p>⚠️ This is a theoretical prototype. Not for medical use.</strong></p>
         </div>
     """, unsafe_allow_html=True)
+
+
+
+
+
 
 # === EXAMPLES ===
 st.markdown("### Examples")
