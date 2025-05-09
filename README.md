@@ -1,8 +1,6 @@
 # 🦴 **OsteoAI**  
 ## *Automatic classification of X-ray images in bone fractures or no fratures using Deep and Machine Learning*  
 
-**THIS PROJECT IS UNDER CONSTRUCTION**
-
 ### **Project Structure**
 
 ``` markdown
