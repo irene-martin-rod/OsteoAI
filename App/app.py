@@ -323,20 +323,21 @@ vgg16 = load_vgg16()
 if uploaded_files:
     st.markdown("<div class='section-title'>Results</div>", unsafe_allow_html=True)
 
-    images_to_predict = []
-    image_data = []
+    with st.spinner("Preparing images..."):
+        images_to_predict = []
+        image_data = []
 
-    for file in uploaded_files:
-        image = Image.open(file).convert("RGB").resize((224, 224))
-        image_tensor = tf.convert_to_tensor(np.array(image), dtype=tf.float32)
-        preprocessed, _ = preprocess_image(image_tensor, label=0, rescale=1./255, output_size=(224, 224))
-        images_to_predict.append(preprocessed)
+        for file in uploaded_files:
+            image = Image.open(file).convert("RGB").resize((224, 224))
+            image_tensor = tf.convert_to_tensor(np.array(image), dtype=tf.float32)
+            preprocessed, _ = preprocess_image(image_tensor, label=0, rescale=1./255, output_size=(224, 224))
+            images_to_predict.append(preprocessed)
 
-        buffered = image.copy()
-        buffered.save("temp.png", format="PNG")
-        with open("temp.png", "rb") as f:
-            encoded = base64.b64encode(f.read()).decode()
-        image_data.append(encoded)
+            buffered = image.copy()
+            buffered.save("temp.png", format="PNG")
+            with open("temp.png", "rb") as f:
+                encoded = base64.b64encode(f.read()).decode()
+            image_data.append(encoded)
 
     with st.spinner("Analyzing..."):
         batch_tensor = tf.stack(images_to_predict)
