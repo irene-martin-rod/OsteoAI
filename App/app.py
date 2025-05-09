@@ -41,6 +41,7 @@ st.markdown("""
             color: #0a4475;
             font-size: 3rem;
             text-align: center;
+            margin-top: 0.5rem;
             margin-bottom: 0.2rem;
             font-weight: bold;
             font-family: 'Montserrat', sans-serif;
@@ -50,9 +51,9 @@ st.markdown("""
             color: #0a4475;
             text-align: center;
             font-size: 1.5rem;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
             font-weight: bold;
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Inter', sans-serif;
         }
             
         .section-title {
@@ -69,7 +70,7 @@ st.markdown("""
             color: #0A4475;
             font-weight: bold;
             font-size: 1.05rem;
-            margin-top: 5rem;
+            margin-top: 3rem;
             margin-bottom: 1rem;
             text-align: center;
         }
@@ -144,6 +145,7 @@ st.markdown("""
 # === HEADER ===
 st.markdown("<div class='title'>OsteoAI</div>", unsafe_allow_html=True)
 st.markdown("<div class='subtitle'>Automatic X-Ray Classifier for Bone Fractures by Artificial Intelligence</div>", unsafe_allow_html=True)
+st.markdown("---")
 
 # === SIDEBAR ===
 with st.sidebar:
@@ -155,8 +157,8 @@ with st.sidebar:
         /* Logo box (without upper margin) */
         .logo-container {{
             text-align: center;
-            margin-top: 0rem; /* No margin */
-            margin-bottom: 2rem; /* Space below  */
+            margin-top: -1.5rem; /* No margin */
+            margin-bottom: 3rem; /* Space below  */
         }}
 
         .logo-container img {{
@@ -181,7 +183,7 @@ with st.sidebar:
             text-align: center;
             font-family: 'Inter', sans-serif;
             margin-top: 3rem;
-            margin-bottom: 7rem;
+            margin-bottom: 5rem;
         }}
 
         /* Inner style of uploader box */
