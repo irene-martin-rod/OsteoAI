@@ -1,5 +1,5 @@
-# **OsteoAI**  
-## *Automatic classification of X-ray images in bone fractures or no fratures using Deep and Machine Learning*  
+# <div align="center"> **OsteoAI** </div> 
+## <div align="center"> *Automatic classification of X-ray images in bone fractures or no fratures using Deep and Machine Learning* </div> 
 
 ### **Project Structure**
 
@@ -132,5 +132,7 @@ This project is licensed under the [MIT License](./LICENSE).
 
 **Irene Martín Rodríguez**  
 GitHub: [@irene-martin-rod](https://github.com/irene-martin-rod)
+
 LinkedIn: [Irene Martín Rodríguez](www.linkedin.com/in/irenemartin-rodriguez)
+
 Email: martinrod.irene@gmail.com
