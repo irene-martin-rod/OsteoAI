@@ -1,4 +1,4 @@
-# 🦴 **OsteoAI**  
+# **OsteoAI**  
 ## *Automatic classification of X-ray images in bone fractures or no fratures using Deep and Machine Learning*  
 
 ### **Project Structure**
@@ -42,16 +42,6 @@ OsteoAI/
 └── requirements.txt
 ```
 
-### **Introduction**
-
-**OsteoAI** is a **machine learning and deep learning** project focused on the **automatic classification of bone fractures from medical images**, specifically **X-ray images**. The project combines classical machine learning techniques with convolutional neural networks (CNN) to extract image features and classify the radiographs as either fracture or non-fracture.
-
-This repository contains the complete pipeline, including:
-- Data preprocessing and dataset organization for both binary and multi-class classification tasks.
-- Training and evaluation of various machine learning and deep learning models.
-- Integration with Streamlit for a user-friendly web interface.
-
-**The goal of OsteoAI is to assist radiologists and medical professionals by providing accurate, explainable, and fast fracture detection predictions**.
 
 ### **App Usage Note**
 
@@ -68,6 +58,18 @@ To launch the app locally:
 cd App
 streamlit run app.py
 ```
+
+
+### **Introduction**
+
+**OsteoAI** is a **machine learning and deep learning** project focused on the **automatic classification of bone fractures from medical images**, specifically **X-ray images**. The project combines classical machine learning techniques with convolutional neural networks (CNN) to extract image features and classify the radiographs as either fracture or non-fracture.
+
+This repository contains the complete pipeline, including:
+- Data preprocessing and dataset organization for both binary and multi-class classification tasks.
+- Training and evaluation of various machine learning and deep learning models.
+- Integration with Streamlit for a user-friendly web interface.
+
+**The goal of OsteoAI is to assist radiologists and medical professionals by providing accurate, explainable, and fast fracture detection predictions**.
 
 
 ### **Materials and Methods**
@@ -103,21 +105,21 @@ The best performing model combined the **VGG16 neural network** to extract image
 
 ### **References**
 
-    Abadi M, Agarwal A, Barham P, Brevdo E, Chen Z, ..., Zheng X. (2015). TensorFlow: Large-scale machine learning on heterogeneous systems. Software available from tensorflow.
+    1. Abadi M, Agarwal A, Barham P, Brevdo E, Chen Z, ..., Zheng X. (2015). TensorFlow: Large-scale machine learning on heterogeneous systems. Software available from tensorflow.
 org
-    Bradski, G. (2000). The OpenCV Library. *Dr. Dobb's Journal of Software Tools*.
-    Chollet, F., & others. (2015). Keras. https://keras.io
-    Darabi PK. (2024). Bone Fracture Detection: A Computer Vision Project. DOI: 10.13140/RG.2.2 
+    2. Bradski, G. (2000). The OpenCV Library. *Dr. Dobb's Journal of Software Tools*.
+    3. Chollet, F., & others. (2015). Keras. https://keras.io
+    4. Darabi PK. (2024). Bone Fracture Detection: A Computer Vision Project. DOI: 10.13140/RG.2.2 
 14400.34569
-    Harris CR, Millman KJ, Van der Walt SJ, Gommers R, Virtanen P, Cournapeau D, ..., Oliphant T
+    5. Harris CR, Millman KJ, Van der Walt SJ, Gommers R, Virtanen P, Cournapeau D, ..., Oliphant T
 (2020) Array programming with NumPy. *Nature* 585: 357–362. DOI: 10.1038/s41586-020-2649-2. 
-    He K, Zhang X, Ren S, Sun J. (2015). Deep Residual Learning for Image Recognition. *arXiv*. https://doi.org/10.48550/arXiv.1512.03385
-    Hunter JD. (2007). Matplotlib: A 2D Graphics ENvironment. Computing in Science & Engineering 9(3)
+    6. He K, Zhang X, Ren S, Sun J. (2015). Deep Residual Learning for Image Recognition. *arXiv*. https://doi.org/10.48550/arXiv.1512.03385
+    7. Hunter JD. (2007). Matplotlib: A 2D Graphics ENvironment. Computing in Science & Engineering 9(3)
 : 90–95 Van Rossum G, Drake FL. (2009). Python 3 Reference Manual. Scotts Valley, CA: CreateSpace
-    Pedregosa F, Varoquaux G, Gramfort A, Michel V, Thirion B, ..., Duchesnay E. (2011). Scikit-learn: Machine Learning in Python. *Journal of Machine Learning Research* 12:
+    8. Pedregosa F, Varoquaux G, Gramfort A, Michel V, Thirion B, ..., Duchesnay E. (2011). Scikit-learn: Machine Learning in Python. *Journal of Machine Learning Research* 12:
 2825-2830
-    Simonyan K, Zisserman A. (2014). Very Deep Convuntional Networks for Large-Scale Image Recognition. *arXiv*. https://doi.org/10.48550/arXiv.1409.1556
-    Wang A, Chen H, Liu L, Chen K, Lin Z, Han J, Ding G. (2024). YOLOv10: Real-Time End-to-End 
+    9. Simonyan K, Zisserman A. (2014). Very Deep Convuntional Networks for Large-Scale Image Recognition. *arXiv*. https://doi.org/10.48550/arXiv.1409.1556
+    10. Wang A, Chen H, Liu L, Chen K, Lin Z, Han J, Ding G. (2024). YOLOv10: Real-Time End-to-End 
 Object Detection. DOI: 10.48550/arXiv.2405.14458
 
 
@@ -134,6 +136,8 @@ This project is licensed under the [MIT License](./LICENSE).
 ### **Author**
 
 **Irene Martín Rodríguez**  
-GitHub: [@irene-martin-rod](https://github.com/irene-martin-rod)  
+GitHub: [@irene-martin-rod](https://github.com/irene-martin-rod) 
+
 LinkedIn: [Irene Martín Rodríguez](www.linkedin.com/in/irenemartin-rodriguez)
+
 Email: martinrod.irene@gmail.com
