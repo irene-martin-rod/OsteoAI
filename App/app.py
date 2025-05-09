@@ -20,6 +20,7 @@ st.set_page_config(page_title="OsteoAI", page_icon="🦴", layout="wide")
 # === LOAD FONTS ===
 st.markdown("""
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 """, unsafe_allow_html=True)
 
 # === CUSTOM CSS ===
@@ -61,7 +62,17 @@ st.markdown("""
             font-size: 1.05rem;
             margin-top: 5rem;
             margin-bottom: 1rem;
-}
+        }
+            
+        .example-title {
+            font-family: 'Montserrat', sans-serif;
+            color: #0A4475;
+            font-weight: bold;
+            font-size: 1.05rem;
+            margin-top: 5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
 
         .card {
             background-color: #f5f5f5;
@@ -78,6 +89,7 @@ st.markdown("""
             color: white;
             font-weight: bold;
             font-size: 1rem;
+            font-family: 'Montserrat', sans-serif;
             padding: 0.5rem;
             border-radius: 10px;
             margin-top: 10px;
@@ -88,6 +100,7 @@ st.markdown("""
             color: white;
             font-weight: bold;
             font-size: 1rem;
+            font-family: 'Montserrat', sans-serif;
             padding: 0.5rem;
             border-radius: 10px;
             margin-top: 10px;
@@ -98,6 +111,7 @@ st.markdown("""
             padding: 1rem;
             border-radius: 10px;
             text-align: center;
+            font-family: 'Inter', sans-serif;
             margin-top: 1rem;
         }
 
@@ -121,6 +135,7 @@ st.markdown("""
 
         .about-section p {
             font-size: 1rem;
+            font-family: 'Inter', sans-serif;
             text-align: justify;
         }
     </style>
@@ -145,7 +160,7 @@ with st.sidebar:
         }}
 
         .logo-container img {{
-            width: 150px; /* Logo size */
+            width: 200px; /* Logo size */
         }}
 
         /* Text "Upload your X-ray images" */
@@ -164,6 +179,7 @@ with st.sidebar:
             padding: 2rem 1rem;
             color: #0A4475;
             text-align: center;
+            font-family: 'Inter', sans-serif;
             margin-top: 3rem;
             margin-bottom: 7rem;
         }}
@@ -182,8 +198,45 @@ with st.sidebar:
         section[data-testid="stFileUploader"] label {{
             display: none !important;
         }}
+        
+        section[data-testid="stFileUploader"] button {{
+            background-color: #ffffff !important;
+            color: #0A4475 !important;
+            border: 2px solid #0A4475 !important;
+            border-radius: 6px !important;
+            font-weight: 600 !important;
+            font-family: 'Montserrat', sans-serif !important;
+            padding: 0.5rem 1.2rem !important;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }}
+
+        section[data-testid="stFileUploader"] button:hover {{
+            background-color: #0A4475 !important;
+            color: #ffffff !important;
+        }}
+
         </style>
     """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <style>
+    button {
+        background-color: #ffffff !important;
+        color: #0A4475 !important;
+        border: 2px solid #0A4475 !important;
+        border-radius: 6px !important;
+        font-weight: 600 !important;
+        font-family: 'Montserrat', sans-serif !important;
+        padding: 0.5rem 1.2rem !important;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #0A4475 !important;
+        color: #ffffff !important;
+    }
+    </style>
+""", unsafe_allow_html=True)
 
     # Logo ans text insided box
     st.markdown(f"""
@@ -205,7 +258,7 @@ with st.sidebar:
     st.markdown("""
         <div class="about-section">
         <div class="about-section-title">About</div>
-        <p>OsteoAi is an application that uses deep learning and machine learning models to classify X-ray images and detect potential bone fractures.</p>
+        <p>OsteoAI is an application that uses deep learning and machine learning models to classify X-ray images and detect potential bone fractures.</p>
         <p>⚠️ This is a theoretical prototype. Not for medical use.</p>
         <p>Author: Irene Martín Rodríguez</p>
         <p>Last updated: May 2025</p>
@@ -216,8 +269,6 @@ with st.sidebar:
 
 
 # === EXAMPLES ===
-st.markdown("<div class='section-title'>Examples</div>", unsafe_allow_html=True)
-
 @st.cache_data
 def image_to_base64(image_path):
     with open(image_path, "rb") as img_file:
@@ -229,6 +280,7 @@ nofracture_img_base64 = image_to_base64("example_nofracture.jpg")
 
 col1, col2 = st.columns(2)
 with col1:
+    st.markdown("<div class='example-title'>Example of Fracture</div>", unsafe_allow_html=True)
     st.markdown(f"""
         <div class='card'>
             <img src='data:image/jpeg;base64,{fracture_img_base64}' style='width:100%; height:400px; object-fit: cover; border-radius:10px; margin-bottom:10px;'/>
@@ -237,6 +289,7 @@ with col1:
     """, unsafe_allow_html=True)
 
 with col2:
+    st.markdown("<div class='example-title'>Example of No Fracture</div>", unsafe_allow_html=True)
     st.markdown(f"""
         <div class='card'>
             <img src='data:image/jpeg;base64,{nofracture_img_base64}' style='width:100%; height:400px; object-fit: cover; border-radius:10px; margin-bottom:10px;'/>
