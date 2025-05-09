@@ -9,7 +9,10 @@
 OsteoAI/
 ├── App/
 │    ├── app.py    ← Creates Streamlit app
-│    └── lgbm.pkl  ← Model used for X-ray images classification (fracture vs non-fracture)
+│    ├── example_fracture.jpg
+│    ├── example_nofracture.jpg
+│    ├── lgbm.pkl  ← Model used for X-ray images classification (fracture vs non-fracture)
+│    └── logo.png
 
 ├── data/
 │   └── Processed/
@@ -20,7 +23,7 @@ OsteoAI/
 ├── Notebooks/
 │   ├── 1-Create_directories.ipynb  ← Creates train/test/valid folders inside /ml-dp/
 │   ├── 2-CNN_proofs.ipynb          ← Experiments with DL and ML models
-|   └── 3-lgbm.proofs.ipynb         ← Experiments with Light Gradient-Boosting Model
+│   └── 3-lgbm.proofs.ipynb         ← Experiments with Light Gradient-Boosting Model
 
 ├── Plots/
 
@@ -52,8 +55,25 @@ This repository contains the complete pipeline, including:
 
 **The goal of OsteoAI is to assist radiologists and medical professionals by providing accurate, explainable, and fast fracture detection predictions**.
 
+### **App Usage Note**
+
+The **Streamlit app** included in this project is optimized for use on **desktop or laptop devices**.
+Mobile or tablet users may experience **layout issues** or reduced functionality due to resolution and compatibility limitations inherent to smaller screens.
+
+To get the best experience:
+- Use the latest version of Google Chrome or Mozilla Firefox.
+- Ensure a stable internet connection for model loading and image uploads.
+- Recommended screen resolution: 1280x720 or higher.
+
+To launch the app locally:
+``` python
+cd App
+streamlit run app.py
+```
+
 
 ### **Materials and Methods**
+
 **Data cleansing**
 Data were obtained in (https://www.kaggle.com/), tittled *Bone Fracture Detection: Computer Vision Project* (Darabi 2024). For this project, only the file *BoneFractureYolo8* was used. The original dataset had eight different classes: non-fractured bone, humerus, humerus fracture, elbow positive, fingers positive, forearm fracture, shoulder fractures and wrist positive. 
 
@@ -77,10 +97,14 @@ After training the models, they were evaluated using metrics such as the confusi
 **Machine Learning Integration**
 Image features were extracted using CNNs (see `extract_features.py` in the `src` folder) and used to train various machine learning classifiers, employing *Scikit-Learn* (Pedregosa et al., 2011).
 
+
 ### **Results**
+
 The best performing model combined the **VGG16 neural network** to extract image features and the **Light Gradient-Boosting Model** for classification.
 
+
 ### **References**
+
     Abadi M, Agarwal A, Barham P, Brevdo E, Chen Z, ..., Zheng X. (2015). TensorFlow: Large-scale machine learning on heterogeneous systems. Software available from tensorflow.
 org
     Bradski, G. (2000). The OpenCV Library. *Dr. Dobb's Journal of Software Tools*.
@@ -99,12 +123,19 @@ org
 Object Detection. DOI: 10.48550/arXiv.2405.14458
 
 
+### **Aknowledgements**
+
+I want to thank Christian Donaire (Nodd3r) for his supervision and support in this project, solving all my doubts and helping me in moments of blockage. Likewise, to my co-workers Andrés Baamonde and Jesús Campo, who have always found time to help me in this project and to solve problems more related to programming. On a personal level, to my partner Fer Cortés-Fossati for giving me emotional support throughout this master's degree and this project at times when I wanted to give it all up. And of course to my cats Mia, Kleo and Maki who, with their contagious joy, make everything more bearable.
+
+
 ### **License**
 
 This project is licensed under the [MIT License](./LICENSE).
+
 
 ### **Author**
 
 **Irene Martín Rodríguez**  
 GitHub: [@irene-martin-rod](https://github.com/irene-martin-rod)  
-Email: your.email@example.com
+LinkedIn: [Irene Martín Rodríguez](www.linkedin.com/in/irenemartin-rodriguez)
+Email: martinrod.irene@gmail.com
