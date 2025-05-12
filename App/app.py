@@ -12,7 +12,7 @@ import base64
 
 if 'STREAMLIT_STATIC_DIR' in os.environ:
     # Estamos en el entorno de despliegue en Streamlit Cloud
-    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../src')))
+    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
 else:
     # Estamos en el entorno local
     sys.path.append(os.path.abspath('../src'))
