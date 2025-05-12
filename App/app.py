@@ -10,7 +10,12 @@ import joblib
 from keras.applications import VGG16
 import base64
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../src')))
+if 'STREAMLIT_STATIC_DIR' in os.environ:
+    # Estamos en el entorno de despliegue en Streamlit Cloud
+    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../src')))
+else:
+    # Estamos en el entorno local
+    sys.path.append(os.path.abspath('../src'))
 from image_preprocesser import preprocess_image
 from extract_features import extract_features
 
