@@ -81,7 +81,7 @@ st.markdown("""
             border-radius: 15px;
             text-align: center;
             margin: 1rem auto;
-            width: 400px;
+            width: 350px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
@@ -285,7 +285,7 @@ with col1:
     st.markdown("<div class='example-title'>Example of Fracture</div>", unsafe_allow_html=True)
     st.markdown(f"""
         <div class='card'>
-            <img src='data:image/jpeg;base64,{fracture_img_base64}' style='width:100%; height:400px; object-fit: cover; border-radius:10px; margin-bottom:10px;'/>
+            <img src='data:image/jpeg;base64,{fracture_img_base64}' style='width:100%; height:350px; object-fit: cover; border-radius:10px; margin-bottom:10px;'/>
             <div class='fracture-box'>Fracture</div>
         </div>
     """, unsafe_allow_html=True)
@@ -294,7 +294,7 @@ with col2:
     st.markdown("<div class='example-title'>Example of No Fracture</div>", unsafe_allow_html=True)
     st.markdown(f"""
         <div class='card'>
-            <img src='data:image/jpeg;base64,{nofracture_img_base64}' style='width:100%; height:400px; object-fit: cover; border-radius:10px; margin-bottom:10px;'/>
+            <img src='data:image/jpeg;base64,{nofracture_img_base64}' style='width:100%; height:350px; object-fit: cover; border-radius:10px; margin-bottom:10px;'/>
             <div class='nofracture-box'>No Fracture</div>
         </div>
     """, unsafe_allow_html=True)
@@ -345,19 +345,25 @@ if uploaded_files:
         features_flat = features.reshape((features.shape[0], -1))
         predictions = model.predict(features_flat)
 
-    cols = st.columns(len(predictions))
-    for i, pred in enumerate(predictions):
-        label = "No Fracture" if pred == 1 else "Fracture"
-        css_class = "nofracture-box" if pred == 1 else "fracture-box"
+    num_cols = 2
 
-        with cols[i]:
-            st.markdown(f"""
-                <div class='card'>
-                    <img src='data:image/png;base64,{image_data[i]}' style='width:100%; border-radius:10px;'/>
-                    <div class='{css_class}'>{label}</div>
-                </div>
-            """, unsafe_allow_html=True)
+    for i in range(0, len(predictions), num_cols):
+        cols = st.columns(num_cols)
+        for j in range(num_cols):
+            idx = i + j
+            if idx < len(predictions):
+                pred = predictions[idx]
+                label = "No Fracture" if pred == 1 else "Fracture"
+                css_class = "nofracture-box" if pred == 1 else "fracture-box"
+                with cols[j]:
+                    st.markdown(f"""
+                        <div class='card'>
+                            <img src='data:image/png;base64,{image_data[idx]}' style='width:100%; height:350px; object-fit: cover; border-radius:10px;'/>
+                            <div class='{css_class}'>{label}</div>
+                        </div>
+                    """, unsafe_allow_html=True)
 
 # === FOOTER ===
 st.markdown("<hr>", unsafe_allow_html=True)
 st.markdown("<div style='text-align:center; color:#999;'>© 2025 OsteoAI</div>", unsafe_allow_html=True)
+st.markdown("<div style='text-align:center; color:#999;'>Licensed under the MIT License</div>", unsafe_allow_html=True)
