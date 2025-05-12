@@ -10,7 +10,7 @@ import joblib
 from keras.applications import VGG16
 import base64
 
-sys.path.append(os.path.abspath('../src'))
+sys.path.append(os.path.abspath('../../src'))
 from image_preprocesser import preprocess_image
 from extract_features import extract_features
 
