@@ -20,6 +20,9 @@ src_dir = os.path.abspath(os.path.join(app_dir, os.pardir, 'src'))
 if src_dir not in sys.path:
     sys.path.insert(0, src_dir)
 
+from image_preprocesser import preprocess_image
+from extract_features import extract_features
+
 # === PAGE SETTINGS ===
 st.set_page_config(page_title="OsteoAI", page_icon="🦴", layout="wide")
 
