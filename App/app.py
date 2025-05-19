@@ -10,14 +10,15 @@ import joblib
 from keras.applications import VGG16
 import base64
 
-if 'STREAMLIT_STATIC_DIR' in os.environ:
-    # Estamos en el entorno de despliegue en Streamlit Cloud
-    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
-else:
-    # Estamos en el entorno local
-    sys.path.append(os.path.abspath('../src'))
-from image_preprocesser import preprocess_image
-from extract_features import extract_features
+# Script app directory
+app_dir = os.path.dirname(__file__)
+
+# 2) Path to src
+src_dir = os.path.abspath(os.path.join(app_dir, os.pardir, 'src'))
+
+# 3) Check that Python search there
+if src_dir not in sys.path:
+    sys.path.insert(0, src_dir)
 
 # === PAGE SETTINGS ===
 st.set_page_config(page_title="OsteoAI", page_icon="🦴", layout="wide")
