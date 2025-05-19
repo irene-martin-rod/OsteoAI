@@ -313,7 +313,7 @@ st.markdown("---")
 
 # === MODEL LOADING ===
 @st.cache_resource
-def load_model():
+def load_model(path):
     return joblib.load("lgbm.pkl")
 
 @st.cache_resource
@@ -325,7 +325,7 @@ def load_vgg16():
         layer.trainable = True
     return base_model
 
-model = load_model()
+model = load_model(app_dir)
 vgg16 = load_vgg16()
 
 
