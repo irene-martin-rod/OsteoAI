@@ -155,7 +155,8 @@ st.markdown("---")
 
 # === SIDEBAR ===
 with st.sidebar:
-    logo_encoded = base64.b64encode(open("logo.PNG", "rb").read()).decode()
+    logo_path = os.path.join(app_dir, "logo.PNG")
+    logo_encoded = base64.b64encode(open(logo_path, "rb").read()).decode()
 
     # CSS to personilze the uploader
     st.markdown(f"""
