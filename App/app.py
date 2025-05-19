@@ -314,7 +314,8 @@ st.markdown("---")
 # === MODEL LOADING ===
 @st.cache_resource
 def load_model(path):
-    return joblib.load("lgbm.pkl")
+    model_path = os.path.join(path, "lgbm.pkl")
+    return joblib.load(model_path)
 
 @st.cache_resource
 def load_vgg16():
