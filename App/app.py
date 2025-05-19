@@ -282,9 +282,12 @@ with st.sidebar:
 def image_to_base64(image_path):
     with open(image_path, "rb") as img_file:
         return base64.b64encode(img_file.read()).decode()
+    
+fracture_path = os.path.join(app_dir, "example_fracture.jpg")
+nofracture_path = os.path.join(app_dir, "example_nofracture.jpg")
 
-fracture_img_base64 = image_to_base64("example_fracture.jpg")
-nofracture_img_base64 = image_to_base64("example_nofracture.jpg")
+fracture_img_base64 = image_to_base64(fracture_path)
+nofracture_img_base64 = image_to_base64(nofracture_path)
 
 
 col1, col2 = st.columns(2)
