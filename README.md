@@ -1,6 +1,9 @@
 # <div align="center"> **OsteoAI** </div> 
 ## <div align="center"> *Automatic classification of X-ray images in bone fractures or no fratures using Deep and Machine Learning* </div> 
 
+⚠️ **This is a theoretical prototype. Not for medical use**
+
+
 ### **Project Structure**
 
 ``` markdown
@@ -45,6 +48,8 @@ OsteoAI/
 
 ### **App Usage Note**
 
+You can find the **Streamlit app** in the next link https://osteoai.streamlit.app/.
+
 The **Streamlit app** included in this project is optimized for use on **desktop or laptop devices**.
 Mobile or tablet users may experience **layout issues** or reduced functionality due to resolution and compatibility limitations inherent to smaller screens.
 
@@ -60,16 +65,15 @@ streamlit run app.py
 ```
 
 
+### **Abstract**
+**OsteoAI** is a **machine and deep learning-based tool** for the **automatic detection of bone fractures in medical images**. Fast and accurate fracture identification is critical in emergency and clinical settings, yet often subject to human error or time constraints. This project proposes a solution that leverages convolutional neural networks trained on radiographic images to assist in fracture detection. After thorough data preprocessing and model training, the system achieves strong performance metrics. OsteoAI is designed to be scalable, open-source, and applicable in real-world medical workflows.
+
+
 ### **Introduction**
 
-**OsteoAI** is a **machine learning and deep learning** project focused on the **automatic classification of bone fractures from medical images**, specifically **X-ray images**. The project combines classical machine learning techniques with convolutional neural networks (CNN) to extract image features and classify the radiographs as either fracture or non-fracture.
+Bone fractures are among the most common reasons for emergency room visits. Detecting them accurately through X-rays can be challenging due to subtle signs, image quality issues, or diagnostic fatigue. Artificial Intelligence (AI), particularly deep learning, has shown great promise in automating and enhancing medical image analysis. Several studies have explored the use of AI for fracture detection. Models such as ResNet, DenseNet, and EfficientNet have achieved high accuracy in datasets like MURA (Rajpurkar et al., 2017) and RSNA Bone Fracture Detection (https://www.kaggle.com/). In fact, deep learning and specially convolucional neural networks (CNN) are so successful that there are several studies related with the bone fractures detection, either general fractures (see XXXX) either on a specific type of fractures or bones, such us wrist fractures (see Thian et al., 2019; Raisuddni et al., 2021; Joshi et al., 2022; Gan et al., 2024; Hasen et al., 2024), hip fractures (see Badgeley et al., 2019; Cheng et al., 2019; Krogue et al., 2020; Gao et al., 2023; Kim et al., 2024).
 
-This repository contains the complete pipeline, including:
-- Data preprocessing and dataset organization for both binary and multi-class classification tasks.
-- Training and evaluation of various machine learning and deep learning models.
-- Integration with Streamlit for a user-friendly web interface.
-
-**The goal of OsteoAI is to assist radiologists and medical professionals by providing accurate, explainable, and fast fracture detection predictions**.
+**OsteoAI** is a **machine learning and deep learning** project focused on the **automatic classification of bone fractures from medical images**, specifically **X-ray images**. The project combines classical machine learning techniques with convolutional neural networks (CNN) to extract image features and classify the radiographs as either fracture or non-fracture. **OsteoAI aims to support radiologists and medical professionals by providing an automatic fracture detection system based on deep convolutional networks.**.
 
 
 ### **Materials and Methods**
@@ -106,16 +110,27 @@ The best performing model combined the **VGG16 neural network** to extract image
 ### **References**
 
 1. Abadi M, Agarwal A, Barham P, Brevdo E, Chen Z, ..., Zheng X. (2015). TensorFlow: Large-scale machine learning on heterogeneous systems. Software available from tensorflow. org
-2. Bradski, G. (2000). The OpenCV Library. *Dr. Dobb's Journal of Software Tools*.
-3. Chollet, F., & others. (2015). Keras. https://keras.io
-4. Darabi PK. (2024). Bone Fracture Detection: A Computer Vision Project. DOI: 10.13140/RG.2.2 14400.34569
-5. Harris CR, Millman KJ, Van der Walt SJ, Gommers R, Virtanen P, Cournapeau D, ..., Oliphant T. (2020). Array programming with NumPy. *Nature* 585: 357–362. DOI: 10.1038/s41586-020-2649-2. 
-6. He K, Zhang X, Ren S, Sun J. (2015). Deep Residual Learning for Image Recognition. *arXiv*. https://doi.org/10.48550/arXiv.1512.03385
-7. Hunter JD. (2007). Matplotlib: A 2D Graphics ENvironment. Computing in Science & Engineering 9(3): 90–95 Van Rossum G, Drake FL. (2009). Python 3 Reference Manual. Scotts Valley, CA: CreateSpace
-8. Pedregosa F, Varoquaux G, Gramfort A, Michel V, Thirion B, ..., Duchesnay E. (2011). Scikit-learn: Machine Learning in Python. *Journal of Machine Learning Research* 12:
+2. Badgeley MA, Zech JR, Oakden-Rayner L, Glicksberg B, Liu M, Gale W, ..., Dudley JT. (2019). Deep learning predicts hip fracture using confounding patient and healthcare variables. *NPJ digital medicine* 2(1): 31. https://doi.org/10.1038/s41746-019-0105-1
+3. Bradski, G. (2000). The OpenCV Library. *Dr. Dobb's Journal of Software Tools*.
+4. Cheng CT, Ho TY, Lee TY, Chang CC, Chou CC, Chen CC, ..., Liao CH. (2019). Application of a deep learning algorithm for detection and visualization of hip fractures on plain pelvic radiographs. *Europian Radiolpgy* 29: 5469–5477. https://doi.org/10.1007/s00330-019-06167-y
+5. Chollet, F., & others. (2015). Keras. https://keras.io
+6. Darabi PK. (2024). Bone Fracture Detection: A Computer Vision Project. DOI: 10.13140/RG.2.2 14400.34569
+7. Gan K, Liu Y, Zhang T, Xu D, Lian L, Luo Z, ..., Lu L. (2024). Deep Learning Model for Automatic Identification and Classification of Distal Radius Fracture. *Journal of Imaging Informatics in Medicine*: 37(6): 2874-2882. doi: 10.1007/s10278-024-01144-4.
+8. Gao Y, Soh NYT, Liu N, Lim G, Ting D, Cheng LTE, ..., Yan YY. (2023). Application of a deep learning algorithm in the detection of hip fractures. *Iscience*: 26(8): 107350
+9. Hansen V, Jensen J, Kusk MW, Gerke O, Tromborg HB, Lysdahlgaard S. (2024). Deep learning performance compared to healthcare experts in detecting wrist fractures from radiographs: A systematic review and meta-analysis. *European Journal of Radiology* 174: 111399. https://doi.org/10.1016/j.ejrad.2024.111399.
+10. Harris CR, Millman KJ, Van der Walt SJ, Gommers R, Virtanen P, Cournapeau D, ..., Oliphant T. (2020). Array programming with NumPy. *Nature* 585: 357–362. DOI: 10.1038/s41586-020-2649-2. 
+11. He K, Zhang X, Ren S, Sun J. (2015). Deep Residual Learning for Image Recognition. *arXiv*. https://doi.org/10.48550/arXiv.1512.03385
+12. Hunter JD. (2007). Matplotlib: A 2D Graphics ENvironment. Computing in Science & Engineering 9(3): 90–95 Van Rossum G, Drake FL. (2009). Python 3 Reference Manual. Scotts Valley, CA: CreateSpace
+13. Joshi D, Singh TP, Joshi AK. (2022). Deep learning-based localization and segmentation of wrist fractures on X-ray radiographs. *Neural Computing and Applications* 34: 19061–19077. https://doi.org/10.1007/s00521-022-07510-z
+14. Kim Y , Kim YG, Park JW, Kim BW, Shin Y, Kong SH, ..., Shin CS. (2024). A CT-based Deep Learning Model for Predicting Subsequent Fracture Risk in Patients with Hip Fracture. *Radiology* 310: 1
+15. Krogue JD, Cheng KV, Hwang KM, Toogood P, Meinberg EG, Geiger EJ, ..., Pedoia V. (2020 )Automatic Hip Fracture Identification and Functional Subclassification with Deep Learning. *Radiology: Artificial Intelligence* 2(2): e190023.
+16. Pedregosa F, Varoquaux G, Gramfort A, Michel V, Thirion B, ..., Duchesnay E. (2011). Scikit-learn: Machine Learning in Python. *Journal of Machine Learning Research* 12:
 2825-2830
-9. Simonyan K, Zisserman A. (2014). Very Deep Convuntional Networks for Large-Scale Image Recognition. *arXiv*. https://doi.org/10.48550/arXiv.1409.1556
-10. Wang A, Chen H, Liu L, Chen K, Lin Z, Han J, Ding G. (2024). YOLOv10: Real-Time End-to-End Object Detection. DOI: 10.48550/arXiv.2405.14458
+17. Rajpurkar P, Irvin J, Bagul A, Ding D, Duan T, Mehta H, ..., Ng AY. (2017). MURA: Large dataset for abnormality detection in musculoskeletal radiographs. *arXiv:1712.06957*. https://arxiv.org/abs/1712.06957. https://doi.org/10.48550/arXiv.1712.06957
+18. Raisuddin AM, Vaattovaara E, Nevalainen M, Nikki M, Järvenpää E, Makkonen K, ..., Tiulpin A. (2021). Critical evaluation of deep neural networks for wrist fracture detection. *Scintific Reports* 11: 6006. https://doi.org/10.1038/s41598-021-85570-2
+19. Simonyan K, Zisserman A. (2014). Very Deep Convuntional Networks for Large-Scale Image Recognition. *arXiv*. https://doi.org/10.48550/arXiv.1409.1556
+20. Thian YL, Li Y, Jagmohan P, Sia D, Chang, VEY, Tan RT. (2019). Convolutional Neural Networks for Automated Fracture Detection and Localization on Wrist Radiographs. *Radiology: Artificial Intelligence* 1(1): e180001.
+21. Wang A, Chen H, Liu L, Chen K, Lin Z, Han J, Ding G. (2024). YOLOv10: Real-Time End-to-End Object Detection. DOI: 10.48550/arXiv.2405.14458
 
 
 ### **Aknowledgements**
@@ -136,3 +151,18 @@ GitHub: [@irene-martin-rod](https://github.com/irene-martin-rod)
 LinkedIn: [Irene Martín Rodríguez](www.linkedin.com/in/irenemartin-rodriguez)
 
 Email: martinrod.irene@gmail.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+https://pubmed.ncbi.nlm.nih.gov/29269036/
