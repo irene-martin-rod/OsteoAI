@@ -66,6 +66,7 @@ streamlit run app.py
 
 
 ### **Abstract**
+
 **OsteoAI** is a **machine and deep learning-based tool** for the **automatic detection of bone fractures in medical images**. Fast and accurate fracture identification is critical in emergency and clinical settings, yet often subject to human error or time constraints. This project proposes a solution that leverages convolutional neural networks trained on radiographic images to assist in fracture detection. After thorough data preprocessing and model training, the system achieves strong performance metrics. OsteoAI is designed to be scalable, open-source, and applicable in real-world medical workflows.
 
 
@@ -79,38 +80,72 @@ In recent years, artificial intelligence (AI) in medical image processing has at
 
 As a result, the number of studies exploring deep learning for fracture detection has steadily increased. Recent research has focused on detecting specific types of fractures or fractures in specific bones, such as wrist fractures (see Thian et al., 2019; Raisuddin et al., 2021; Joshi et al., 2022; Gan et al., 2024; Hasen et al., 2024), hip fractures (see Badgeley et al., 2019; Cheng et al., 2019; Krogue et al., 2020; Gao et al., 2023; Kim et al., 2024), or humerus fractures (see Chung et al., 2018; Kekatpure et al., 2024; Spek et al., 2024), among others.
 
-OsteoAI is a machine learning and deep learning project focused on the automatic classification of bone fractures from medical images, specifically X-rays. The project combines classical machine learning techniques with convolutional neural networks (CNNs) to extract image features and classify radiographs as either fracture or non-fracture. OsteoAI aims to support radiologists and medical professionals by providing an automatic fracture detection system based on deep convolutional networks.
+OsteoAI is a machine learning and deep learning project focused on the automatic classification of bone fractures from medical images, specifically X-rays. The project combines classical machine learning techniques with convolutional neural networks (CNNs) to extract image features and classify radiographs as either fracture or non-fracture. Unlike other approaches, the integration of a CNN (in this case, VGG16) with a machine learning algorithm (LightGBM) offers several advantages: it can reduce training time and computational cost, minimize overfitting, facilitate fine-tuning, and improve interpretability—without compromising performance. OsteoAI aims to support radiologists and medical professionals by providing an automated fracture detection system based on deep convolutional networks.
 
 
 ### **Materials and Methods**
 
 **Data cleansing**
-Data were obtained in (https://www.kaggle.com/), tittled *Bone Fracture Detection: Computer Vision Project* (Darabi 2024). For this project, only the file *BoneFractureYolo8* was used. The original dataset had eight different classes: non-fractured bone, humerus, humerus fracture, elbow positive, fingers positive, forearm fracture, shoulder fractures and wrist positive. 
+Data were obtained in Kaggle (https://www.kaggle.com/), specifically from the dataset titled *Bone Fracture Detection: Computer Vision Project* (Darabi 2024). For this project, only the file *BoneFractureYolo8* was used. The original dataset included eight different classes: non-fractured bone, humerus, humerus fracture, elbow positive, fingers positive, forearm fracture, shoulder fractures, and wrist positive.
 
-Data cleansing was was performed to remove images with poor quality (e.g., overly dark or light images). Additionally, the data was restructured into two categories: fracture (which includes all images and labels associated with any type of fracture in the original dataset) and non-fracture.
+A data cleansing process was performed to remove low-quality images (e.g., overly dark or light). The dataset was then restructured into two categories: fracture (including all types of fractures from the original dataset) and non-fracture.
 
 **Fracture and non-fracture classification using CNNs**
-All processing and modeling were done using Python 3.10.12 (Van Rossum & Drake, 2009). Before modeling a CNN, all images were loaded and preprocessed (rescaled and normalized). Libraries used included *TensorFlow* (Abadi et al., 2015), *OpenCV* (Bradski, 2000), *Keras* (Chollet et al., 2015), and *Matplotlib* (Hunter, 2007).
+The initial approach was to use a *YOLO* (You Only Look Once) object detection model from *Ultralytics* for identifying fractures. However, due to high computational requirements and poor performance, a classification-based method using Convolutional Neural Networks (CNNs) was adopted instead.
 
-The dataset was split into three subsets: training (64%), validation (16%), and testing (20%) (see `1-Create_directories.ipynb` in the `Notebooks` folder).
+All processing and modeling were done using Python 3.11.9 (Van Rossum & Drake, 2009). The primary libraries used included *TensorFlow* (Abadi et al., 2015), *Keras* (Chollet et al., 2015), *OpenCV* (Bradski, 2000), *Matplotlib* (Hunter, 2007), and *Scikit-learn* (Pedregosa et al., 2011).
 
-*Tested models*:
-- <u>Personalized CNNs</u>: Image size of 256x256 pixels
-- <u>VGG16</u>: Image size of 224x224 pixels (Simonyan & Zisserman 2014; https://www.tensorflow.org/api_docs/python/tf/keras/applications/VGG16)
-- <u>ResNet-50</u>: Image size of 224x224 pixels (He et al 2015; ttps://www.tensorflow.org/api_docs/python/tf/keras/applications/ResNet50)
+**Data Preprocessing**
+The dataset consisted of labeled X-ray images categorized into two classes: fracture and non-fracture. Prior to modeling, all images were rescaled and normalized. The dataset was split into training (64%), validation (16%), and testing (20%) subsets (see `1-Create_directories.ipynb` in the `Notebooks` folder).
 
+**CNN Architectures**
+The following CNN models were tested:
+- <u>Custom CNNs</u>: Trained on images resized to 256×256 pixels.
+- <u>VGG16</u>: Pre-trained on ImageNet, using 224×224 pixel input size (Simonyan & Zisserman 2014)
+- <u>ResNet-50</u>: Pre-trained on ImageNet, also using 224×224 pixel inputs (He et al 2015)
 
-For pre-trained CNNs, **fine-tuning** and **transfer learning** were applied to adapt them to the new dataset. Additionally, CNNs were combined with machine learning classification algorithms (e.g., Random Forest, SVC, SGBoots, and LightGBM) to enhance results.  Models were trained using *Adam optimizer*, *binary cross-entropy loss*, and *accuracy* as the evaluation metric. The learning rate varied depending on the model. Two callbacks were used: *ReduceLROnPlateau* (to reduce the learning rate when the validation loss plateaued) and *EarlyStopping* (to avoid overfitting if the model did not improve after a certain number of epochs)(see `callbacks_training_CNN.py` in the `src` folder).
+For pre-trained CNNs, transfer learning and fine-tuning techniques were applied. This involved freezing/unfreezing selected layers and adding custom layers tailored to the new classification task. All CNN models were trained using the Adam optimizer. Training and validation performance were monitored using binary accuracy and loss function metrics.
 
-After training the models, they were evaluated using metrics such as the confusion matrix, precision, recall, and the AUC-ROC curve (see `metrics_CNN.py` in the `src` folder).
+To optimize training, two callbacks were implemented (see `callbacks_training_CNN.py` in the `src` folder):
+- <u>ReduceLROnPlateau</u>: Automatically reduces the learning rate when validation loss plateaus.
+- <u>EarlyStopping</u>: Halts training when the model fails to improve for a predefined number of epochs, helping to prevent overfitting.
 
-**Machine Learning Integration**
-Image features were extracted using CNNs (see `extract_features.py` in the `src` folder) and used to train various machine learning classifiers, employing *Scikit-Learn* (Pedregosa et al., 2011).
+**Hybrid Deep Learning and Machine Learning Approach**
+Beyond end-to-end CNN training, a hybrid approach was explored. In this method, features were extracted from trained CNNs and used as input to machine learning classifiers. This was accomplished using a custom script (`extract_features.py` in the `src` folder), where the CNN was trained with the dataset but with the final classification layer removed to capture image features.
+
+These features were then used to train four types of machine learning models:
+- Random Forest
+- Support Vector Classifier (SVC)
+- XGBoost
+- LightGBM
+
+**Evaluation Metrics**
+For CNN-based models, evaluation metrics were generated only when training and validation accuracy/loss indicated stable performance. For hybrid models, evaluation was conducted in all cases. The following evaluation metrics were used (see `metrics_CNN.py` in the `src` folder):
+
+- Classification Report: Including precision, recall, F1-score per class, macro-average, and weighted-average.
+- Confusion Matrix
+- AUC-ROC Curve
 
 
 ### **Results**
 
-The best performing model combined the **VGG16 neural network** to extract image features and the **Light Gradient-Boosting Model** for classification.
+No single network had really good results (see `2-CNN_proofs.ipynb` in the `Notebooks`folder). The hybrid models had a better performance (see `2-CNN_proofs.ipynb` in the `Notebooks`folder). The best model was the combination of the VGG16 (Fig. 1) used to extract image features and the Light Gradient-Boosting Model for classification (see `lgbm_proofs.ipybn` in the `Notebooks` folder).
+
+<div align="center">![alt text](Plots/VGG16.png)</div>
+**Figure 1**. VGG16 structure
+
+The final evaluation of the model was conducted on the test dataset, yielding an overall accuracy of 79.7% (Table 1). As shown in the confusion matrix (Fig. 2), the model correctly classified 313 fracture cases and 298 non-fracture cases, while misclassifying 74 and 82 instances, respectively. The classification report indicated balanced performance across both classes (Table 1). For the non-fracture class (label 1), the model achieved a precision of 0.79, recall of 0.81, and F1-score of 0.80. For the fracture class (label 0), the values were 0.80, 0.78, and 0.79, respectively. The macro and weighted averages for precision, recall, and F1-score were all 0.80, demonstrating consistent predictive capability across classes. These results suggest that the model is effective at distinguishing between fracture and non-fracture cases, with a slight tendency to misclassify non-fracture cases as fractures.
+
+**Table 1**. Classification report obatined wuth te predictions of test dataset using the model VGG16 + LightGBM
+**Accuracy on test set:** 0.7966
+| **Class**              | **Precision** | **Recall** | **F1-Score** | **Support** |
+|------------------------|---------------|------------|--------------|-------------|
+| 0.0 (Fracture)         |     0.79      |    0.81    |     0.80     |     387     |
+| 1.0 (Non-fracture)     |     0.80      |    0.78    |     0.79     |     380     |
+| Accuracy               |               |            |     0.80     |     767     |
+| Macro Avg              |     0.80      |    0.80    |     0.80     |     767     |
+| Weighted Avg           |     0.80      |    0.80    |     0.80     |     767     |
+
 
 
 ### **References**
