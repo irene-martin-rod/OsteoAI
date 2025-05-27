@@ -67,7 +67,9 @@ streamlit run app.py
 
 ### **Abstract**
 
-**OsteoAI** is a **machine and deep learning-based tool** for the **automatic detection of bone fractures in medical images**. Fast and accurate fracture identification is critical in emergency and clinical settings, yet often subject to human error or time constraints. This project proposes a solution that leverages convolutional neural networks trained on radiographic images to assist in fracture detection. After thorough data preprocessing and model training, the system achieves strong performance metrics. OsteoAI is designed to be scalable, open-source, and applicable in real-world medical workflows.
+Fracture diagnosis is a critical yet error-prone task in emergency care, often affected by radiologist fatigue, limited experience, or subtle fracture presentations. This study introduces OsteoAI, a hybrid deep learning and machine learning framework for automatic binary classification of bone fractures in X-ray images. The approach integrates a pre-trained convolutional neural network (VGG16) for image feature extraction with a Light Gradient Boosting Machine (LightGBM) for classification. The model was trained and evaluated on a curated version of the Bone Fracture Detection: Computer Vision Project dataset from Kaggle, where data were cleaned, normalized, and restructured into two categories: fracture and non-fracture. Compared with end-to-end CNNs and other hybrid configurations, the VGG16 + LightGBM model achieved the best performance, with an accuracy of 79.7%, precision and recall scores of approximately 0.80, and an AUC of 0.87 on the test set. While effective, the model underperformed relative to recent state-of-the-art methods using architectures such as U-Net and ResNet-152, which achieved sensitivity and specificity above 0.94. Nevertheless, VGG16 demonstrated advantages in inference speed and resource efficiency, making it suitable for prototype or real-time support applications in resource-limited settings. Future work should explore improved preprocessing techniques and more advanced CNN architectures for deployment in clinical environments.
+
+**Keywords**: Bone Fracture Detection, Computer-Aided Diagnosis, Convolutional Neural Networks, Deep Learning,  Medical Imaging, LightGBM, Transfer Learning, VGG16, X-ray Classification 
 
 
 ### **Introduction**
@@ -132,11 +134,11 @@ For CNN-based models, evaluation metrics were generated only when training and v
 No single network had really good results (see `2-CNN_proofs.ipynb` in the `Notebooks`folder). The hybrid models had a better performance (see `2-CNN_proofs.ipynb` in the `Notebooks`folder). The best model was the combination of the VGG16 (Fig. 1) used to extract image features and the Light Gradient-Boosting Model for classification (see `lgbm_proofs.ipybn` in the `Notebooks` folder).
 
 <div align="center">![alt text](Plots/VGG16.png)</div>
-**Figure 1**. VGG16 structure
+<div align="center">**Figure 1.** VGG16 structure.</div>
 
-The final evaluation of the model was conducted on the test dataset, yielding an overall accuracy of 79.7% (Table 1). As shown in the confusion matrix (Fig. 2), the model correctly classified 313 fracture cases and 298 non-fracture cases, while misclassifying 74 and 82 instances, respectively. The classification report indicated balanced performance across both classes (Table 1). For the non-fracture class (label 1), the model achieved a precision of 0.79, recall of 0.81, and F1-score of 0.80. For the fracture class (label 0), the values were 0.80, 0.78, and 0.79, respectively. The macro and weighted averages for precision, recall, and F1-score were all 0.80, demonstrating consistent predictive capability across classes. These results suggest that the model is effective at distinguishing between fracture and non-fracture cases, with a slight tendency to misclassify non-fracture cases as fractures.
+The final evaluation of the model was conducted on the test dataset, yielding an overall accuracy of 79.7% (Table 1). As shown in the confusion matrix (Fig. 2), the model correctly classified 313 fracture cases and 298 non-fracture cases, while misclassifying 74 and 82 instances, respectively. The classification report indicated balanced performance across both classes (Table 1). For the non-fracture class (label 1), the model achieved a precision of 0.79, recall of 0.81, and F1-score of 0.80. For the fracture class (label 0), the values were 0.80, 0.78, and 0.79, respectively. The macro and weighted averages for precision, recall, and F1-score were all 0.80, demonstrating consistent predictive capability across classes. Additionally, the model achieved an area under the ROC curve (AUC) of 0.8737 (Fig. 3). 
 
-**Table 1**. Classification report obatined wuth te predictions of test dataset using the model VGG16 + LightGBM
+**Table 1**. Classification report obatined wuth te predictions of test dataset using the model VGG16 + LightGBM.
 **Accuracy on test set:** 0.7966
 | **Class**              | **Precision** | **Recall** | **F1-Score** | **Support** |
 |------------------------|---------------|------------|--------------|-------------|
@@ -145,6 +147,28 @@ The final evaluation of the model was conducted on the test dataset, yielding an
 | Accuracy               |               |            |     0.80     |     767     |
 | Macro Avg              |     0.80      |    0.80    |     0.80     |     767     |
 | Weighted Avg           |     0.80      |    0.80    |     0.80     |     767     |
+
+<div align="center">![alt text](Plots/confusion-matrix.png)</div>
+<div align="center">**Figure 2.** Confusion matrix for the VGG16 + LightGB hybrid model.</div>
+
+
+<div align="center">![alt text](Plots/roc-curve.png)</div>
+<div align="center">**Figure 3.** ROC-AUC curve for the VGG16 + LightGB hybrid model.</div>
+
+
+### **Discusion and conlusions**
+
+The VGG16 + LightGBM hybrid model proved moderately effective in distinguishing between fracture and non-fracture cases, although it exhibited a slight tendency to misclassify non-fracture cases as fractures. Despite its solid performance, the model did not reach the high metrics reported in other studies. For instance, Dimililer (2017) achieved a precision of 91.4% in binary classification. While the specific CNN architecture was not disclosed, the study applied Haar Wavelet transforms and the SIFT algorithm for feature extraction, training the model with only 30 images.
+
+Similarly, Lindsey et al. (2018) developed a wrist fracture detection model achieving 0.94 sensitivity and 0.95 specificity using a U-Net architecture. Unlike VGG16, U-Net performs semantic segmentation by classifying each pixel rather than entire images. This enables it to generate fracture probability maps localized within the image. As a result, U-Net has become widely used in medical imaging tasks (Ronneberger et al., 2015). However, VGG16 offers faster inference times, which can be advantageous for deployment in resource-constrained environments like the one considered in this project.
+
+Chung et al. (2018) reported excellent results using ResNet-152 to classify humerus fractures, reaching a sensitivity of 0.99 and a specificity of 0.97. Meanwhile, Olczak et al. (2017) performed a multiclass classification on X-ray images using several architectures (BVLC CaffeNet, VGG8, VGG16, and VGG19), with VGG16 yielding the best accuracy at 0.83.
+
+Given these comparisons, while VGG16 can deliver competitive results, it may not match the performance of more specialized architectures like U-Net or deeper networks like ResNet when it comes to extracting complex image features. This highlights the inherent trade-off between model accuracy and inference speed.
+
+The choice of model architecture should therefore align with the intended application. If the goal is to fully replace radiologists, high-performing architectures with advanced preprocessing techniques (e.g., SIFT or Haar) would be necessary. However, for clinical decision support, prioritizing models with lower computational demands and faster inference, such as VGG16, may be more appropriate.
+
+In this project, the goal was to develop a prototype support tool rather than a production-ready diagnostic system. Under this context, the chosen model proved sufficiently robust. However, if the project were to be commercialized, future work should focus on improving image preprocessing, using more homogeneous datasets (e.g., fracture detection in a specific bone), and potentially exploring more advanced CNN architectures such as U-Net or deeper ResNets.
 
 
 
@@ -155,32 +179,35 @@ The final evaluation of the model was conducted on the test dataset, yielding an
 3. Bradski, G. (2000). The OpenCV Library. *Dr. Dobb's Journal of Software Tools*.
 4. Cheng CT, Ho TY, Lee TY, Chang CC, Chou CC, Chen CC, ..., Liao CH. (2019). Application of a deep learning algorithm for detection and visualization of hip fractures on plain pelvic radiographs. *Europian Radiolpgy* 29: 5469–5477. https://doi.org/10.1007/s00330-019-06167-y
 5. Chollet, F., & others. (2015). Keras. https://keras.io
-5. Chung SW, Han SS, Lee JW, Oh KS, Kim NR, Yoon JP, ..., Kim Y. (2018).Automated detection and classification of the proximal humerus fracture by using deep learning algorithm. *Acta Orthopaedica* 89(4), 468–473. https://doi.org/10.1080/17453674.2018.1453714
-6. Darabi PK. (2024). Bone Fracture Detection: A Computer Vision Project. DOI: 10.13140/RG.2.2 14400.34569
-7. Gan K, Liu Y, Zhang T, Xu D, Lian L, Luo Z, ..., Lu L. (2024). Deep Learning Model for Automatic Identification and Classification of Distal Radius Fracture. *Journal of Imaging Informatics in Medicine*: 37(6): 2874-2882. doi: 10.1007/s10278-024-01144-4.
-8. Gao Y, Soh NYT, Liu N, Lim G, Ting D, Cheng LTE, ..., Yan YY. (2023). Application of a deep learning algorithm in the detection of hip fractures. *Iscience*: 26(8): 107350
-9. Hallas P, Ellingsen T. (2006) Errors in fracture diagnoses in the emergency department – characteristics of patients and diurnal variation. *BMC emergency medicine* 6: 1-5. https://doi.org/10.1186/1471-227X-6-4
-9. Hansen V, Jensen J, Kusk MW, Gerke O, Tromborg HB, Lysdahlgaard S. (2024). Deep learning performance compared to healthcare experts in detecting wrist fractures from radiographs: A systematic review and meta-analysis. *European Journal of Radiology* 174: 111399. https://doi.org/10.1016/j.ejrad.2024.111399.
-10. Harris CR, Millman KJ, Van der Walt SJ, Gommers R, Virtanen P, Cournapeau D, ..., Oliphant T. (2020). Array programming with NumPy. *Nature* 585: 357–362. DOI: 10.1038/s41586-020-2649-2. 
-11. He K, Zhang X, Ren S, Sun J. (2015). Deep Residual Learning for Image Recognition. *arXiv*. https://doi.org/10.48550/arXiv.1512.03385
-12. Hunter JD. (2007). Matplotlib: A 2D Graphics ENvironment. Computing in Science & Engineering 9(3): 90–95 Van Rossum G, Drake FL. (2009). Python 3 Reference Manual. Scotts Valley, CA: CreateSpace
-13. Joshi D, Singh TP, Joshi AK. (2022). Deep learning-based localization and segmentation of wrist fractures on X-ray radiographs. *Neural Computing and Applications* 34: 19061–19077. https://doi.org/10.1007/s00521-022-07510-z
-14. Kekatpure A, Kekatpure A, Deshpande S, Srivastava S. (2024). Development of a diagnostic support system for distal humerus fracture using artificial intelligence. *International Orthopaedics (SICOT)* 48: 1303–1311. https://doi.org/10.1007/s00264-024-06125-4
-14. Kim Y , Kim YG, Park JW, Kim BW, Shin Y, Kong SH, ..., Shin CS. (2024). A CT-based Deep Learning Model for Predicting Subsequent Fracture Risk in Patients with Hip Fracture. *Radiology* 310: 1
-15. Krogue JD, Cheng KV, Hwang KM, Toogood P, Meinberg EG, Geiger EJ, ..., Pedoia V. (2020 )Automatic Hip Fracture Identification and Functional Subclassification with Deep Learning. *Radiology: Artificial Intelligence* 2(2): e190023.
-16. Lindsey R, Daluiski A, Chopra S, Lachapelle A, Mozer M, ..., Potter H. (2018). Deep neural network improves fracture detection by clinicians. *Proceedings of the National Academy of Sciences* 115(45): 11591–11596. https://doi.org/10.1073/pnas.1806905115
-16. Meena T, Roy S. (2022). Bone Fracture Detection Using Deep Supervised Learning from Radiological Images: A Paradigm Shift. *Diagnosis* 12(10): 2420. https://doi.org/10.3390/diagnostics12102420
-17. Pedregosa F, Varoquaux G, Gramfort A, Michel V, Thirion B, ..., Duchesnay E. (2011). Scikit-learn: Machine Learning in Python. *Journal of Machine Learning Research* 12:
+6. Chung SW, Han SS, Lee JW, Oh KS, Kim NR, Yoon JP, ..., Kim Y. (2018).Automated detection and classification of the proximal humerus fracture by using deep learning algorithm. *Acta Orthopaedica* 89(4), 468–473. https://doi.org/10.1080/17453674.2018.1453714
+7. Darabi PK. (2024). Bone Fracture Detection: A Computer Vision Project. DOI: 10.13140/RG.2.2 14400.34569
+8. Dimililer K. (2017). IBFDS: Intelligent bone fracture detection system. *Procedia computer science* 120: 260-267.
+9. Gan K, Liu Y, Zhang T, Xu D, Lian L, Luo Z, ..., Lu L. (2024). Deep Learning Model for Automatic Identification and Classification of Distal Radius Fracture. *Journal of Imaging Informatics in Medicine*: 37(6): 2874-2882. doi: 10.1007/s10278-024-01144-4.
+10. Gao Y, Soh NYT, Liu N, Lim G, Ting D, Cheng LTE, ..., Yan YY. (2023). Application of a deep learning algorithm in the detection of hip fractures. *Iscience*: 26(8): 107350
+11. Hallas P, Ellingsen T. (2006) Errors in fracture diagnoses in the emergency department – characteristics of patients and diurnal variation. *BMC emergency medicine* 6: 1-5. https://doi.org/10.1186/1471-227X-6-4
+12. Hansen V, Jensen J, Kusk MW, Gerke O, Tromborg HB, Lysdahlgaard S. (2024). Deep learning performance compared to healthcare experts in detecting wrist fractures from radiographs: A systematic review and meta-analysis. *European Journal of Radiology* 174: 111399. https://doi.org/10.1016/j.ejrad.2024.111399.
+13. Harris CR, Millman KJ, Van der Walt SJ, Gommers R, Virtanen P, Cournapeau D, ..., Oliphant T. (2020). Array programming with NumPy. *Nature* 585: 357–362. DOI: 10.1038/s41586-020-2649-2. 
+14. He K, Zhang X, Ren S, Sun J. (2015). Deep Residual Learning for Image Recognition. *arXiv*. https://doi.org/10.48550/arXiv.1512.03385
+15. Hunter JD. (2007). Matplotlib: A 2D Graphics ENvironment. Computing in Science & Engineering 9(3): 90–95 Van Rossum G, Drake FL. (2009). Python 3 Reference Manual. Scotts Valley, CA: CreateSpace
+16. Joshi D, Singh TP, Joshi AK. (2022). Deep learning-based localization and segmentation of wrist fractures on X-ray radiographs. *Neural Computing and Applications* 34: 19061–19077. https://doi.org/10.1007/s00521-022-07510-z
+17. Kekatpure A, Kekatpure A, Deshpande S, Srivastava S. (2024). Development of a diagnostic support system for distal humerus fracture using artificial intelligence. *International Orthopaedics (SICOT)* 48: 1303–1311. https://doi.org/10.1007/s00264-024-06125-4
+18. Kim Y , Kim YG, Park JW, Kim BW, Shin Y, Kong SH, ..., Shin CS. (2024). A CT-based Deep Learning Model for Predicting Subsequent Fracture Risk in Patients with Hip Fracture. *Radiology* 310: 1
+19. Krogue JD, Cheng KV, Hwang KM, Toogood P, Meinberg EG, Geiger EJ, ..., Pedoia V. (2020 )Automatic Hip Fracture Identification and Functional Subclassification with Deep Learning. *Radiology: Artificial Intelligence* 2(2): e190023.
+20. Lindsey R, Daluiski A, Chopra S, Lachapelle A, Mozer M, ..., Potter H. (2018). Deep neural network improves fracture detection by clinicians. *Proceedings of the National Academy of Sciences* 115(45): 11591–11596. https://doi.org/10.1073/pnas.1806905115
+21. Meena T, Roy S. (2022). Bone Fracture Detection Using Deep Supervised Learning from Radiological Images: A Paradigm Shift. *Diagnosis* 12(10): 2420. https://doi.org/10.3390/diagnostics12102420
+22. Olczak J, Fahlberg N, Maki A, Razavian AS, Jilert A, Stark A, ..., Gordon M. (2017). Artificial intelligence for analyzing orthopedic trauma radiographs: deep learning algorithms—are they on par with humans for diagnosing fractures?. *Acta orthopaedica* 88(6): 581-586.
+23. Pedregosa F, Varoquaux G, Gramfort A, Michel V, Thirion B, ..., Duchesnay E. (2011). Scikit-learn: Machine Learning in Python. *Journal of Machine Learning Research* 12:
 2825-2830
-18. Rajpurkar P, Irvin J, Bagul A, Ding D, Duan T, Mehta H, ..., Ng AY. (2017). MURA: Large dataset for abnormality detection in musculoskeletal radiographs. *arXiv:1712.06957*. https://arxiv.org/abs/1712.06957. https://doi.org/10.48550/arXiv.1712.06957
-19. Raisuddin AM, Vaattovaara E, Nevalainen M, Nikki M, Järvenpää E, Makkonen K, ..., Tiulpin A. (2021). Critical evaluation of deep neural networks for wrist fracture detection. *Scintific Reports* 11: 6006. https://doi.org/10.1038/s41598-021-85570-2
-20. Simonyan K, Zisserman A. (2014). Very Deep Convuntional Networks for Large-Scale Image Recognition. *arXiv*. https://doi.org/10.48550/arXiv.1409.1556
-22. Spek RWA, Smith WJ, Sverdlov M, Broos S, Zhao Y, Liao Z, ..., Doornberg JN. (2024). Detection, classification, and characterization of proximal humerus fractures on plain radiographs. *The Bone & Joint Journal*, 106-B(11), 1348-1360. https://doi.org/10.1302/0301-620X.106B11.BJJ-2024-0264.R1
-21. Su Z, Adam A, Nasrudin MF, Ayob M, Punganan G. (2023). Skeletal fracture detection with deep learning: A comprehensive review. *Diagnostics* 13(20): 3245. https://doi.org/10.3390/diagnostics13203245
-22. Tanzi L, Vezzetti E, Moreno R, Moos S. (2020). X-Ray Bone Fracture Classification Using Deep Learning: A Baseline for Designing a Reliable Approach. *Applied Science* 10(4): 1507. https://doi.org/10.3390/app10041507
-23. Thian YL, Li Y, Jagmohan P, Sia D, Chang, VEY, Tan RT. (2019). Convolutional Neural Networks for Automated Fracture Detection and Localization on Wrist Radiographs. *Radiology: Artificial Intelligence* 1(1): e180001.
-24. Wang A, Chen H, Liu L, Chen K, Lin Z, Han J, Ding G. (2024). YOLOv10: Real-Time End-to-End Object Detection. DOI: 10.48550/arXiv.2405.14458
-25. Yang S, Yin B, Feng C, Fan G, He S (2020). Diagnostic accuracy of deep learning in orthopaedic fractures: a systematic review and meta-analysis. *Clincal Radiology* 75(9): 713-728. https://doi.org/10.1016/j.crad.2020.05.021
+24. Rajpurkar P, Irvin J, Bagul A, Ding D, Duan T, Mehta H, ..., Ng AY. (2017). MURA: Large dataset for abnormality detection in musculoskeletal radiographs. *arXiv:1712.06957*. https://arxiv.org/abs/1712.06957. https://doi.org/10.48550/arXiv.1712.06957
+25. Raisuddin AM, Vaattovaara E, Nevalainen M, Nikki M, Järvenpää E, Makkonen K, ..., Tiulpin A. (2021). Critical evaluation of deep neural networks for wrist fracture detection. *Scintific Reports* 11: 6006. https://doi.org/10.1038/s41598-021-85570-2
+26. Ronneberger O, Fischer P, Brox T. (2015). U-net: Convolutional networks for biomedical image segmentation. In *Medical image computing and computer-assisted intervention–MICCAI 2015: 18th international conference, Munich, Germany, October 5-9, 2015, proceedings, part III 18* (pp. 234-241). Springer international publishing.
+27. Simonyan K, Zisserman A. (2014). Very Deep Convuntional Networks for Large-Scale Image Recognition. *arXiv*. https://doi.org/10.48550/arXiv.1409.1556
+28. Spek RWA, Smith WJ, Sverdlov M, Broos S, Zhao Y, Liao Z, ..., Doornberg JN. (2024). Detection, classification, and characterization of proximal humerus fractures on plain radiographs. *The Bone & Joint Journal*, 106-B(11), 1348-1360. https://doi.org/10.1302/0301-620X.106B11.BJJ-2024-0264.R1
+29. Su Z, Adam A, Nasrudin MF, Ayob M, Punganan G. (2023). Skeletal fracture detection with deep learning: A comprehensive review. *Diagnostics* 13(20): 3245. https://doi.org/10.3390/diagnostics13203245
+30. Tanzi L, Vezzetti E, Moreno R, Moos S. (2020). X-Ray Bone Fracture Classification Using Deep Learning: A Baseline for Designing a Reliable Approach. *Applied Science* 10(4): 1507. https://doi.org/10.3390/app10041507
+31. Thian YL, Li Y, Jagmohan P, Sia D, Chang, VEY, Tan RT. (2019). Convolutional Neural Networks for Automated Fracture Detection and Localization on Wrist Radiographs. *Radiology: Artificial Intelligence* 1(1): e180001.
+32. Wang A, Chen H, Liu L, Chen K, Lin Z, Han J, Ding G. (2024). YOLOv10: Real-Time End-to-End Object Detection. DOI: 10.48550/arXiv.2405.14458
+33. Yang S, Yin B, Feng C, Fan G, He S (2020). Diagnostic accuracy of deep learning in orthopaedic fractures: a systematic review and meta-analysis. *Clincal Radiology* 75(9): 713-728. https://doi.org/10.1016/j.crad.2020.05.021
 
 
 ### **Aknowledgements**
