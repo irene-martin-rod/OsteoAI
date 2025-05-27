@@ -136,8 +136,12 @@ To facilitate user interaction and model deployment, a web-based application was
 
 No single network had really good results (see `2-CNN_proofs.ipynb` in the `Notebooks`folder). The hybrid models had a better performance (see `2-CNN_proofs.ipynb` in the `Notebooks`folder). The best model was the combination of the VGG16 (Fig. 1) used to extract image features and the Light Gradient-Boosting Model for classification (see `lgbm_proofs.ipybn` in the `Notebooks` folder).
 
-<div align="center">![alt text](Plots/VGG16.png)</div>
-<div align="center">**Figure 1.** VGG16 structure.</div>
+<p align="center">
+  <img src="Plots/VGG16.png" alt="VGG16 Architecture" width="500"/>
+</p>
+<p align="center">
+<strong>Figure 1.</strong>VGG16 structure.
+</p>
 
 The final evaluation of the model was conducted on the test dataset, yielding an overall accuracy of 79.7% (Table 1). As shown in the confusion matrix (Fig. 2), the model correctly classified 313 fracture cases and 298 non-fracture cases, while misclassifying 74 and 82 instances, respectively. The classification report indicated balanced performance across both classes (Table 1). For the non-fracture class (label 1), the model achieved a precision of 0.79, recall of 0.81, and F1-score of 0.80. For the fracture class (label 0), the values were 0.80, 0.78, and 0.79, respectively. The macro and weighted averages for precision, recall, and F1-score were all 0.80, demonstrating consistent predictive capability across classes. Additionally, the model achieved an area under the ROC curve (AUC) of 0.8737 (Fig. 3). 
 
@@ -151,12 +155,21 @@ The final evaluation of the model was conducted on the test dataset, yielding an
 | Macro Avg              |     0.80      |    0.80    |     0.80     |     767     |
 | Weighted Avg           |     0.80      |    0.80    |     0.80     |     767     |
 
-<div align="center">![alt text](Plots/confusion-matrix.png)</div>
-<div align="center">**Figure 2.** Confusion matrix for the VGG16 + LightGB hybrid model.</div>
+
+<p align="center">
+  <img src="Plots/confusion-matrix.png" alt="VGG16 Architecture" width="500"/>
+</p>
+<p align="center">
+<strong>Figure 2.</strong> Confusion matrix for the VGG16 + LightGB hybrid model.
+</p>
 
 
-<div align="center">![alt text](Plots/roc-curve.png)</div>
-<div align="center">**Figure 3.** ROC-AUC curve for the VGG16 + LightGB hybrid model.</div>
+<p align="center">
+  <img src="Plots/roc-curve.png" alt="VGG16 Architecture" width="500"/>
+</p>
+<p align="center">
+<strong>Figure 3.</strong> ROC-AUC curve for the VGG16 + LightGB hybrid model.
+</p>
 
 
 ### **Discusion and conlusions**
@@ -216,7 +229,7 @@ In this project, the goal was to develop a prototype support tool rather than a 
 
 ### **Aknowledgements**
 
-I want to thank Christian Donaire (Nodd3r) for his supervision and support in this project, solving all my doubts and helping me in moments of blockage. Likewise, to my co-workers Andrés Baamonde and Jesús Campo, who have always found time to help me in this project and to solve problems more related to programming. On a personal level, to my partner Fer Cortés-Fossati for giving me emotional support throughout this master's degree and this project at times when I wanted to give it all up. And of course to my cats Mia, Kleo and Maki who, with their contagious joy, make everything more bearable.
+This project has been develop under Nodd3r program R2DS. I want to thank Christian Donaire (Nodd3r) for his supervision and support in this project, solving all my doubts and helping me in moments of blockage. Likewise, to my co-workers Andrés Baamonde and Jesús Campo, who have always found time to help me in this project and to solve problems more related to programming. On a personal level, to my partner Fer Cortés-Fossati for giving me emotional support throughout this master's degree and this project at times when I wanted to give it all up. And of course to my cats Mia, Kleo and Maki who, with their contagious joy, make everything more bearable.
 
 
 ### **License**
