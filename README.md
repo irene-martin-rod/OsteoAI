@@ -139,7 +139,9 @@ No single network had really good results (see `2-CNN_proofs.ipynb` in the `Note
 <p align="center">
   <img src="Plots/VGG16.png" alt="VGG16 Architecture" width="500"/>
 </p>
-<div align="center">**Figure 1.** VGG16 structure.</div>
+<p align="center">
+**Figure 1.** VGG16 structure.
+</p>
 
 The final evaluation of the model was conducted on the test dataset, yielding an overall accuracy of 79.7% (Table 1). As shown in the confusion matrix (Fig. 2), the model correctly classified 313 fracture cases and 298 non-fracture cases, while misclassifying 74 and 82 instances, respectively. The classification report indicated balanced performance across both classes (Table 1). For the non-fracture class (label 1), the model achieved a precision of 0.79, recall of 0.81, and F1-score of 0.80. For the fracture class (label 0), the values were 0.80, 0.78, and 0.79, respectively. The macro and weighted averages for precision, recall, and F1-score were all 0.80, demonstrating consistent predictive capability across classes. Additionally, the model achieved an area under the ROC curve (AUC) of 0.8737 (Fig. 3). 
 
@@ -157,13 +159,17 @@ The final evaluation of the model was conducted on the test dataset, yielding an
 <p align="center">
   <img src="Plots/confusion-matrix.png" alt="VGG16 Architecture" width="500"/>
 </p>
-<div align="center">**Figure 2.** Confusion matrix for the VGG16 + LightGB hybrid model.</div>
+<p align="center">
+**Figure 2.** Confusion matrix for the VGG16 + LightGB hybrid model.
+</p>
 
 
 <p align="center">
   <img src="Plots/roc-curve.png" alt="VGG16 Architecture" width="500"/>
 </p>
-<div align="center">**Figure 3.** ROC-AUC curve for the VGG16 + LightGB hybrid model.</div>
+<p align="center">
+**Figure 3.** ROC-AUC curve for the VGG16 + LightGB hybrid model.
+</p>
 
 
 ### **Discusion and conlusions**
