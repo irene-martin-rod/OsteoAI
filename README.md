@@ -1,5 +1,5 @@
 # <div align="center"> **OsteoAI** </div> 
-## <div align="center"> *Automatic classification of X-ray images in bone fractures or no fratures using Deep and Machine Learning* </div> 
+## <div align="center"> *Automatic classification of X-ray images in bone fractures or non-fractures using Deep and Machine Learning* </div> 
 
 ⚠️ **This is a theoretical prototype. Not for medical use**
 
