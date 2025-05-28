@@ -87,20 +87,20 @@ OsteoAI is a machine learning and deep learning project focused on the automatic
 
 ### **Materials and Methods**
 
-**Data cleansing**
+<p><strong>Data cleansing</strong></p>
 Data were obtained in Kaggle (https://www.kaggle.com/), specifically from the dataset titled *Bone Fracture Detection: Computer Vision Project* (Darabi 2024). For this project, only the file *BoneFractureYolo8* was used. The original dataset included eight different classes: non-fractured bone, humerus, humerus fracture, elbow positive, fingers positive, forearm fracture, shoulder fractures, and wrist positive.
 
 A data cleansing process was performed to remove low-quality images (e.g., overly dark or light). The dataset was then restructured into two categories: fracture (including all types of fractures from the original dataset) and non-fracture.
 
-**Fracture and non-fracture classification using CNNs**
+<p><strong>Fracture and non-fracture classification using CNNs</strong></p>
 The initial approach was to use a *YOLO* (You Only Look Once) object detection model from *Ultralytics* for identifying fractures. However, due to high computational requirements and poor performance, a classification-based method using Convolutional Neural Networks (CNNs) was adopted instead.
 
 All processing and modeling were done using Python 3.11.9 (Van Rossum & Drake, 2009). The primary libraries used included *TensorFlow* (Abadi et al., 2015), *Keras* (Chollet et al., 2015), *OpenCV* (Bradski, 2000), *Matplotlib* (Hunter, 2007), and *Scikit-learn* (Pedregosa et al., 2011).
 
-**Data Preprocessing**
+<p><strong>Data Preprocessing</strong></p>
 The dataset consisted of labeled X-ray images categorized into two classes: fracture and non-fracture. Prior to modeling, all images were rescaled and normalized. The dataset was split into training (64%), validation (16%), and testing (20%) subsets (see `1-Create_directories.ipynb` in the `Notebooks` folder).
-
-**CNN Architectures**
+<p></p>
+<p><strong>CNN Architectures</strong></p>
 The following CNN models were tested:
 - <u>Custom CNNs</u>: Trained on images resized to 256×256 pixels.
 - <u>VGG16</u>: Pre-trained on ImageNet, using 224×224 pixel input size (Simonyan & Zisserman 2014)
@@ -112,7 +112,7 @@ To optimize training, two callbacks were implemented (see `callbacks_training_CN
 - <u>ReduceLROnPlateau</u>: Automatically reduces the learning rate when validation loss plateaus.
 - <u>EarlyStopping</u>: Halts training when the model fails to improve for a predefined number of epochs, helping to prevent overfitting.
 
-**Hybrid Deep Learning and Machine Learning Approach**
+<p><strong>Hybrid Deep Learning and Machine Learning Approach</strong></p>
 Beyond end-to-end CNN training, a hybrid approach was explored. In this method, features were extracted from trained CNNs and used as input to machine learning classifiers. This was accomplished using a custom script (`extract_features.py` in the `src` folder), where the CNN was trained with the dataset but with the final classification layer removed to capture image features.
 
 These features were then used to train four types of machine learning models:
@@ -121,14 +121,14 @@ These features were then used to train four types of machine learning models:
 - XGBoost
 - LightGBM
 
-**Evaluation Metrics**
+<p><strong>Evaluation Metrics</strong></p>
 For CNN-based models, evaluation metrics were generated only when training and validation accuracy/loss indicated stable performance. For hybrid models, evaluation was conducted in all cases. The following evaluation metrics were used (see `metrics_CNN.py` in the `src` folder):
 
 - Classification Report: Including precision, recall, F1-score per class, macro-average, and weighted-average.
 - Confusion Matrix
 - AUC-ROC Curve
 
-**Interactive Web Application**
+<p><strong>Interactive Web Application</strong></p>
 To facilitate user interaction and model deployment, a web-based application was developed using Streamlit (Streamlit Inc., 2020). The app allows users to upload X-ray images and receive predictions in real time using the trained VGG16 + LightGBM model. This improves accessibility for non-technical users such as radiologists or healthcare staff.
 
 
@@ -145,7 +145,7 @@ No single network had really good results (see `2-CNN_proofs.ipynb` in the `Note
 
 The final evaluation of the model was conducted on the test dataset, yielding an overall accuracy of 79.7% (Table 1). As shown in the confusion matrix (Fig. 2), the model correctly classified 313 fracture cases and 298 non-fracture cases, while misclassifying 74 and 82 instances, respectively. The classification report indicated balanced performance across both classes (Table 1). For the non-fracture class (label 1), the model achieved a precision of 0.79, recall of 0.81, and F1-score of 0.80. For the fracture class (label 0), the values were 0.80, 0.78, and 0.79, respectively. The macro and weighted averages for precision, recall, and F1-score were all 0.80, demonstrating consistent predictive capability across classes. Additionally, the model achieved an area under the ROC curve (AUC) of 0.8737 (Fig. 3). 
 
-**Table 1**. Classification report obatined wuth te predictions of test dataset using the model VGG16 + LightGBM.
+**Table 1**. Classification report obatined with te predictions of test dataset using the model VGG16 + LightGBM.
 **Accuracy on test set:** 0.7966
 | **Class**              | **Precision** | **Recall** | **F1-Score** | **Support** |
 |------------------------|---------------|------------|--------------|-------------|
@@ -172,7 +172,7 @@ The final evaluation of the model was conducted on the test dataset, yielding an
 </p>
 
 
-### **Discusion and conlusions**
+### **Discussion and conclusions**
 
 The VGG16 + LightGBM hybrid model proved moderately effective in distinguishing between fracture and non-fracture cases, although it exhibited a slight tendency to misclassify non-fracture cases as fractures. Despite its solid performance, the model did not reach the high metrics reported in other studies. For instance, Dimililer (2017) achieved a precision of 91.4% in binary classification. While the specific CNN architecture was not disclosed, the study applied Haar Wavelet transforms and the SIFT algorithm for feature extraction, training the model with only 30 images.
 
@@ -184,8 +184,7 @@ Given these comparisons, while VGG16 can deliver competitive results, it may not
 
 The choice of model architecture should therefore align with the intended application. If the goal is to fully replace radiologists, high-performing architectures with advanced preprocessing techniques (e.g., SIFT or Haar) would be necessary. However, for clinical decision support, prioritizing models with lower computational demands and faster inference, such as VGG16, may be more appropriate.
 
-In this project, the goal was to develop a prototype support tool rather than a production-ready diagnostic system. Under this context, the chosen model proved sufficiently robust. However, if the project were to be commercialized, future work should focus on improving image preprocessing, using more homogeneous datasets (e.g., fracture detection in a specific bone), and potentially exploring more advanced CNN architectures such as U-Net or deeper ResNets.
-
+In this project, the goal was to develop a prototype support tool rather than a production-ready diagnostic system. Under this context, the chosen model proved sufficiently robust. However, if the project were to be commercialized, future work should focus on improving image preprocessing, using more homogeneous datasets (e.g., fracture detection in a specific bone), and potentially exploring more advanced CNN architectures such as U-Net or deeper ResNet.
 
 
 ### **References**
@@ -245,18 +244,3 @@ GitHub: [@irene-martin-rod](https://github.com/irene-martin-rod)
 LinkedIn: [Irene Martín Rodríguez](www.linkedin.com/in/irenemartin-rodriguez)
 
 Email: martinrod.irene@gmail.com
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-https://pubmed.ncbi.nlm.nih.gov/29269036/
