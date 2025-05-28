@@ -105,7 +105,7 @@ All processing and modeling were done using Python 3.11.9 (Van Rossum & Drake, 2
 <strong>Data Preprocessing</strong>
 </p>
 The dataset consisted of labeled X-ray images categorized into two classes: fracture and non-fracture. Prior to modeling, all images were rescaled and normalized. The dataset was split into training (64%), validation (16%), and testing (20%) subsets (see `1-Create_directories.ipynb` in the `Notebooks` folder).
-
+<p></p>
 <p>
 <strong>CNN Architectures</strong>
 </p>
