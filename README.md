@@ -44,7 +44,9 @@ OsteoAI/
 
 └── requirements.txt
 ```
-<p></p>
+<p>
+
+</p>
 
 ### **App Usage Note**
 
@@ -63,14 +65,18 @@ To launch the app locally:
 cd App
 streamlit run app.py
 ```
-<p></p>
+<p>
+
+</p>
 
 ### **Abstract**
 
 Fracture diagnosis is a critical yet error-prone task in emergency care, often affected by radiologist fatigue, limited experience, or subtle fracture presentations. This study introduces OsteoAI, a hybrid deep learning and machine learning framework for automatic binary classification of bone fractures in X-ray images. The approach integrates a pre-trained convolutional neural network (VGG16) for image feature extraction with a Light Gradient Boosting Machine (LightGBM) for classification. The model was trained and evaluated on a curated version of the Bone Fracture Detection: Computer Vision Project dataset from Kaggle, where data were cleaned, normalized, and restructured into two categories: fracture and non-fracture. Compared with end-to-end CNNs and other hybrid configurations, the VGG16 + LightGBM model achieved the best performance, with an accuracy of 79.7%, precision and recall scores of approximately 0.80, and an AUC of 0.87 on the test set. While effective, the model underperformed relative to recent state-of-the-art methods using architectures such as U-Net and ResNet-152, which achieved sensitivity and specificity above 0.94. Nevertheless, VGG16 demonstrated advantages in inference speed and resource efficiency, making it suitable for prototype or real-time support applications in resource-limited settings. Future work should explore improved preprocessing techniques and more advanced CNN architectures for deployment in clinical environments. Additionally, a Streamlit-based web interface was developed to demonstrate real-time model predictions and support clinical decision-making.
 
 **Keywords**: Bone Fracture Detection, Computer-Aided Diagnosis, Convolutional Neural Networks, Deep Learning,  Medical Imaging, LightGBM, Transfer Learning, VGG16, X-ray Classification 
-<p></p>
+<p>
+
+</p>
 
 ### **Introduction**
 
@@ -83,7 +89,9 @@ In recent years, artificial intelligence (AI) in medical image processing has at
 As a result, the number of studies exploring deep learning for fracture detection has steadily increased. Recent research has focused on detecting specific types of fractures or fractures in specific bones, such as wrist fractures (see Thian et al., 2019; Raisuddin et al., 2021; Joshi et al., 2022; Gan et al., 2024; Hasen et al., 2024), hip fractures (see Badgeley et al., 2019; Cheng et al., 2019; Krogue et al., 2020; Gao et al., 2023; Kim et al., 2024), or humerus fractures (see Chung et al., 2018; Kekatpure et al., 2024; Spek et al., 2024), among others.
 
 OsteoAI is a machine learning and deep learning project focused on the automatic classification of bone fractures from medical images, specifically X-rays. The project combines classical machine learning techniques with convolutional neural networks (CNNs) to extract image features and classify radiographs as either fracture or non-fracture. Unlike other approaches, the integration of a CNN (in this case, VGG16) with a machine learning algorithm (LightGBM) offers several advantages: it can reduce training time and computational cost, minimize overfitting, facilitate fine-tuning, and improve interpretability—without compromising performance. OsteoAI aims to support radiologists and medical professionals by providing an automated fracture detection system based on deep convolutional networks.
-<p></p>
+<p>
+
+</p>
 
 ### **Materials and Methods**
 
@@ -130,7 +138,9 @@ For CNN-based models, evaluation metrics were generated only when training and v
 
 <p><strong>Interactive Web Application</strong></p>
 To facilitate user interaction and model deployment, a web-based application was developed using Streamlit (Streamlit Inc., 2020). The app allows users to upload X-ray images and receive predictions in real time using the trained VGG16 + LightGBM model. This improves accessibility for non-technical users such as radiologists or healthcare staff.
-<p></p>
+<p>
+
+</p>
 
 ### **Results**
 
@@ -170,7 +180,9 @@ The final evaluation of the model was conducted on the test dataset, yielding an
 <p align="center">
 <strong>Figure 3.</strong> ROC-AUC curve for the VGG16 + LightGB hybrid model.
 </p>
-<p></p>
+<p>
+
+</p>
 
 ### **Discussion and conclusions**
 
@@ -185,7 +197,9 @@ Given these comparisons, while VGG16 can deliver competitive results, it may not
 The choice of model architecture should therefore align with the intended application. If the goal is to fully replace radiologists, high-performing architectures with advanced preprocessing techniques (e.g., SIFT or Haar) would be necessary. However, for clinical decision support, prioritizing models with lower computational demands and faster inference, such as VGG16, may be more appropriate.
 
 In this project, the goal was to develop a prototype support tool rather than a production-ready diagnostic system. Under this context, the chosen model proved sufficiently robust. However, if the project were to be commercialized, future work should focus on improving image preprocessing, using more homogeneous datasets (e.g., fracture detection in a specific bone), and potentially exploring more advanced CNN architectures such as U-Net or deeper ResNet.
-<p></p>
+<p>
+
+</p>
 
 ### **References**
 
@@ -224,17 +238,23 @@ In this project, the goal was to develop a prototype support tool rather than a 
 32. Thian YL, Li Y, Jagmohan P, Sia D, Chang, VEY, Tan RT. (2019). Convolutional Neural Networks for Automated Fracture Detection and Localization on Wrist Radiographs. *Radiology: Artificial Intelligence* 1(1): e180001.
 33. Wang A, Chen H, Liu L, Chen K, Lin Z, Han J, Ding G. (2024). YOLOv10: Real-Time End-to-End Object Detection. DOI: 10.48550/arXiv.2405.14458
 34. Yang S, Yin B, Feng C, Fan G, He S (2020). Diagnostic accuracy of deep learning in orthopaedic fractures: a systematic review and meta-analysis. *Clincal Radiology* 75(9): 713-728. https://doi.org/10.1016/j.crad.2020.05.021
-<p></p>
+<p>
+
+</p>
 
 ### **Aknowledgements**
 
 This project has been develop under Nodd3r program R2DS. I want to thank Christian Donaire (Nodd3r) for his supervision and support in this project, solving all my doubts and helping me in moments of blockage. Likewise, to my co-workers Andrés Baamonde and Jesús Campo, who have always found time to help me in this project and to solve problems more related to programming. On a personal level, to my partner Fer Cortés-Fossati for giving me emotional support throughout this master's degree and this project at times when I wanted to give it all up. And of course to my cats Mia, Kleo and Maki who, with their contagious joy, make everything more bearable.
-<p></p>
+<p>
+
+</p>
 
 ### **License**
 
 This project is licensed under the [MIT License](./LICENSE).
-<p></p>
+<p>
+
+</p>
 
 ### **Author**
 
