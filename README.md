@@ -88,19 +88,23 @@ OsteoAI is a machine learning and deep learning project focused on the automatic
 ### **Materials and Methods**
 
 <p><strong>Data cleansing</strong></p>
+
 Data were obtained in Kaggle (https://www.kaggle.com/), specifically from the dataset titled *Bone Fracture Detection: Computer Vision Project* (Darabi 2024). For this project, only the file *BoneFractureYolo8* was used. The original dataset included eight different classes: non-fractured bone, humerus, humerus fracture, elbow positive, fingers positive, forearm fracture, shoulder fractures, and wrist positive.
 
 A data cleansing process was performed to remove low-quality images (e.g., overly dark or light). The dataset was then restructured into two categories: fracture (including all types of fractures from the original dataset) and non-fracture.
 
 <p><strong>Fracture and non-fracture classification using CNNs</strong></p>
+
 The initial approach was to use a *YOLO* (You Only Look Once) object detection model from *Ultralytics* for identifying fractures. However, due to high computational requirements and poor performance, a classification-based method using Convolutional Neural Networks (CNNs) was adopted instead.
 
 All processing and modeling were done using Python 3.11.9 (Van Rossum & Drake, 2009). The primary libraries used included *TensorFlow* (Abadi et al., 2015), *Keras* (Chollet et al., 2015), *OpenCV* (Bradski, 2000), *Matplotlib* (Hunter, 2007), and *Scikit-learn* (Pedregosa et al., 2011).
 
 <p><strong>Data Preprocessing</strong></p>
+
 The dataset consisted of labeled X-ray images categorized into two classes: fracture and non-fracture. Prior to modeling, all images were rescaled and normalized. The dataset was split into training (64%), validation (16%), and testing (20%) subsets (see `1-Create_directories.ipynb` in the `Notebooks` folder).
 <p></p>
 <p><strong>CNN Architectures</strong></p>
+
 The following CNN models were tested:
 - <u>Custom CNNs</u>: Trained on images resized to 256×256 pixels.
 - <u>VGG16</u>: Pre-trained on ImageNet, using 224×224 pixel input size (Simonyan & Zisserman 2014)
@@ -113,6 +117,7 @@ To optimize training, two callbacks were implemented (see `callbacks_training_CN
 - <u>EarlyStopping</u>: Halts training when the model fails to improve for a predefined number of epochs, helping to prevent overfitting.
 
 <p><strong>Hybrid Deep Learning and Machine Learning Approach</strong></p>
+
 Beyond end-to-end CNN training, a hybrid approach was explored. In this method, features were extracted from trained CNNs and used as input to machine learning classifiers. This was accomplished using a custom script (`extract_features.py` in the `src` folder), where the CNN was trained with the dataset but with the final classification layer removed to capture image features.
 
 These features were then used to train four types of machine learning models:
@@ -122,6 +127,7 @@ These features were then used to train four types of machine learning models:
 - LightGBM
 
 <p><strong>Evaluation Metrics</strong></p>
+
 For CNN-based models, evaluation metrics were generated only when training and validation accuracy/loss indicated stable performance. For hybrid models, evaluation was conducted in all cases. The following evaluation metrics were used (see `metrics_CNN.py` in the `src` folder):
 
 - Classification Report: Including precision, recall, F1-score per class, macro-average, and weighted-average.
@@ -129,6 +135,7 @@ For CNN-based models, evaluation metrics were generated only when training and v
 - AUC-ROC Curve
 
 <p><strong>Interactive Web Application</strong></p>
+
 To facilitate user interaction and model deployment, a web-based application was developed using Streamlit (Streamlit Inc., 2020). The app allows users to upload X-ray images and receive predictions in real time using the trained VGG16 + LightGBM model. This improves accessibility for non-technical users such as radiologists or healthcare staff.
 
 
